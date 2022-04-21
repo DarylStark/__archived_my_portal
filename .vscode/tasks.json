@@ -1,0 +1,63 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "My Ganymede - Start - VueJS development server",
+            "type": "npm",
+            "script": "vuejs-serve",
+            "path": "${workspaceFolder}/",
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "My Ganymede - Compile - VueJS project",
+            "type": "npm",
+            "script": "vuejs-build",
+            "path": "${workspaceFolder}/",
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "My Ganymede - Start - SCSS watcher",
+            "type": "npm",
+            "script": "scss-watch",
+            "path": "${workspaceFolder}/",
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "group": "test",
+            "problemMatcher": [
+                "$node-sass"
+            ]
+        },
+        {
+            "label": "My Ganymede - Compile - SCSS files",
+            "type": "npm",
+            "script": "scss-build",
+            "path": "${workspaceFolder}/",
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "My Ganymede - Develop - Run VueJS development server and SCSS watcher",
+            "dependsOrder": "parallel",
+            "dependsOn": [
+                "My Ganymede - Start - VueJS development server",
+                "My Ganymede - Start - SCSS watcher"
+            ],
+            "group": "test",
+            "problemMatcher": []
+        }
+    ]
+}
