@@ -58,6 +58,16 @@
             ],
             "group": "test",
             "problemMatcher": []
+        },
+        {
+            "label": "My Ganymede - Compile - All",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "My Ganymede - Compile - VueJS project",
+                "My Ganymede - Compile - SCSS files"
+            ],
+            "group": "test",
+            "problemMatcher": []
         }
     ]
 }
