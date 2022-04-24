@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from './pages/Dashboard'
 import Tags from './pages/Tags'
 import Notes from './pages/Notes'
+import RSS from './pages/RSS'
 
 // Error page
 import Error404 from './pages/errors/Error-404'
@@ -32,6 +33,11 @@ export default createRouter({
             path: '/notes',
             name: 'notes',
             component: Notes
+        },
+        {
+            path: '/rss',
+            name: 'rss',
+            component: RSS
         },
         {
             // Error page

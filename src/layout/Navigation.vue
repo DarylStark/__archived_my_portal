@@ -8,6 +8,7 @@
             <NavigationItem icon="fa-book-open" href="/notes"
                 >Notes</NavigationItem
             >
+            <NavigationItem icon="fa-rss" href="/rss">RSS feeds</NavigationItem>
         </NavigationSection>
         <NavigationSection title="Personal">
             <NavigationItem icon="fa-user-group" href="/social"
