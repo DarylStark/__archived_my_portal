@@ -1,38 +1,38 @@
 button.button {
-    background-color: var(--color-button-background);
-    color: var(--color-button-text);
+    background-color: var(--button-bg);
+    color: var(--button-text);
     border: 0px;
     font-weight: 700;
     cursor: pointer;
     border-radius: 4px;
 
-    > div {
+    >div {
         display: flex;
-        
+
         .icon {
             flex-grow: 0;
             padding: 11px 0px 11px 18px;
         }
-    
+
         .text {
             flex-grow: 1;
             padding: 11px 18px 11px 18px;
         }
-    }    
+    }
 
     &:hover {
         outline: none;
-        background-color: var(--color-button-hover-background);
+        background-color: var(--button-bg-hover);
     }
 
     &:focus {
         outline: none;
-        background-color: var(--color-button-focus-background);
+        background-color: var(--button-bg-focus);
     }
 
     &:disabled {
-        background-color: var(--color-button-disabled-background);
-        color: var(--color-button-disabled-text);
+        background-color: var(--button-bg-disabled);
+        color: var(--button-text-disabled);
         cursor: auto;
     }
 }

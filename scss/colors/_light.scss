@@ -1,0 +1,66 @@
+body.theme-light {
+    // Colors for the main structure of the application
+    --bg: #eaeef6;
+    --text: #222b45;
+
+    --header-bg: #ffffff;
+    --header-text: #222b45;
+    --header-text-hover: #000;
+    --header-borders: #eaeef6;
+    --header-shadow: rgba(44, 51, 73, 0.1);
+
+    --nav-bg: #ffffff;
+    --nav-text: #222b45;
+    --nav-text-hover: #000;
+    --nav-borders: #eaeef6;
+
+    --usermenu-bg: #ffffff;
+    --usermenu-text: #222b45;
+    --usermenu-text-hover: #000;
+    --usermenu-borders: #eaeef6;
+
+    --loading-half: #00ff00;
+
+    // Components: Input
+    --input-bg: #f7f9fc;
+    --input-bg-hover: #f7f9fc;
+    --input-bg-active: #edf1f7;
+    --input-text: #222b45;
+    --input-text-disabled: rgba(143, 155, 179, 0.48);
+    --input-label-text: #8f9bb3;
+    --input-placeholder-text: #8e9cb2;
+    --input-border: #e4e9f2;
+    --input-border-active: #36f;
+    --input-border-error: #ff3d71;
+    --input-border-disabled: #e4e9f2;
+
+    // Components: Button
+    --button-bg: #36f;
+    --button-bg-hover: #598bff;
+    --button-bg-focus: #598bff;
+    --button-bg-disabled: rgba(143, 155, 179, 0.24);
+    --button-text: #ffffff;
+    --button-text-disabled: rgba(143, 155, 179, 0.48);
+
+    // Components: Cards
+    --card-bg: #ffffff;
+    --card-text: #222b45;
+    --card-border: #eef1f0;
+    --card-title-bg: #ffffff;
+    --card-title-text: #000;
+    --card-title-action-bg: #ffffff;
+    --card-title-action-bg-hover: #598bff;
+    --card-title-action-text: #000;
+
+    // Unused?
+    // --font-text-family: 'Open Sans';
+    // --font-text-size: 15px;
+    // --font-text-weight: 400;
+    // --font-text-style: normal;
+    // --font-text-decoration: none;
+    // --font-card-title-family: 'Open Sans';
+    // --font-card-title-size: 15px;
+    // --font-card-title-weight: 600;
+    // --font-card-title-style: normal;
+    // --font-card-title-decoration: none;
+}

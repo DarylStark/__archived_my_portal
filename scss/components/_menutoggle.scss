@@ -5,7 +5,7 @@
 
     >i:hover {
         cursor: pointer;
-        color: var(--color-header-text-hover);
+        color: var(--header-text-hover);
     }
 
     >i {
@@ -16,4 +16,3 @@
         transform: rotate(-180deg);
     }
 }
-

@@ -1,51 +1,51 @@
 div.card {
-    background-color: var(--color-card-background);
-    color: var(--color-card-text);
-    border-color: var(--border-card-color);
-    border-width: var(--border-card-width);
-    border-style: var(--border-card-style);
-    border-radius: var(--border-card-radius);
+    background-color: var(--card-bg);
+    color: var(--card-text);
+    border-color: var(--card-border);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0;
 
-    > div.title {
-        background-color: var(--color-card-title-background);
-        border-bottom: var(--border-card-width) var(--border-card-style) var(--border-card-color);
+    >div.title {
+        background-color: var(--card-title-bg);
+        border-bottom: 1px solid var(--card-border);
         display: flex;
 
-        > .icon {
+        >.icon {
             padding: 16px 0px 16px 24px;
-            color: var(--color-card-title-text);
+            color: var(--card-title-text);
         }
 
-        > .text {
+        >.text {
             padding: 16px 24px 16px 24px;
-            color: var(--color-card-title-text);
+            color: var(--card-title-text);
             flex-grow: 2;
-            font-family: var(--font-card-title-family);
-            font-size: var(--font-card-title-size);
-            font-weight: var(--font-card-title-weight);
-            font-style: var(--font-card-title-style);
+            font-family: 'Open Sans';
+            font-size: 15px;
+            font-weight: 600;
+            font-style: nomral;
         }
 
-        > .actions {
+        >.actions {
             flex-grow: 0;
             text-align: center;
-            color: var(--color-card-title-text);
+            color: var(--crad-title-text);
 
-            > div {
+            >div {
                 cursor: pointer;
-                background-color: var(--color-card-title-action-background);
-                color: var(--color-card-title-action-text);
+                background-color: var(--card-title-action-bg);
+                color: var(--card-title-action-text);
                 padding: 16px;
-                border-left: var(--border-card-width) var(--border-card-style) var(--border-card-color);
+                border-left: 1px solid var(--card-border);
 
                 &:hover {
-                    background-color: var(--color-card-title-action-hover-background);
+                    background-color: var(--card-title-action-bg-hover);
                 }
             }
         }
     }
 
-    > div.content {
+    >div.content {
         padding: 16px 24px 16px 24px;
 
         p {
@@ -53,9 +53,9 @@ div.card {
         }
     }
 
-    > div.actions {
-        background-color: var(--color-card-background);
-        border-top: var(--border-card-width) var(--border-card-style) var(--border-card-color);
+    >div.actions {
+        background-color: var(--card-bg);
+        border-top: 1px solid var(--card-border);
         padding: 16px;
         text-align: right;
     }

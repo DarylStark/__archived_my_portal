@@ -6,7 +6,7 @@ $max-width-phone: 799px;
 @import 'fonts';
 
 // Import the color schemes
-@import 'color-schemes';
+@import 'colors/index';
 
 // Import Font Awesome for the icons
 @import 'font-awesome/fontawesome.scss';
@@ -22,13 +22,13 @@ html {
 // The body element
 body {
     height: 100%;
-    background-color: var(--color-default-background);
-    color: var(--color-default-text);
-    font-family: var(--font-text-family);
-    font-size: var(--font-text-size);
-    font-weight: var(--font-text-weight);
-    font-style: var(--font-text-style);
-    text-decoration: var(--font-text-decoration);
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Open Sans';
+    font-size: 15px;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
     margin: 0px;
     padding: 0px;
 
