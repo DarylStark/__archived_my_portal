@@ -47,12 +47,14 @@ body {
 @import 'layout/content';
 @import 'layout/flexbox';
 @import 'layout/header';
+@import 'layout/feeter';
 @import 'layout/navigation';
 
 // Import components
 @import 'components/button';
 @import 'components/input';
 @import 'components/menutoggle';
+@import 'components/profile_switcher';
 @import 'components/spacer';
 @import 'components/usermenu';
 

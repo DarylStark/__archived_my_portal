@@ -1,0 +1,13 @@
+div.profile_switcher {
+    border-right: 1px solid var(--feeter-borders);
+    padding: 8px 24px 8px 16px;
+
+    i {
+        padding-right: 8px;
+    }
+
+    &:hover {
+        color: var(--feeter-text-hover);
+        cursor: pointer;
+    }
+}

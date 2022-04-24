@@ -1,0 +1,17 @@
+.feeter {
+    background-color: var(--feeter-bg);
+    color: var(--header-text);
+    width: 100%;
+    flex-grow: 0;
+    z-index: 5;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--feeter-borders);
+
+    >div {
+        flex-grow: 0;
+        padding: 8px;
+    }
+}
