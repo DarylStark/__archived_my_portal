@@ -19,6 +19,8 @@ div.usermenu {
     }
 
     &.active {
+        color: var(--header-text-hover);
+
         >.menu {
             display: block;
         }
