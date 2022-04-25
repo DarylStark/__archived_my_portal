@@ -1,7 +1,7 @@
 // Import the VueJS components
 import { createApp } from 'vue'
-import store from './store'
-import router from './router';
+import store from './dashboard-store'
+import router from './dashboard-router'
 
 // Import the Dashboard Application and create the App object
 import Dashboard from './apps/Dashboard.vue'

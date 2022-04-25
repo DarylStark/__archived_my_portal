@@ -24,6 +24,9 @@ export default {
         // Set a local variable that the callsbacks can use for 'this'
         let cb_this = this;
 
+        // Get the color theme
+        this.$store.commit('set_theme');
+
         // Retrieve UserSession and User details
         api.execute(
             new APICommand(

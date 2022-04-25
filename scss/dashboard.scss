@@ -6,8 +6,9 @@ $max-width-phone: 799px;
 @import 'fonts';
 
 // Import the color schemes
-@import 'colors/dark';
+@import 'colors/navy';
 @import 'colors/light';
+@import 'colors/dark';
 
 // Import Font Awesome for the icons
 @import 'font-awesome/fontawesome.scss';

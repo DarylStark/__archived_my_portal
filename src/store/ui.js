@@ -2,39 +2,49 @@
 export default {
     state() {
         return {
+            current_theme: null,
+            installed_themes: new Map([
+                ['navy', {css_class: 'theme-navy', name: 'Navy'}],
+                ['light', {css_class: 'theme-light', name: 'Light'}],
+                ['dark', {css_class: 'theme-dark', name: 'Dark'}],
+            ]),
             navigation_visible: true,
-            device_type: 'pc',
-            app_title: 'My',
-            page_title: ''
         }
     },
     mutations: {
-        navigation_visible_toggle(state) {
-            state.navigation_visible = !state.navigation_visible;
-        },
-        set_device_type(state, device_type) {
-            // Method to set the device type. Can be either on of
-            // these:
-            // - pc
-            // - table
-            // - phone
-            // Should be set on start of the application and be
-            // updated as soon as the screensize changes
-            state.device_type = device_type;
-            console.log('Updated!');
-        },
-        update_title(state, page_title = '') {
-            // Set the page title
-            state.page_title = page_title;
-
-            // Create the title for the window
-            let window_title = state.app_title;
-            if (state.page_title != '') {
-                window_title += ' | ' + state.page_title;
+        set_theme(state, my_color_theme = null) {
+            // Method that sets the initial color theme. First, it tries to get
+            // a configured color theme from the local storage. If there is
+            // none, it sets the first one in the list of `installed_themese`
+            if (my_color_theme == null) {
+                my_color_theme = localStorage.getItem('my_color_theme');
             }
 
-            // Set the window title
-            document.title = window_title;
-        }
+            if (my_color_theme) {
+                if (!state.installed_themes.has(my_color_theme)) {
+                    my_color_theme = null;
+                }
+            }
+            else {
+                my_color_theme = null;
+            }
+            // No color theme defined in local storage, set the default
+            if (my_color_theme == null) {
+                my_color_theme = [...state.installed_themes][0][0];
+            }
+
+            // Set the correct class to the 'body' tag
+            document.body.className = state.installed_themes.get(my_color_theme).css_class;
+
+            // Save the theme to the store
+            state.current_theme = my_color_theme;
+
+            // Save the theme to the local storage
+            localStorage.setItem('my_color_theme', my_color_theme);
+        },
+        navigation_visible_toggle(state) {
+            // Method to toggle the visibility of the navigation
+            state.navigation_visible = !state.navigation_visible;
+        },
     }
 };

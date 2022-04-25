@@ -87,6 +87,10 @@ export default {
     Input,
     Button,
   },
+  created() {
+    // Get the color theme
+    this.$store.commit('set_theme');
+  },
   mounted() {
     this.$refs.username.focus();
   },

@@ -45,29 +45,6 @@ class API {
                 }
             });
 
-            // Run the Axios command
-            // axios
-            //     .get(url, this.credentials)
-            //     .then((response) => {
-            //         if (response.data.success) {
-            //             // Success!
-            //             if (command.cb_success) {
-            //                 command.cb_success(response.data);
-            //             }
-            //         } else {
-            //             // Not a success
-            //             if (command.cb_catch) {
-            //                 command.cb_catch(response.data);
-            //             }
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         // Not a success
-            //         if (command.cb_catch) {
-            //             command.cb_catch(error);
-            //         }
-            //     });
-
             // Done
             return true;
         } else {
