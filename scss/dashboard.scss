@@ -6,9 +6,8 @@ $max-width-phone: 799px;
 @import 'fonts';
 
 // Import the color schemes
-@import 'colors/navy';
-@import 'colors/light';
 @import 'colors/dark';
+@import 'colors/light';
 
 // Import Font Awesome for the icons
 @import 'font-awesome/fontawesome.scss';
@@ -24,7 +23,7 @@ html {
 // The body element
 body {
     height: 100%;
-    background-color: var(--bg);
+    background: var(--bg);
     color: var(--text);
     font-family: 'Open Sans';
     font-size: 15px;

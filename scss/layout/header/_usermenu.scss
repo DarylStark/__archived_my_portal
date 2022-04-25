@@ -6,7 +6,7 @@ div.usermenu {
         flex-wrap: nowrap;
         justify-content: space-between;
         align-items: center;
-        border-left: 1px solid var(--header-borders);
+        border-left: 1px solid var(--usermenu-sep-borders);
 
         >div {
             font-size: 16px;
@@ -36,11 +36,11 @@ div.usermenu {
     >.menu {
         position: absolute;
         right: 0px;
-        top: 77px;
+        top: 76px;
         min-width: 200px;
         display: none;
         border: 1px solid var(--usermenu-borders);
-        background-color: var(--usermenu-bg);
+        background: var(--usermenu-bg);
         color: var(--usermenu-text);
         box-sizing: border-box;
 

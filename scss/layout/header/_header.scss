@@ -1,5 +1,5 @@
 .header {
-    background-color: var(--header-bg);
+    background: var(--header-bg);
     color: var(--header-text);
     height: 76px;
     width: 100%;
@@ -10,6 +10,7 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid var(--header-borders);
 
     >div {
         flex-grow: 0;

@@ -5,9 +5,8 @@ export default {
             current_theme: null,
             current_theme_index: null,
             installed_themes: [
-                { name: 'navy', css_class: 'theme-navy', full_name: 'Navy' },
-                { name: 'light', css_class: 'theme-light', full_name: 'Light' },
                 { name: 'dark', css_class: 'theme-dark', full_name: 'Dark' },
+                { name: 'light', css_class: 'theme-light', full_name: 'Light' },
             ],
             navigation_visible: true,
         }

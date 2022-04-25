@@ -1,5 +1,5 @@
 button.button {
-    background-color: var(--button-bg);
+    background: var(--button-bg);
     color: var(--button-text);
     border: 0px;
     font-weight: 700;
@@ -22,16 +22,16 @@ button.button {
 
     &:hover {
         outline: none;
-        background-color: var(--button-bg-hover);
+        background: var(--button-bg-hover);
     }
 
     &:focus {
         outline: none;
-        background-color: var(--button-bg-focus);
+        background: var(--button-bg-focus);
     }
 
     &:disabled {
-        background-color: var(--button-bg-disabled);
+        background: var(--button-bg-disabled);
         color: var(--button-text-disabled);
         cursor: auto;
     }

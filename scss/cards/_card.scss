@@ -1,5 +1,5 @@
 div.card {
-    background-color: var(--card-bg);
+    background: var(--card-bg);
     color: var(--card-text);
     border-color: var(--card-border);
     border-width: 1px;
@@ -7,7 +7,7 @@ div.card {
     border-radius: 0;
 
     >div.title {
-        background-color: var(--card-title-bg);
+        background: var(--card-title-bg);
         border-bottom: 1px solid var(--card-border);
         display: flex;
 
@@ -33,13 +33,13 @@ div.card {
 
             >div {
                 cursor: pointer;
-                background-color: var(--card-title-action-bg);
+                background: var(--card-title-action-bg);
                 color: var(--card-title-action-text);
                 padding: 16px;
                 border-left: 1px solid var(--card-border);
 
                 &:hover {
-                    background-color: var(--card-title-action-bg-hover);
+                    background: var(--card-title-action-bg-hover);
                 }
             }
         }
@@ -54,7 +54,7 @@ div.card {
     }
 
     >div.actions {
-        background-color: var(--card-bg);
+        background: var(--card-bg);
         border-top: 1px solid var(--card-border);
         padding: 16px;
         text-align: right;

@@ -1,28 +1,30 @@
 body.theme-dark {
     // Colors for the main structure of the application
-    --bg: #14152d;
+    --bg: #454c68;
     --text: #8f9bb3;
 
-    --header-bg: #222b45;
+    // --header-bg: #000;
+    --header-bg: #14171f;
     --header-text: #8f9bb3;
     --header-text-hover: #fff;
-    --header-borders: #14152d;
+    --header-borders: #3b3c3d;
     --header-shadow: #1a1f33;
 
-    --nav-bg: #222b45;
+    --nav-bg: #222836;
     --nav-text: #8f9bb3;
     --nav-text-hover: #fff;
-    --nav-borders: #14152d;
+    --nav-borders: #3b3c3d;
 
-    --usermenu-bg: #222b45;
+    --usermenu-bg: #222836;
     --usermenu-text: #8f9bb3;
     --usermenu-text-hover: #fff;
-    --usermenu-borders: #14152d;
+    --usermenu-sep-borders: #edf3ff;
+    --usermenu-borders: #3b3c3d;
 
-    --feeter-bg: #222b45;
+    --feeter-bg: #14171f;
     --feeter-text: #8f9bb3;
     --feeter-text-hover: #fff;
-    --feeter-borders: #14152d;
+    --feeter-borders: #3b3c3d;
 
     --loading-half: #00ff00;
 
@@ -48,12 +50,12 @@ body.theme-dark {
     --button-test-disabled: rgba(143, 155, 179, 0.48);
 
     // Components: Card
-    --card-bg: #222b45;
+    --card-bg: #222836;
     --card-text: #8f9bb3;
-    --card-border: #161d38;
-    --card-title-bg: #222b45;
+    --card-border: #3b3c3d;
+    --card-title-bg: #14171f;
     --card-title-text: #ffffff;
-    --card-title-action-bg: #222b45;
+    --card-title-action-bg: #14171f;
     --card-title-action-bg-hover: #598bff;
     --card-title-action-text: #ffffff;
 
