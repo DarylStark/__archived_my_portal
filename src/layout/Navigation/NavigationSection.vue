@@ -1,14 +1,20 @@
 <template>
     <ul v-bind:class="['navigation_section', { active: active }]">
-        <li v-on:click="click_title">
-            <div class="icon">
-                <i v-bind:class="['fas', icon]"></i>
-            </div>
-            <div class="text">{{ title }}</div>
-            <div class="collapse" v-if="has_subitems">
-                <i class="fas fa-angle-up"></i>
-            </div>
-        </li>
+        <router-link
+            v-bind:to="url"
+            custom
+            v-slot="{ href, route, navigate, isActive, is_exact_active }"
+        >
+            <li v-on:click="click_title" v-bind:class="{ active: isActive }">
+                <div class="icon">
+                    <i v-bind:class="['fas', icon]"></i>
+                </div>
+                <div class="text">{{ title }}</div>
+                <div class="collapse" v-if="has_subitems">
+                    <i class="fas fa-angle-up"></i>
+                </div>
+            </li>
+        </router-link>
         <ul v-if="has_subitems">
             <slot></slot>
         </ul>
@@ -26,9 +32,7 @@ export default {
     methods: {
         click_title() {
             // Navigate to the specified page
-            if (this.href) {
-                this.$router.push(this.href);
-            }
+            this.$router.push(this.url);
 
             // Open the menu
             if (this.has_subitems) {
@@ -48,9 +52,10 @@ export default {
             mandatory: false,
             default: 'fa-angle-right',
         },
-        href: {
+        url: {
             type: String,
             mandatory: false,
+            default: null,
         },
     },
 };

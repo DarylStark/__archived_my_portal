@@ -19,12 +19,13 @@
         cursor: pointer;
 
         >li {
-            padding: 12px;
+            padding: 12px 12px 12px 8px;
             margin: 0px;
             border-bottom: 1px solid var(--nav-borders);
             color: var(--nav-title-text);
             display: flex;
             font-weight: bold;
+            border-left: 4px solid var(--nav-bg);
 
             &:hover {
                 color: var(--nav-title-text-hover);
@@ -38,6 +39,10 @@
                 transform: rotate(-90deg);
                 transition: transform 125ms ease-out;
             }
+
+            &.active {
+                border-left: 4px solid var(--nav-borders-active);
+            }
         }
 
         >ul {
@@ -48,15 +53,20 @@
             border-bottom: 1px solid var(--nav-borders);
 
             >li {
-                padding: 12px 0 12px 52px;
+                padding: 12px 0 12px 48px;
                 display: flex;
                 color: var(--nav-text);
                 white-space: nowrap;
                 overflow: hidden;
+                border-left: 4px solid var(--nav-bg);
 
                 &:hover {
                     cursor: pointer;
                     color: var(--nav-text-hover);
+                }
+
+                &.active {
+                    border-left: 4px solid var(--nav-borders-active);
                 }
             }
         }

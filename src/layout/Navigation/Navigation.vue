@@ -3,42 +3,47 @@
         <NavigationSection
             icon="fa-list"
             title="Dashboard"
-            href="/dashboard"
+            url="/dashboard"
         ></NavigationSection>
-        <NavigationSection icon="fa-tags" title="Tags" href="/tags"
-            ><NavigationItem href="/notes/add"
-                >Add tag</NavigationItem
-            ></NavigationSection
-        >
+        <NavigationSection
+            icon="fa-tags"
+            title="Tags"
+            url="/tags"
+        ></NavigationSection>
         <NavigationSection
             icon="fa-book-open"
             title="Notes"
-            href="/notes"
+            url="/notes"
         ></NavigationSection>
         <NavigationSection
             icon="fa-rss"
             title="RSS feeds"
-            href="/rss"
+            url="/rss"
         ></NavigationSection>
 
-        <NavigationSection icon="fa-person" title="Personal">
-            <NavigationItem href="/social">Social</NavigationItem>
-            <NavigationItem href="/music">Music</NavigationItem>
-            <NavigationItem href="/finances">Finances</NavigationItem>
+        <NavigationSection icon="fa-person" title="Personal" url="/personal">
+            <NavigationItem url="/social">Social</NavigationItem>
+            <NavigationItem url="/music">Music</NavigationItem>
+            <NavigationItem url="/finances">Finances</NavigationItem>
         </NavigationSection>
 
         <NavigationSection
             icon="fa-graduation-cap"
             title="Personal Development"
+            url="/personal_development"
         >
-            <NavigationItem href="/certifications"
+            <NavigationItem url="/certifications"
                 >Certifications</NavigationItem
             >
-            <NavigationItem href="/courses">Courses</NavigationItem>
+            <NavigationItem url="/courses">Courses</NavigationItem>
         </NavigationSection>
 
-        <NavigationSection icon="fa-building" title="Professional">
-            <NavigationItem href="/jobs">Jobs</NavigationItem>
+        <NavigationSection
+            icon="fa-building"
+            title="Professional"
+            url="/professional"
+        >
+            <NavigationItem url="/jobs">Jobs</NavigationItem>
         </NavigationSection>
     </div>
 </template>

@@ -1,7 +1,13 @@
 <template>
-    <li v-on:click="go_to_page">
-        <slot></slot>
-    </li>
+    <router-link
+        v-bind:to="url"
+        custom
+        v-slot="{ href, route, navigate, isActive, is_exact_active }"
+    >
+        <li v-on:click="go_to_page" v-bind:class="{ active: isActive }">
+            <slot></slot>
+        </li>
+    </router-link>
 </template>
 
 <script>
@@ -10,11 +16,11 @@ export default {
     methods: {
         go_to_page() {
             // Navigate to the specified page
-            this.$router.push(this.href);
+            this.$router.push(this.url);
         },
     },
     props: {
-        href: {
+        url: {
             type: String,
             mandatory: true,
         },
