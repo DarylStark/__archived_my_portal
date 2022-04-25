@@ -14,19 +14,18 @@ import Header from '../layout/Header/Header.vue';
 import Navigation from '../layout/Navigation/Navigation.vue';
 import Content from '../layout/Content/Content.vue';
 import Feeter from '../layout/Feeter/Feeter.vue';
-
-import Ganymede from '../mgm/ganymede.js';
 import APICommand from '../mgm/api_command';
+import api from '../mgm/api';
 
 export default {
-    name: 'GanymedeDashboard',
+    name: 'Dashboard',
     components: { Header, Navigation, Content, Feeter },
     created: function () {
         // Set a local variable that the callsbacks can use for 'this'
         let cb_this = this;
 
         // Retrieve UserSession and User details
-        Ganymede.api.execute(
+        api.execute(
             new APICommand(
                 'user_sessions',
                 'current',

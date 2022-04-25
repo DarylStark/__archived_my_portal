@@ -80,4 +80,4 @@ class API {
  * Export the class
  */
 
-export default API;
+export default new API();

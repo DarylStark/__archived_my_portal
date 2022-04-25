@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import Ganymede from '../mgm/ganymede.js';
+import api from '../mgm/api.js';
 import APICommand from '../mgm/api_command.js';
 import Flexbox from '../layout/Flexbox';
 import Card from '../cards/Card.vue';
@@ -79,7 +79,7 @@ import Button from '../components/Button.vue';
 import axios from 'axios';
 
 export default {
-  name: 'GanymedeLogin',
+  name: 'LoginForm',
   components: {
     Flexbox,
     Card,
@@ -109,8 +109,7 @@ export default {
   },
   methods: {
     next_theme() {
-      // Set the next theme
-      Ganymede.commands.execute('theme.next');
+        // TODO: Implement
     },
     set_state(state) {
       // Set the state for the loginform. Can either be 'credentials'
@@ -172,7 +171,8 @@ export default {
       // Set a new 'this' to use in the callbacks
       let vue_this = this;
 
-      Ganymede.api.execute(
+      // TODO: Get this back
+      api.execute(
         new APICommand(
           'aaa',
           'login',

@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "My Ganymede - Start - VueJS development server",
+            "label": "My (portal) - Start - VueJS development server",
             "type": "npm",
             "script": "vuejs-serve",
             "path": "${workspaceFolder}/",
@@ -15,7 +15,7 @@
             "problemMatcher": []
         },
         {
-            "label": "My Ganymede - Compile - VueJS project",
+            "label": "My (portal) - Compile - VueJS project",
             "type": "npm",
             "script": "vuejs-build",
             "path": "${workspaceFolder}/",
@@ -26,7 +26,7 @@
             "problemMatcher": []
         },
         {
-            "label": "My Ganymede - Start - SCSS watcher",
+            "label": "My (portal) - Start - SCSS watcher",
             "type": "npm",
             "script": "scss-watch",
             "path": "${workspaceFolder}/",
@@ -39,7 +39,7 @@
             ]
         },
         {
-            "label": "My Ganymede - Compile - SCSS files",
+            "label": "My (portal) - Compile - SCSS files",
             "type": "npm",
             "script": "scss-build",
             "path": "${workspaceFolder}/",
@@ -50,21 +50,21 @@
             "problemMatcher": []
         },
         {
-            "label": "My Ganymede - Develop - Run VueJS development server and SCSS watcher",
+            "label": "My (portal) - Develop - Run VueJS development server and SCSS watcher",
             "dependsOrder": "parallel",
             "dependsOn": [
-                "My Ganymede - Start - VueJS development server",
-                "My Ganymede - Start - SCSS watcher"
+                "My (portal) - Start - VueJS development server",
+                "My (portal) - Start - SCSS watcher"
             ],
             "group": "test",
             "problemMatcher": []
         },
         {
-            "label": "My Ganymede - Compile - All",
+            "label": "My (portal) - Compile - All",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "My Ganymede - Compile - VueJS project",
-                "My Ganymede - Compile - SCSS files"
+                "My (portal) - Compile - VueJS project",
+                "My (portal) - Compile - SCSS files"
             ],
             "group": "test",
             "problemMatcher": []

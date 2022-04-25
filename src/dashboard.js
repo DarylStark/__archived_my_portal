@@ -7,17 +7,11 @@ import store from './store'
 // Import the router
 import router from './router';
 
-// Import the Ganymade code
-import Ganymede from './mgm/ganymede.js'
-
 // Import the Dashboard Application
-import GanymedeDashboard from './apps/GanymedeDashboard.vue'
+import Dashboard from './apps/Dashboard.vue'
 
 // Create the app
-const dashboard = createApp(GanymedeDashboard)
-
-// Register commands for the Dashboard
-Ganymede.register_commands('dashboard');
+const dashboard = createApp(Dashboard)
 
 // Specify the store
 dashboard.use(store);

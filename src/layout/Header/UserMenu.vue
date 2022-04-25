@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import Ganymede from '../../mgm/ganymede.js';
 import UserMenuItem from './UserMenuItem.vue';
 
 export default {
@@ -38,10 +37,10 @@ export default {
     },
     methods: {
         next_theme: () => {
-            Ganymede.commands.execute('theme.next');
+            // TODO: Implement
         },
         logout: () => {
-            Ganymede.commands.execute('userssion.logout');
+            // TODO: Implement
         },
     },
 };

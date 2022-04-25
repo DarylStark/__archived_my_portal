@@ -1,7 +1,3 @@
-/*
- * Module that contains the UI class for 'My Ganymede'
- */
-
 'use strict';
 
 import Cookies from 'js-cookie';
