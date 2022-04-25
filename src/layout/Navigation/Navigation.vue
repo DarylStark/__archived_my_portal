@@ -14,11 +14,16 @@
             icon="fa-book-open"
             title="Notes"
             url="/notes"
-        ></NavigationSection>
+            custom_submenu
+        >
+            <NavigationFolders></NavigationFolders>
+        </NavigationSection>
         <NavigationSection
             icon="fa-rss"
             title="RSS feeds"
             url="/rss"
+            custom_submenu
+            ><NavigationFolders></NavigationFolders
         ></NavigationSection>
 
         <NavigationSection icon="fa-person" title="Personal" url="/personal">
@@ -51,6 +56,7 @@
 <script>
 import NavigationItem from './NavigationItem.vue';
 import NavigationSection from './NavigationSection.vue';
+import NavigationFolders from './NavigationFolders.vue';
 
 export default {
     name: 'Navigation',
@@ -62,6 +68,7 @@ export default {
     components: {
         NavigationItem,
         NavigationSection,
+        NavigationFolders,
     },
 };
 </script>

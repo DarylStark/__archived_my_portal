@@ -15,9 +15,14 @@
                 </div>
             </li>
         </router-link>
-        <ul v-if="has_subitems">
+        <ul v-if="has_subitems && !custom_submenu" class="submenu">
             <slot></slot>
         </ul>
+        <template v-if="custom_submenu">
+            <div class="submenu">
+                <slot></slot>
+            </div>
+        </template>
     </ul>
 </template>
 
@@ -56,6 +61,11 @@ export default {
             type: String,
             mandatory: false,
             default: null,
+        },
+        custom_submenu: {
+            type: Boolean,
+            mandatory: false,
+            default: false,
         },
     },
 };
