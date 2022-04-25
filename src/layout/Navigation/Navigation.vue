@@ -1,37 +1,44 @@
 <template>
     <div v-bind:class="['navigation', { hide: !visible }]">
-        <NavigationSection title="My" hide_title>
-            <NavigationItem icon="fa-list" href="/dashboard"
-                >Dashboard</NavigationItem
-            >
-            <NavigationItem icon="fa-tags" href="/tags">Tags</NavigationItem>
-            <NavigationItem icon="fa-book-open" href="/notes"
-                >Notes</NavigationItem
-            >
-            <NavigationItem icon="fa-rss" href="/rss">RSS feeds</NavigationItem>
+        <NavigationSection
+            icon="fa-list"
+            title="Dashboard"
+            href="/dashboard"
+        ></NavigationSection>
+        <NavigationSection icon="fa-tags" title="Tags" href="/tags"
+            ><NavigationItem href="/notes/add"
+                >Add tag</NavigationItem
+            ></NavigationSection
+        >
+        <NavigationSection
+            icon="fa-book-open"
+            title="Notes"
+            href="/notes"
+        ></NavigationSection>
+        <NavigationSection
+            icon="fa-rss"
+            title="RSS feeds"
+            href="/rss"
+        ></NavigationSection>
+
+        <NavigationSection icon="fa-person" title="Personal">
+            <NavigationItem href="/social">Social</NavigationItem>
+            <NavigationItem href="/music">Music</NavigationItem>
+            <NavigationItem href="/finances">Finances</NavigationItem>
         </NavigationSection>
-        <NavigationSection title="Personal">
-            <NavigationItem icon="fa-user-group" href="/social"
-                >Social</NavigationItem
-            >
-            <NavigationItem icon="fa-music" href="/music">Music</NavigationItem>
-            <NavigationItem icon="fa-chart-line" href="/finances"
-                >Finances</NavigationItem
-            >
-            <i class="fa-solid"></i>
-        </NavigationSection>
-        <NavigationSection title="Personal Development">
-            <NavigationItem icon="fa-graduation-cap" href="/certifications"
+
+        <NavigationSection
+            icon="fa-graduation-cap"
+            title="Personal Development"
+        >
+            <NavigationItem href="/certifications"
                 >Certifications</NavigationItem
             >
-            <NavigationItem icon="fa-school" href="/courses"
-                >Courses</NavigationItem
-            >
+            <NavigationItem href="/courses">Courses</NavigationItem>
         </NavigationSection>
-        <NavigationSection title="Professional">
-            <NavigationItem icon="fa-building" href="/jobs"
-                >Jobs</NavigationItem
-            >
+
+        <NavigationSection icon="fa-building" title="Professional">
+            <NavigationItem href="/jobs">Jobs</NavigationItem>
         </NavigationSection>
     </div>
 </template>

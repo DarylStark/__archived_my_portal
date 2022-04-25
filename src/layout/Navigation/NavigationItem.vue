@@ -1,10 +1,7 @@
 <template>
-    <div class="item" v-on:click="go_to_page">
-        <div class="icon">
-            <i v-bind:class="['fas', icon]"></i>
-        </div>
-        <div class="text"><slot></slot></div>
-    </div>
+    <li class="item" v-on:click="go_to_page">
+        <slot></slot>
+    </li>
 </template>
 
 <script>
@@ -17,11 +14,6 @@ export default {
         },
     },
     props: {
-        icon: {
-            type: String,
-            mandatory: false,
-            default: 'fa-angle-right',
-        },
         href: {
             type: String,
             mandatory: true,

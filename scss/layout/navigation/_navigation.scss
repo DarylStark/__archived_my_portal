@@ -3,7 +3,7 @@
     width: 300px;
     flex-grow: 0;
     overflow: hidden;
-    padding: 24px 0 0 0;
+    padding: 0;
     transition: width 250ms ease-out;
 
     &.hide {
@@ -11,42 +11,74 @@
         transition: width 250ms ease-out;
     }
 
-    .item {
-        display: flex;
+    ul.navigation_section {
+        list-style: none;
         width: 100%;
-        color: #ffffff;
-        color: var(--nav-text);
-        border-bottom: 1px solid var(--nav-borders);
+        padding: 0px;
+        margin: 0px;
+        cursor: pointer;
 
-        &:hover {
-            cursor: pointer;
-            color: var(--nav-text-hover);
+        >li {
+            padding: 12px;
+            margin: 0px;
+            border-bottom: 1px solid var(--nav-borders);
+            color: var(--nav-title-text);
+            display: flex;
+            font-weight: bold;
+
+            &:hover {
+                color: var(--nav-title-text-hover);
+            }
+        }
+
+        >ul {
+            display: none;
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+
+            >li {
+                padding: 12px 0 12px 52px;
+                display: flex;
+                color: var(--nav-text);
+
+                &:hover {
+                    cursor: pointer;
+                    color: var(--nav-text-hover);
+                }
+            }
+        }
+
+        &.active {
+            >ul {
+                display: block;
+            }
+
+            >li {
+                color: var(--nav-title-text-hover);
+            }
         }
 
         .icon {
             flex-grow: 0;
             font-size: 1.1em;
-            padding: 12px 0px 12px 24px;
+            padding: 4px 0 4px 8px;
             min-width: 32px;
             text-align: left;
         }
 
         .text {
             flex-grow: 1;
-            padding: 12px 8px 12px 8px;
+            padding: 4px 0 4px 0;
             white-space: nowrap;
             overflow: hidden;
         }
-    }
 
-
-    .title {
-        padding: 48px 8px 12px 24px;
-        font-weight: bold;
-        text-transform: uppercase;
-        color: var(--nav-text);
-        border-bottom: 1px solid var(--nav-border);
-        white-space: nowrap;
-        overflow: hidden;
+        .collapse {
+            flex-grow: 0;
+            padding: 4px 0 4px 0;
+            white-space: nowrap;
+            overflow: hidden;
+        }
     }
 }
