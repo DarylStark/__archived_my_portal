@@ -6,7 +6,8 @@ $max-width-phone: 799px;
 @import 'fonts';
 
 // Import the color schemes
-@import 'colors/index';
+@import 'colors/dark';
+@import 'colors/light';
 
 // Import Font Awesome for the icons
 @import 'font-awesome/fontawesome.scss';
@@ -42,22 +43,26 @@ body {
 @import 'apps/dashboard';
 @import 'apps/loginform';
 
+// Import compontents for the main layout
+@import 'layout/content/content';
+@import 'layout/header/header';
+@import 'layout/header/menutoggle';
+@import 'layout/header/usermenu';
+@import 'layout/feeter/feeter';
+@import 'layout/feeter/notifications';
+@import 'layout/feeter/profile_switcher';
+@import 'layout/navigation/navigation';
+
 // Import layout elements
-@import 'layout/card';
-@import 'layout/content';
 @import 'layout/flexbox';
-@import 'layout/header';
-@import 'layout/feeter';
-@import 'layout/navigation';
+
+// Import cards
+@import 'cards/card';
 
 // Import components
 @import 'components/button';
 @import 'components/input';
-@import 'components/menutoggle';
-@import 'components/notifications';
-@import 'components/profile_switcher';
 @import 'components/spacer';
-@import 'components/usermenu';
 
 // Import animations
 @import 'animations';

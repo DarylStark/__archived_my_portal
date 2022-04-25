@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import Spacer from '../components/Spacer.vue';
-import ProfileSwitcher from '../components/ProfileSwitcher.vue';
-import Notifications from '../components/Notifications.vue';
+import Spacer from '../../components/Spacer.vue';
+import ProfileSwitcher from './ProfileSwitcher.vue';
+import Notifications from './Notifications.vue';
 
 export default {
     name: 'Feeter',

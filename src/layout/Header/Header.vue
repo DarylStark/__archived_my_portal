@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import MenuToggle from '../components/MenuToggle.vue';
-import Spacer from '../components/Spacer.vue';
-import UserMenu from '../components/UserMenu.vue';
+import MenuToggle from './MenuToggle.vue';
+import Spacer from '../../components/Spacer.vue';
+import UserMenu from './UserMenu.vue';
 
 export default {
   name: 'Header',

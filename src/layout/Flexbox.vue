@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import CardTitle from './CardTitle.vue';
-
 export default {
   name: 'Flexbox',
   props: {

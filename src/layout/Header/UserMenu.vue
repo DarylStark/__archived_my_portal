@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Ganymede from '../mgm/ganymede.js';
+import Ganymede from '../../mgm/ganymede.js';
 import UserMenuItem from './UserMenuItem.vue';
 
 export default {

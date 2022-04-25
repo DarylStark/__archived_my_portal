@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import NavigationItem from '../components/NavigationItem.vue';
-import NavigationSection from '../components/NavigationSection.vue';
+import NavigationItem from './NavigationItem.vue';
+import NavigationSection from './NavigationSection.vue';
 
 export default {
     name: 'Navigation',

@@ -10,12 +10,13 @@
 </template>
 
 <script>
-import Header from '../layout/Header.vue';
-import Navigation from '../layout/Navigation.vue';
-import Content from '../layout/Content.vue';
+import Header from '../layout/Header/Header.vue';
+import Navigation from '../layout/Navigation/Navigation.vue';
+import Content from '../layout/Content/Content.vue';
+import Feeter from '../layout/Feeter/Feeter.vue';
+
 import Ganymede from '../mgm/ganymede.js';
 import APICommand from '../mgm/api_command';
-import Feeter from '../layout/Feeter.vue';
 
 export default {
     name: 'GanymedeDashboard',
