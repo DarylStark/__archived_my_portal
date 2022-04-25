@@ -4,6 +4,7 @@
         <div class="content_nav">
             <Navigation></Navigation>
             <Content></Content>
+            <Sidebar></Sidebar>
         </div>
         <Feeter></Feeter>
     </div>
@@ -13,13 +14,14 @@
 import Header from '../layout/Header/Header.vue';
 import Navigation from '../layout/Navigation/Navigation.vue';
 import Content from '../layout/Content/Content.vue';
+import Sidebar from '../layout/Sidebar/Sidebar.vue';
 import Feeter from '../layout/Feeter/Feeter.vue';
 import APICommand from '../my/api_command';
 import api from '../my/api';
 
 export default {
     name: 'Dashboard',
-    components: { Header, Navigation, Content, Feeter },
+    components: { Header, Navigation, Content, Feeter, Sidebar },
     created: function () {
         // Set a local variable that the callsbacks can use for 'this'
         let cb_this = this;

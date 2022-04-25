@@ -1,0 +1,26 @@
+.sidebar {
+    background: var(--sidebar-bg);
+    width: 300px;
+    flex-grow: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+    transition: width 250ms ease-out;
+    scrollbar-width: none;
+
+    &.floating {
+        position: absolute;
+        right: 0;
+        height: calc(100% - #{$max-height-header} - #{$max-height-feeter});
+    }
+
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    &.hide {
+        width: 0px;
+        transition: width 250ms ease-out;
+    }
+}

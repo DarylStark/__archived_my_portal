@@ -9,6 +9,7 @@ export default {
                 { name: 'light', css_class: 'theme-light', full_name: 'Light' },
             ],
             navigation_visible: true,
+            sidebar_visible: false,
             device_type: null
         }
     },
@@ -93,10 +94,42 @@ export default {
         navigation_visible_toggle(state) {
             // Method to toggle the visibility of the navigation
             state.navigation_visible = !state.navigation_visible;
+
+            // If the navigation is visible and we are on a phone, we need to
+            // hide the sidebare
+            if (state.navigation_visible && state.device_type == 'phone') {
+                state.sidebar_visible = false;
+            }
         },
         navigation_visible_set(state, value) {
             // Method to set the visibility of the navigation
             state.navigation_visible = value;
+
+            // If the navigation is visible and we are on a phone, we need to
+            // hide the sidebare
+            if (state.navigation_visible && state.device_type == 'phone') {
+                state.sidebar_visible = false;
+            }
         },
-    }
+        sidebar_visible_toggle(state) {
+            // Method to toggle the visibility of the sidebar
+            state.sidebar_visible = !state.sidebar_visible;
+
+            // If the sidebar is visible and we are on a phone, we need to hide
+            // the navigation
+            if (state.sidebar_visible && state.device_type == 'phone') {
+                state.navigation_visible = false;
+            }
+        },
+        sidebar_visible_set(state, value) {
+            // Method to set the visibility of the sidebar
+            state.sidebar_visible = value;
+
+            // If the sidebar is visible and we are on a phone, we need to hide
+            // the navigation
+            if (state.sidebar_visible && state.device_type == 'phone') {
+                state.navigation_visible = false;
+            }
+        },
+    },
 };
