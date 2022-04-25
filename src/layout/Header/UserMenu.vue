@@ -13,9 +13,9 @@
         </div>
         <div class="menu">
             <UserMenuItem icon="fa-cog">Settings</UserMenuItem>
-            <UserMenuItem icon="fa-adjust" v-on:click="next_theme"
-                >Next theme</UserMenuItem
-            >
+            <UserMenuItem v-for="theme in installed_themes" icon='fa-adjust' v-on:click='set_theme(theme[0]);'>
+                Set theme: {{ theme[1]['name'] }}
+            </UserMenuItem>
             <UserMenuItem icon="fa-edit">Rename session</UserMenuItem>
             <UserMenuItem icon="fa-sign-out-alt" v-on:click="logout"
                 >Logout</UserMenuItem
@@ -35,9 +35,14 @@ export default {
             active: false,
         };
     },
+    computed: {
+        installed_themes() {
+            return this.$store.state.ui.installed_themes;
+        }
+    },
     methods: {
-        next_theme: () => {
-            // TODO: Implement
+        set_theme: function(theme) {
+            this.$store.commit('set_theme', theme);
         },
         logout: () => {
             // TODO: Implement
