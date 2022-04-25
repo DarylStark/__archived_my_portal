@@ -14,8 +14,8 @@ import Header from '../layout/Header/Header.vue';
 import Navigation from '../layout/Navigation/Navigation.vue';
 import Content from '../layout/Content/Content.vue';
 import Feeter from '../layout/Feeter/Feeter.vue';
-import APICommand from '../mgm/api_command';
-import api from '../mgm/api';
+import APICommand from '../my/api_command';
+import api from '../my/api';
 
 export default {
     name: 'Dashboard',

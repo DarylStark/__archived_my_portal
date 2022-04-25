@@ -69,8 +69,8 @@
 </template>
 
 <script>
-import api from '../mgm/api.js';
-import APICommand from '../mgm/api_command.js';
+import api from '../my/api.js';
+import APICommand from '../my/api_command.js';
 import Flexbox from '../layout/Flexbox';
 import Card from '../cards/Card.vue';
 import CardTitleAction from '../cards/CardTitleAction.vue';
