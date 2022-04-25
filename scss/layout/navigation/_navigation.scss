@@ -1,14 +1,14 @@
 .navigation {
     background: var(--nav-bg);
-    width: 256px;
+    width: 300px;
     flex-grow: 0;
     overflow: hidden;
-    transition: width 250ms ease-in-out;
     padding: 24px 0 0 0;
+    transition: width 250ms ease-out;
 
     &.hide {
         width: 0px;
-        transition: width 250ms ease-in-out;
+        transition: width 250ms ease-out;
     }
 
     .item {
@@ -31,10 +31,11 @@
             text-align: left;
         }
 
-
         .text {
             flex-grow: 1;
             padding: 12px 8px 12px 8px;
+            white-space: nowrap;
+            overflow: hidden;
         }
     }
 
