@@ -1,8 +1,9 @@
-// Import Vue
+// Import the VueJS components
 import { createApp } from 'vue'
 
-// Import the Login Application
+// Import the Login Application and create the App object
 import LoginForm from './apps/LoginForm.vue'
+const loginform = createApp(LoginForm);
 
-// Create the app
-createApp(LoginForm).mount('#app_login')
+// Mount the app object to the template
+loginform.mount('#app_login')

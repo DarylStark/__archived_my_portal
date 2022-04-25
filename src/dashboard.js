@@ -1,23 +1,15 @@
-// Import Vue
+// Import the VueJS components
 import { createApp } from 'vue'
-
-// Import the store
 import store from './store'
-
-// Import the router
 import router from './router';
 
-// Import the Dashboard Application
+// Import the Dashboard Application and create the App object
 import Dashboard from './apps/Dashboard.vue'
-
-// Create the app
 const dashboard = createApp(Dashboard)
 
-// Specify the store
+// Specify the modules for VueJS
 dashboard.use(store);
-
-// Specify the router
 dashboard.use(router);
 
-// Mount the app
+// Mount the app object to the template
 dashboard.mount('#app_dashboard')
