@@ -24,8 +24,16 @@ export default {
         // Set a local variable that the callsbacks can use for 'this'
         let cb_this = this;
 
+        // Set the deviec type
+        this.$store.commit('set_device_type');
+
         // Get the color theme
         this.$store.commit('set_theme');
+
+        // Add a handler to the resizing of the window
+        window.addEventListener('resize', () => {
+            this.$store.commit('set_device_type');
+        });
 
         // Retrieve UserSession and User details
         api.execute(

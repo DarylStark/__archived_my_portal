@@ -9,6 +9,7 @@ export default {
                 { name: 'light', css_class: 'theme-light', full_name: 'Light' },
             ],
             navigation_visible: true,
+            device_type: null
         }
     },
     mutations: {
@@ -56,8 +57,33 @@ export default {
 
             // Save the theme to the local storage
             localStorage.setItem('my_color_theme', my_color_theme);
+        },
+        set_device_type(state) {
+            // Calculate the device_type
+            let device_type = 'desktop';
+            if (window.innerWidth <= 1024) {
+                // This is a tablet PC
+                device_type = 'tablet';
+            }
+            if (window.innerWidth <= 799) {
+                // This is a mobile phone
+                device_type = 'phone';
 
-            console.log(my_color_theme);
+                // If we change from something to phone, we have to hide the
+                // navigation
+                if (state.device_type != 'phone') {
+                    this.commit('navigation_visible_set', false);
+                }
+            }
+
+            // If we change from phone to something, we have to display the
+            // navigation
+            if (state.device_type == 'phone' && device_type != 'phone') {
+                this.commit('navigation_visible_set', true);
+            }
+
+            // Set the device type
+            state.device_type = device_type;
         },
         next_theme(state) {
             // Method that activates the next theme
@@ -67,6 +93,10 @@ export default {
         navigation_visible_toggle(state) {
             // Method to toggle the visibility of the navigation
             state.navigation_visible = !state.navigation_visible;
+        },
+        navigation_visible_set(state, value) {
+            // Method to set the visibility of the navigation
+            state.navigation_visible = value;
         },
     }
 };

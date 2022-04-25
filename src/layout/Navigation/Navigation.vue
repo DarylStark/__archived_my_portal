@@ -1,5 +1,11 @@
 <template>
-    <div v-bind:class="['navigation', { hide: !visible }]">
+    <div
+        v-bind:class="[
+            'navigation',
+            { floating: floating },
+            { hide: !visible },
+        ]"
+    >
         <NavigationSection
             icon="fa-list"
             title="Dashboard"
@@ -63,6 +69,9 @@ export default {
     computed: {
         visible() {
             return this.$store.state.ui.navigation_visible;
+        },
+        floating() {
+            return this.$store.state.ui.device_type == 'phone';
         },
     },
     components: {

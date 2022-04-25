@@ -1,7 +1,7 @@
 .feeter {
     background: var(--feeter-bg);
     color: var(--header-text);
-    height: 50px;
+    height: $max-height-feeter;
     width: 100%;
     flex-grow: 0;
     flex-shrink: 0;

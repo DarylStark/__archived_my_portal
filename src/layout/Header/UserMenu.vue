@@ -1,7 +1,12 @@
 <template>
     <div v-bind:class="['usermenu', { active: active }]">
         <div class="button" v-on:click="active = !active">
-            <div v-if="$store.state.user_session.session.account.fullname">
+            <div
+                v-if="
+                    $store.state.user_session.session.account.fullname &&
+                    $store.state.ui.device_type != 'phone'
+                "
+            >
                 {{ $store.state.user_session.session.account.fullname }}
             </div>
             <i class="fas fa-user-circle"></i>

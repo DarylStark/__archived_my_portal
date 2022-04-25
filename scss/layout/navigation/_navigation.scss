@@ -8,6 +8,11 @@
     transition: width 250ms ease-out;
     scrollbar-width: none;
 
+    &.floating {
+        position: absolute;
+        height: calc(100% - #{$max-height-header} - #{$max-height-feeter});
+    }
+
     &::-webkit-scrollbar {
         width: 0;
         height: 0;

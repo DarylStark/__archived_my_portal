@@ -11,7 +11,6 @@ export default {
     },
     mutations: {
         set_session(state, session) {
-            console.log('setting session');
             state.session.account = session.user_account;
             state.session.session = session.session;
         }

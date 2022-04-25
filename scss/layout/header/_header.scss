@@ -1,7 +1,7 @@
 .header {
     background: var(--header-bg);
     color: var(--header-text);
-    height: 76px;
+    height: $max-height-header;
     width: 100%;
     flex-grow: 0;
     flex-shrink: 0;

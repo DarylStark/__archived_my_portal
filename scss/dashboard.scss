@@ -2,6 +2,10 @@
 $max-width-tablet: 1024px;
 $max-width-phone: 799px;
 
+// Heights for the header and feeter; will be used by different components
+$max-height-header: 76px;
+$max-height-feeter: 50px;
+
 // Import fonts
 @import 'fonts';
 
