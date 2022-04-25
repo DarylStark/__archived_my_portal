@@ -5,8 +5,11 @@
                 <i v-bind:class="['fas', icon]"></i>
             </div>
             <div class="text">{{ title }}</div>
+            <div class="collapse" v-if="has_subitems">
+                <i class="fas fa-angle-up"></i>
+            </div>
         </li>
-        <ul>
+        <ul v-if="has_subitems">
             <slot></slot>
         </ul>
     </ul>
@@ -28,9 +31,14 @@ export default {
             }
 
             // Open the menu
-            if (this.$slots.default) {
+            if (this.has_subitems) {
                 this.active = !this.active;
             }
+        },
+    },
+    computed: {
+        has_subitems() {
+            return !(this.$slots.default == undefined);
         },
     },
     props: {

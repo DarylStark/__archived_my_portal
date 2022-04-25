@@ -1,5 +1,5 @@
 <template>
-    <li class="item" v-on:click="go_to_page">
+    <li v-on:click="go_to_page">
         <slot></slot>
     </li>
 </template>

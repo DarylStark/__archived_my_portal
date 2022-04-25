@@ -29,6 +29,15 @@
             &:hover {
                 color: var(--nav-title-text-hover);
             }
+
+            .collapse {
+                flex-grow: 0;
+                padding: 4px 0 4px 0;
+                white-space: nowrap;
+                overflow: hidden;
+                transform: rotate(-90deg);
+                transition: transform 125ms ease-out;
+            }
         }
 
         >ul {
@@ -36,11 +45,14 @@
             list-style: none;
             margin: 0px;
             padding: 0px;
+            border-bottom: 1px solid var(--nav-borders);
 
             >li {
                 padding: 12px 0 12px 52px;
                 display: flex;
                 color: var(--nav-text);
+                white-space: nowrap;
+                overflow: hidden;
 
                 &:hover {
                     cursor: pointer;
@@ -56,6 +68,11 @@
 
             >li {
                 color: var(--nav-title-text-hover);
+
+                .collapse {
+                    transition: transform 125ms ease-out;
+                    transform: rotate(-180deg);
+                }
             }
         }
 
@@ -69,13 +86,6 @@
 
         .text {
             flex-grow: 1;
-            padding: 4px 0 4px 0;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-        .collapse {
-            flex-grow: 0;
             padding: 4px 0 4px 0;
             white-space: nowrap;
             overflow: hidden;
