@@ -4,6 +4,7 @@
     height: 76px;
     width: 100%;
     flex-grow: 0;
+    flex-shrink: 0;
     box-shadow: 0 0.5rem 1rem 0 var(--header-shadow);
     z-index: 5;
     display: flex;

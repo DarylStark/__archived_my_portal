@@ -1,15 +1,16 @@
 div#dashboard {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    align-items: stretch;
+    flex-wrap: nowrap;
     height: 100%;
 
     >.content_nav {
-        flex-grow: 2;
+        flex-grow: 1;
+        flex-shrink: 1;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: stretch;
+        overflow: hidden;
     }
 }

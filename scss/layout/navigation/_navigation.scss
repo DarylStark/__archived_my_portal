@@ -2,9 +2,16 @@
     background: var(--nav-bg);
     width: 300px;
     flex-grow: 0;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 0;
     transition: width 250ms ease-out;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
 
     &.hide {
         width: 0px;
