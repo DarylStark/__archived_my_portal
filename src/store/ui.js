@@ -9,6 +9,7 @@ export default {
                 { name: 'light', css_class: 'theme-light', full_name: 'Light' },
             ],
             navigation_visible: true,
+            sidebar_available: false,
             sidebar_visible: false,
             device_type: null
         }
@@ -130,6 +131,13 @@ export default {
             if (state.sidebar_visible && state.device_type == 'phone') {
                 state.navigation_visible = false;
             }
+        },
+        sidebar_available_set(state, value) {
+            // Method to set the availability of the sidebar
+            state.sidebar_available = value;
+
+            // If the sidebar is unavailble, we hide it as well
+            state.sidebar_visible = false;
         },
     },
 };

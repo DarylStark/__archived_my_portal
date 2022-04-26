@@ -2,7 +2,7 @@
     <div class="header">
         <MenuToggle></MenuToggle>
         <Spacer></Spacer>
-        <SidebarToggle></SidebarToggle>
+        <SidebarToggle v-if="sidebar_available"></SidebarToggle>
         <UserMenu></UserMenu>
     </div>
 </template>
@@ -15,6 +15,11 @@ import SidebarToggle from './SidebarToggle.vue';
 
 export default {
     name: 'Header',
+    computed: {
+        sidebar_available() {
+            return this.$store.state.ui.sidebar_available;
+        },
+    },
     components: { MenuToggle, Spacer, UserMenu, SidebarToggle },
 };
 </script>
