@@ -1,0 +1,17 @@
+.sidebartoggle {
+    padding: 0 24px 0 24px;
+    font-size: 24px;
+
+    >i:hover {
+        cursor: pointer;
+        color: var(--header-text-hover);
+    }
+
+    >i {
+        transition: transform 250ms ease-in-out;
+    }
+
+    >i.hidden {
+        transform: rotate(-180deg);
+    }
+}
