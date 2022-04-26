@@ -8,12 +8,14 @@ class CommandList {
             {
                 fullname: 'My first tag',
                 type: 'tag',
-                command: 'my-first-tag'
+                command: 'my-first-tag',
+                show: true
             },
             {
                 fullname: 'My second tag',
                 type: 'tag',
-                command: 'my-second-tag'
+                command: 'my-second-tag',
+                show: false
             }
         ];
 
@@ -23,7 +25,7 @@ class CommandList {
         ]);
     }
 
-    add_command(scope, group, command, title, method, args = undefined) {
+    add_command(scope, group, command, title, method, args = undefined, show = true) {
         // Add the command to the list
         this.commands.push({
             type: 'command',
@@ -31,7 +33,8 @@ class CommandList {
             group: group,
             command: command,
             title: title,
-            fullname: group + ': ' + title
+            fullname: group + ': ' + title,
+            show: show
         });
 
         // Add the method to the map
@@ -58,18 +61,23 @@ class CommandList {
         }
 
         if (list == 'tags') {
-            lst = this.tags;
+            lst = this.tags.filter(function (item) {
+                return item.show;
+            });
         }
 
         // Empty filter; return the complete list
         if (filter == '') {
-            return lst.sort(this.sort_method);
+            return lst.sort(this.sort_method).filter(function (item) {
+                return item.show;
+            });
         }
 
         // Returns the command list filtered on text
         filter = filter.toLowerCase();
         let filtered_list
         return lst.filter(function (cmd) {
+            if (!cmd.show) { return false; }
             let fullname = cmd.fullname.toLowerCase();
             return fullname.includes(filter);
         }).sort(this.sort_method);

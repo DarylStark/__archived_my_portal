@@ -79,7 +79,8 @@ export default {
             'command_palette.show',
             'Show',
             this.$store.commit,
-            ['cmd_palette_available_set', true]
+            ['cmd_palette_available_set', true],
+            false
         );
         cmdlist.add_command(
             'global',
@@ -87,7 +88,8 @@ export default {
             'command_palette.hide',
             'Hide',
             this.$store.commit,
-            ['cmd_palette_available_set', false]
+            ['cmd_palette_available_set', false],
+            false
         );
         cmdlist.add_command(
             'global',
