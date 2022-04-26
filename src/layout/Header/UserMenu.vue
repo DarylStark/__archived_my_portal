@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import api from '../../my/api';
+import APICommand from '../../my/api_command';
 import UserMenuItem from './UserMenuItem.vue';
 
 export default {
@@ -50,7 +52,23 @@ export default {
             this.$store.commit('set_theme', theme.name);
         },
         logout: () => {
-            // TODO: Implement
+            api.execute(
+                new APICommand(
+                    'aaa',
+                    'logout',
+                    'GET',
+                    null,
+                    function () {
+                        // Logged out; redirect the user to the
+                        // login screen
+                        window.location.href = '/ui/login';
+                    },
+                    function () {
+                        // TODO: Give an error
+                        console.log('Error while logging out');
+                    }
+                )
+            );
         },
     },
 };
