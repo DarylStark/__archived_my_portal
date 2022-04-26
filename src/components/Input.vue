@@ -16,7 +16,6 @@
                 ref="input"
                 v-on:input="update_value"
                 v-bind:disabled="disabled"
-                v-on:keydown="keydown"
             />
         </div>
     </div>
@@ -47,7 +46,7 @@ export default {
             type: String,
         },
     },
-    emits: ['update:modelValue', 'keypress'],
+    emits: ['update:modelValue'],
     methods: {
         focus(select = false) {
             this.$refs.input.focus();
@@ -75,12 +74,6 @@ export default {
 
             // No regex given; all values are considered correct
             return true;
-        },
-        keydown(event) {
-            this.$emit('keypress', event);
-            if (event.keyCode == 38) {
-                event.preventDefault();
-            }
         },
     },
 };

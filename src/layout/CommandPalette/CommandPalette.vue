@@ -5,7 +5,7 @@
                 id="input"
                 v-model="input"
                 ref="input"
-                v-on:keypress="keypress"
+                v-on:keydown="keydown"
             ></Input>
         </div>
         <div id="commands" ref="commands">
@@ -13,6 +13,7 @@
                 v-for="(command, index) in commands"
                 v-bind:key="command"
                 v-bind:active="index == active_index"
+                v-on:click="execute(index)"
             >
                 {{ command.fullname }}
             </Command>
@@ -70,31 +71,39 @@ export default {
                 active_element.scrollIntoViewIfNeeded(false);
             }
         },
-        keypress(event) {
+        execute(index = -1) {
+            if (index < 0) index = this.active_index;
+            let cmd = this.commands[index];
+            cmdlist.execute(cmd.type, cmd.command);
+            cmdlist.execute('command', 'command_palette.hide');
+        },
+        keydown(event) {
             if (event.keyCode == 40) {
                 // Arrow down
                 this.increase_active_index(1);
                 this.$nextTick(this.set_scroll_height);
+                event.preventDefault();
                 return;
             }
             if (event.keyCode == 38) {
                 // Arrow up
                 this.increase_active_index(-1);
                 this.$nextTick(this.set_scroll_height);
+                event.preventDefault();
                 return;
             }
             if (event.keyCode == 13) {
                 // Enter
                 if (this.active_index >= 0) {
-                    let cmd = this.commands[this.active_index];
-                    cmdlist.execute(cmd.type, cmd.command);
-                    cmdlist.execute('command', 'command_palette.hide');
+                    this.execute();
+                    event.preventDefault();
                 }
                 return;
             }
             if (event.keyCode == 27) {
                 // TODO: make this a command
                 cmdlist.execute('command', 'command_palette.hide');
+                event.preventDefault();
             }
         },
     },
