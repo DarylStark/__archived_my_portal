@@ -7,7 +7,7 @@
             <Sidebar></Sidebar>
         </div>
         <Feeter></Feeter>
-        <CommandPalette></CommandPalette>
+        <CommandPalette v-if="cmd_palette_visible"></CommandPalette>
     </div>
 </template>
 
@@ -30,6 +30,11 @@ export default {
         Feeter,
         Sidebar,
         CommandPalette,
+    },
+    computed: {
+        cmd_palette_visible() {
+            return this.$store.state.ui.cmd_palette_visible;
+        },
     },
     created: function () {
         // Set a local variable that the callsbacks can use for 'this'

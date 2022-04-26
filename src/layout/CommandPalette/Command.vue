@@ -1,5 +1,5 @@
 <template>
-    <div id="command"><slot name="group"></slot>: <slot></slot></div>
+    <div class="command"><slot></slot></div>
 </template>
 
 <script>

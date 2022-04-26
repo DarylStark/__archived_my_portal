@@ -12,6 +12,9 @@
             <i class="fas fa-user-circle"></i>
         </div>
         <div class="menu">
+            <UserMenuItem icon="fa-sign-out-alt" v-on:click="show_cmd_palette"
+                >Command palette</UserMenuItem
+            >
             <UserMenuItem icon="fa-cog">Settings</UserMenuItem>
             <UserMenuItem
                 v-for="theme in installed_themes"
@@ -48,10 +51,13 @@ export default {
         },
     },
     methods: {
-        set_theme: function (theme) {
+        set_theme(theme) {
             this.$store.commit('set_theme', theme.name);
         },
-        logout: () => {
+        show_cmd_palette() {
+            this.$store.commit('cmd_palette_available_set', true);
+        },
+        logout() {
             api.execute(
                 new APICommand(
                     'aaa',

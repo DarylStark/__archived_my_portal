@@ -34,9 +34,19 @@ div#command_palette {
         display: flex;
         flex-direction: column;
 
+
         >div.command {
             width: 100%;
-            background-color: red;
+            padding: 8px;
+            cursor: pointer;
+            background: var(--cmd-palette-cmd-bg);
+            color: var(--cmd-palette-cmd-text);
+            border-bottom: 1px solid var(--cmd-palette-cmd-borders);
+
+            &:hover {
+                background: var(--cmd-palette-cmd-bg-hover);
+                color: var(--cmd-palette-cmd-text-hover);
+            }
         }
     }
 }

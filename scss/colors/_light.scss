@@ -3,13 +3,13 @@ body.theme-light {
     --bg: #eaeef6;
     --text: #222b45;
 
-    --header-bg: #ffffff;
+    --header-bg: #fff;
     --header-text: #222b45;
     --header-text-hover: #000;
     --header-borders: #eaeef6;
     --header-shadow: rgba(44, 51, 73, 0.1);
 
-    --nav-bg: #ffffff;
+    --nav-bg: #fff;
     --nav-text: #222b45;
     --nav-text-hover: #000;
     --nav-title-text: #222b45;
@@ -17,23 +17,28 @@ body.theme-light {
     --nav-borders: #eaeef6;
     --nav-borders-active: #E0610E;
 
-    --sidebar-bg: #ffffff;
+    --sidebar-bg: #fff;
 
-    --usermenu-bg: #ffffff;
+    --usermenu-bg: #fff;
     --usermenu-text: #222b45;
     --usermenu-text-hover: #000;
     --usermenu-sep-borders: #000;
     --usermenu-borders: #eaeef6;
 
-    --feeter-bg: #ffffff;
+    --feeter-bg: #fff;
     --feeter-text: #222b45;
     --feeter-text-hover: #000;
     --feeter-borders: #eaeef6;
 
     --loading-half: #00ff00;
 
-    --cmd-palette-bg: #ffffff;
+    --cmd-palette-bg: #fff;
+    --cmd-palette-text: #222b45;
     --cmd-palette-borders: #eaeef6;
+    --cmd-palette-cmd-bg-hover: #fff;
+    --cmd-palette-cmd-text-hover: #000;
+    --cmd-palette-cmd-borders: #eaeef6;
+
 
     // Components: Input
     --input-bg: #f7f9fc;

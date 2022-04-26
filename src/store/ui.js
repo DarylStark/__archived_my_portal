@@ -11,7 +11,8 @@ export default {
             navigation_visible: true,
             sidebar_available: false,
             sidebar_visible: false,
-            device_type: null
+            device_type: null,
+            cmd_palette_visible: false
         }
     },
     mutations: {
@@ -139,6 +140,10 @@ export default {
 
             // If the sidebar is unavailble, we hide it as well
             state.sidebar_visible = false;
+        },
+        cmd_palette_available_set(state, value) {
+            // Method to set the availability of the command palette
+            state.cmd_palette_visible = value;
         },
     },
 };
