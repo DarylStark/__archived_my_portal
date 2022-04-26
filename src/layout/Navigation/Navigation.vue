@@ -10,16 +10,19 @@
             icon="fa-list"
             title="Dashboard"
             url="/dashboard"
+            id="nav_dashboard"
         ></NavigationSection>
         <NavigationSection
             icon="fa-tags"
             title="Tags"
             url="/tags"
+            id="nav_tags"
         ></NavigationSection>
         <NavigationSection
             icon="fa-book-open"
             title="Notes"
             url="/notes"
+            id="nav_notes"
             custom_submenu
         >
             <NavigationFolders></NavigationFolders>
@@ -28,33 +31,63 @@
             icon="fa-rss"
             title="RSS feeds"
             url="/rss"
+            id="nav_rss"
             custom_submenu
             ><NavigationFolders></NavigationFolders
         ></NavigationSection>
 
-        <NavigationSection icon="fa-person" title="Personal" url="/personal">
-            <NavigationItem url="/social">Social</NavigationItem>
-            <NavigationItem url="/music">Music</NavigationItem>
-            <NavigationItem url="/finances">Finances</NavigationItem>
+        <NavigationSection
+            icon="fa-person"
+            title="Personal"
+            url="/personal"
+            id="nav_personal"
+        >
+            <NavigationItem
+                url="/social"
+                title="Social"
+                id="nav_social"
+            ></NavigationItem>
+            <NavigationItem
+                url="/music"
+                title="Music"
+                id="nav_music"
+            ></NavigationItem>
+            <NavigationItem
+                url="/finances"
+                title="Finances"
+                id="nav_finances"
+            ></NavigationItem>
         </NavigationSection>
 
         <NavigationSection
             icon="fa-graduation-cap"
             title="Personal Development"
             url="/personal_development"
+            id="nav_personal_development"
         >
-            <NavigationItem url="/certifications"
-                >Certifications</NavigationItem
-            >
-            <NavigationItem url="/courses">Courses</NavigationItem>
+            <NavigationItem
+                url="/certifications"
+                title="Certifications"
+                id="nav_certifications"
+            ></NavigationItem>
+            <NavigationItem
+                url="/courses"
+                title="Courses"
+                id="nav_courses"
+            ></NavigationItem>
         </NavigationSection>
 
         <NavigationSection
             icon="fa-building"
             title="Professional"
             url="/professional"
+            id="nav_professional"
         >
-            <NavigationItem url="/jobs">Jobs</NavigationItem>
+            <NavigationItem
+                url="/jobs"
+                title="Jobs"
+                id="nav_jobs"
+            ></NavigationItem>
         </NavigationSection>
     </div>
 </template>

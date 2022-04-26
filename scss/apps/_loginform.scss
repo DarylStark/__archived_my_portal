@@ -3,4 +3,10 @@ div#app_loginform {
         width: 600px;
         max-width: 90%;
     }
+
+    .form {
+        >.input {
+            margin-bottom: 16px;
+        }
+    }
 }

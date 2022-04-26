@@ -9,7 +9,7 @@
                     </CardTitleAction>
                 </template>
 
-                <div v-if="state == 'credentials'">
+                <div v-if="state == 'credentials'" class="form">
                     <Input
                         id="username"
                         ref="username"
@@ -37,7 +37,7 @@
                     </Input>
                 </div>
 
-                <div v-if="state == 'second_factor'">
+                <div v-if="state == 'second_factor'" class="form">
                     <Input
                         id="second_factor"
                         ref="second_factor"

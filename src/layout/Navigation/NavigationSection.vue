@@ -5,7 +5,11 @@
             custom
             v-slot="{ href, route, navigate, isActive, is_exact_active }"
         >
-            <li v-on:click="click_title" v-bind:class="{ active: isActive }">
+            <li
+                v-on:click="click_title"
+                v-bind:class="{ active: isActive }"
+                v-bind:id="id"
+            >
                 <div class="icon">
                     <i v-bind:class="['fas', icon]"></i>
                 </div>
@@ -27,8 +31,21 @@
 </template>
 
 <script>
+import cmdlist from '../../my/command_list';
+
 export default {
     name: 'NavigationSection',
+    created() {
+        cmdlist.add_command(
+            'global',
+            'Navigation',
+            'navigation.open_' + this.id,
+            this.title,
+            function () {
+                // TODO: add command
+            }
+        );
+    },
     data: () => {
         return {
             active: false,
@@ -51,7 +68,14 @@ export default {
         },
     },
     props: {
-        title: String,
+        id: {
+            type: String,
+            mandatory: true,
+        },
+        title: {
+            type: String,
+            mandatory: true,
+        },
         icon: {
             type: String,
             mandatory: false,
