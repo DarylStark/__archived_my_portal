@@ -72,9 +72,10 @@ export default {
                 device_type = 'phone';
 
                 // If we change from something to phone, we have to hide the
-                // navigation
+                // navigation and the sidebar
                 if (state.device_type != 'phone') {
                     this.commit('navigation_visible_set', false);
+                    this.commit('sidebar_visible_set', false);
                 }
             }
 
