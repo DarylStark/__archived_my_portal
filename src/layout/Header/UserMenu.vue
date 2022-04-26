@@ -55,6 +55,7 @@ export default {
             this.$store.commit('set_theme', theme.name);
         },
         show_cmd_palette() {
+            // TODO: make this a command
             this.$store.commit('cmd_palette_available_set', true);
         },
         logout() {

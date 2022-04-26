@@ -41,9 +41,8 @@ export default {
             'Navigation',
             'navigation.open_' + this.id,
             this.title,
-            function () {
-                // TODO: add command
-            }
+            this.$router.push,
+            this.url
         );
     },
     data: () => {

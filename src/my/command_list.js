@@ -1,26 +1,41 @@
 class CommandList {
     constructor() {
         this.commands = [];
-        this.notes = [];
+        this.command_methods = new Map();
+
+        // TODO: read the tags from the database
+        this.tags = [
+            {
+                fullname: 'My first tag',
+                type: 'tag',
+                command: 'my-first-tag'
+            },
+            {
+                fullname: 'My second tag',
+                type: 'tag',
+                command: 'my-second-tag'
+            }
+        ];
+
+        // Create the map with possible prefixes
+        this.search_prefixes = new Map([
+            ['#', 'tags']
+        ]);
     }
 
-    add_command(scope, group, command, title, method) {
-        // Add the command
+    add_command(scope, group, command, title, method, args = undefined) {
+        // Add the command to the list
         this.commands.push({
+            type: 'command',
             scope: scope,
             group: group,
             command: command,
             title: title,
-            method: method,
             fullname: group + ': ' + title
         });
 
-        // Create the map with possible prefixes
-        this.search_prefixes = new Map([
-            ['#', 'tags'],
-            ['>', 'notes'],
-            [':', 'rss'],
-        ]);
+        // Add the method to the map
+        this.command_methods.set(command, [method, args]);
     }
 
     sort_method(first, second) {
@@ -43,18 +58,7 @@ class CommandList {
         }
 
         if (list == 'tags') {
-            // TODO: Make this the real tags
-            lst = [{ fullname: 'tag1' }, { fullname: 'Routz' }, { fullname: 'tag2' }];
-        }
-
-        if (list == 'notes') {
-            // TODO: Make this the real notes
-            lst = [{ fullname: 'My first note' }, { fullname: 'My second note' }];
-        }
-
-        if (list == 'rss') {
-            // TODO: Make this the real RSS feeds
-            lst = [{ fullname: 'nu.nl newsfeed' }, { fullname: 'Apple nieuws' }];
+            lst = this.tags;
         }
 
         // Empty filter; return the complete list
@@ -69,6 +73,16 @@ class CommandList {
             let fullname = cmd.fullname.toLowerCase();
             return fullname.includes(filter);
         }).sort(this.sort_method);
+    }
+
+    execute(type, command) {
+        if (type == 'command') {
+            // Execute the command
+            let cmd = this.command_methods.get(command);
+            if (cmd) {
+                cmd[0](cmd[1]);
+            }
+        }
     }
 };
 

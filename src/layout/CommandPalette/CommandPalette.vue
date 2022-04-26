@@ -72,20 +72,31 @@ export default {
         },
         keypress(event) {
             if (event.keyCode == 40) {
+                // Arrow down
                 this.increase_active_index(1);
                 this.$nextTick(this.set_scroll_height);
                 return;
             }
             if (event.keyCode == 38) {
+                // Arrow up
                 this.increase_active_index(-1);
                 this.$nextTick(this.set_scroll_height);
                 return;
             }
             if (event.keyCode == 13) {
-                console.log('execute command: ');
-                console.log(this.active_index);
-                console.log(this.commands[this.active_index]);
+                // Enter
+                if (this.active_index >= 0) {
+                    let cmd = this.commands[this.active_index];
+                    cmdlist.execute(cmd.type, cmd.command);
+
+                    // TODO: make this a command
+                    this.$store.commit('cmd_palette_available_set', false);
+                }
                 return;
+            }
+            if (event.keyCode == 27) {
+                // TODO: make this a command
+                this.$store.commit('cmd_palette_available_set', false);
             }
         },
     },
