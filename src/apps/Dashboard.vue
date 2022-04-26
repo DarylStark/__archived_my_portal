@@ -20,6 +20,7 @@ import Feeter from '../layout/Feeter/Feeter.vue';
 import CommandPalette from '../layout/CommandPalette/CommandPalette.vue';
 import APICommand from '../my/api_command';
 import api from '../my/api';
+import cmdlist from '../my/command_list';
 
 export default {
     name: 'Dashboard',
@@ -40,10 +41,11 @@ export default {
         // Set a local variable that the callsbacks can use for 'this'
         let cb_this = this;
 
-        // Set the deviec type
+        // Set the device type
         this.$store.commit('set_device_type');
 
         // Get the color theme
+        this.$store.commit('set_theme_commands');
         this.$store.commit('set_theme');
 
         // Add a handler to the resizing of the window
@@ -68,6 +70,57 @@ export default {
                     console.log(error);
                 }
             )
+        );
+
+        // Add commands
+        cmdlist.add_command(
+            'global',
+            'Command Palette',
+            'command_palette.show',
+            'Show',
+            this.$store.commit,
+            ['cmd_palette_available_set', true]
+        );
+        cmdlist.add_command(
+            'global',
+            'Command Palette',
+            'command_palette.hide',
+            'Hide',
+            this.$store.commit,
+            ['cmd_palette_available_set', false]
+        );
+        cmdlist.add_command(
+            'global',
+            'User',
+            'user.open_settings',
+            'Settings',
+            this.$router.push,
+            '/settings'
+        );
+        cmdlist.add_command(
+            'global',
+            'User',
+            'user.logout',
+            'Logout',
+            function () {
+                api.execute(
+                    new APICommand(
+                        'aaa',
+                        'logout',
+                        'GET',
+                        null,
+                        function () {
+                            // Logged out; redirect the user to the
+                            // login screen
+                            window.location.href = '/ui/login';
+                        },
+                        function () {
+                            // TODO: Give an error
+                            console.log('Error while logging out');
+                        }
+                    )
+                );
+            }
         );
     },
 };

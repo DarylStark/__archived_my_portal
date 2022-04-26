@@ -1,4 +1,7 @@
 // Store to save UI information about the dashboard
+
+import cmdlist from '../my/command_list';
+
 export default {
     state() {
         return {
@@ -16,6 +19,19 @@ export default {
         }
     },
     mutations: {
+        set_theme_commands(state) {
+            let store = this;
+            state.installed_themes.forEach(function (theme) {
+                cmdlist.add_command(
+                    'global',
+                    'Set theme',
+                    'theme.' + theme.name,
+                    theme.full_name,
+                    store.commit,
+                    ['set_theme', theme.name]
+                );
+            });
+        },
         set_theme(state, my_color_theme = null) {
             // Method that sets the initial color theme. First, it tries to get
             // a configured color theme from the local storage. If there is
@@ -116,6 +132,12 @@ export default {
         },
         sidebar_visible_toggle(state) {
             // Method to toggle the visibility of the sidebar
+
+            if (!state.sidebar_available) {
+                state.sidebar_visible = false;
+                return;
+            }
+
             state.sidebar_visible = !state.sidebar_visible;
 
             // If the sidebar is visible and we are on a phone, we need to hide
@@ -126,6 +148,12 @@ export default {
         },
         sidebar_visible_set(state, value) {
             // Method to set the visibility of the sidebar
+
+            if (!state.sidebar_available) {
+                state.sidebar_visible = false;
+                return;
+            }
+
             state.sidebar_visible = value;
 
             // If the sidebar is visible and we are on a phone, we need to hide

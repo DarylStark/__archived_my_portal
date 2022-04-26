@@ -80,6 +80,10 @@ class CommandList {
             // Execute the command
             let cmd = this.command_methods.get(command);
             if (cmd) {
+                if (typeof cmd[1] === 'object' && cmd[1] !== null) {
+                    cmd[0](...cmd[1]);
+                    return;
+                }
                 cmd[0](cmd[1]);
             }
         }

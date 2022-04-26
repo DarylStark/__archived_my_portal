@@ -96,6 +96,7 @@
 import NavigationItem from './NavigationItem.vue';
 import NavigationSection from './NavigationSection.vue';
 import NavigationFolders from './NavigationFolders.vue';
+import cmdlist from '../../my/command_list';
 
 export default {
     name: 'Navigation',
@@ -106,6 +107,32 @@ export default {
         floating() {
             return this.$store.state.ui.device_type == 'phone';
         },
+    },
+    created() {
+        cmdlist.add_command(
+            'global',
+            'Navigation',
+            'navigation.hide',
+            'Hide',
+            this.$store.commit,
+            ['navigation_visible_set', false]
+        );
+        cmdlist.add_command(
+            'global',
+            'Navigation',
+            'navigation.show',
+            'Show',
+            this.$store.commit,
+            ['navigation_visible_set', true]
+        );
+        cmdlist.add_command(
+            'global',
+            'Navigation',
+            'navigation.toggle',
+            'Toggle',
+            this.$store.commit,
+            'navigation_visible_toggle'
+        );
     },
     components: {
         NavigationItem,

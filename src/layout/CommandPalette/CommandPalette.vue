@@ -88,15 +88,13 @@ export default {
                 if (this.active_index >= 0) {
                     let cmd = this.commands[this.active_index];
                     cmdlist.execute(cmd.type, cmd.command);
-
-                    // TODO: make this a command
-                    this.$store.commit('cmd_palette_available_set', false);
+                    cmdlist.execute('command', 'command_palette.hide');
                 }
                 return;
             }
             if (event.keyCode == 27) {
                 // TODO: make this a command
-                this.$store.commit('cmd_palette_available_set', false);
+                cmdlist.execute('command', 'command_palette.hide');
             }
         },
     },

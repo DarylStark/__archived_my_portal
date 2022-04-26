@@ -12,10 +12,12 @@
             <i class="fas fa-user-circle"></i>
         </div>
         <div class="menu">
-            <UserMenuItem icon="fa-sign-out-alt" v-on:click="show_cmd_palette"
+            <UserMenuItem icon="fa-terminal" v-on:click="show_cmd_palette"
                 >Command palette</UserMenuItem
             >
-            <UserMenuItem icon="fa-cog">Settings</UserMenuItem>
+            <UserMenuItem icon="fa-cog" v-on:click="show_settings"
+                >Settings</UserMenuItem
+            >
             <UserMenuItem
                 v-for="theme in installed_themes"
                 icon="fa-adjust"
@@ -33,9 +35,8 @@
 </template>
 
 <script>
-import api from '../../my/api';
-import APICommand from '../../my/api_command';
 import UserMenuItem from './UserMenuItem.vue';
+import cmdlist from '../../my/command_list';
 
 export default {
     name: 'UserMenu',
@@ -51,31 +52,17 @@ export default {
         },
     },
     methods: {
+        show_settings() {
+            cmdlist.execute('command', 'user.open_settings');
+        },
         set_theme(theme) {
             this.$store.commit('set_theme', theme.name);
         },
         show_cmd_palette() {
-            // TODO: make this a command
-            this.$store.commit('cmd_palette_available_set', true);
+            cmdlist.execute('command', 'command_palette.show');
         },
         logout() {
-            api.execute(
-                new APICommand(
-                    'aaa',
-                    'logout',
-                    'GET',
-                    null,
-                    function () {
-                        // Logged out; redirect the user to the
-                        // login screen
-                        window.location.href = '/ui/login';
-                    },
-                    function () {
-                        // TODO: Give an error
-                        console.log('Error while logging out');
-                    }
-                )
-            );
+            cmdlist.execute('command', 'user.logout');
         },
     },
 };
