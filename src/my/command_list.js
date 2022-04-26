@@ -14,6 +14,13 @@ class CommandList {
             method: method,
             fullname: group + ': ' + title
         });
+
+        // Create the map with possible prefixes
+        this.search_prefixes = new Map([
+            ['#', 'tags'],
+            ['>', 'notes'],
+            ['@', 'rss'],
+        ]);
     }
 
     sort_method(first, second) {
@@ -23,8 +30,17 @@ class CommandList {
         return -1;
     }
 
-    get_list(filter, list = 'commands') {
+    get_list(filter) {
+        // Default list is the command list
         let lst = this.commands;
+
+        // Check if a prefix is given
+        let list = '';
+        let prefix = this.search_prefixes.get(filter[0]);
+        if (prefix) {
+            list = prefix;
+            filter = filter.substring(1);
+        }
 
         if (list == 'tags') {
             // TODO: Make this the real tags
