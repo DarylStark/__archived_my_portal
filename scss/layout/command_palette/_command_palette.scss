@@ -33,7 +33,7 @@ div#command_palette {
         overflow-x: hidden;
         display: flex;
         flex-direction: column;
-
+        position: relative;
 
         >div.command {
             width: 100%;
@@ -46,6 +46,11 @@ div#command_palette {
             &:hover {
                 background: var(--cmd-palette-cmd-bg-hover);
                 color: var(--cmd-palette-cmd-text-hover);
+            }
+
+            &.active {
+                background: var(--cmd-palette-cmd-bg-active);
+                color: var(--cmd-palette-cmd-text-active);
             }
         }
     }

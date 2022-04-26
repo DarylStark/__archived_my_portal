@@ -19,7 +19,7 @@ class CommandList {
         this.search_prefixes = new Map([
             ['#', 'tags'],
             ['>', 'notes'],
-            ['@', 'rss'],
+            [':', 'rss'],
         ]);
     }
 
