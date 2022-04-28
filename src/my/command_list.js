@@ -28,7 +28,7 @@ class CommandList {
         ]);
     }
 
-    add_command(scope, group, command, title, method, args = undefined, show = true, keybinding = undefined) {
+    add_command(scope, group, command, title, method, args = undefined, show = true, keybinding = undefined, enabled = true) {
         // Add the command to the list
         this.commands.push({
             type: 'command',
@@ -38,7 +38,8 @@ class CommandList {
             title: title,
             fullname: group + ': ' + title,
             show: show,
-            keybinding: keybinding
+            keybinding: keybinding,
+            enabled: enabled
         });
 
         // Add the method to the map
@@ -55,6 +56,17 @@ class CommandList {
             return 1;
         }
         return -1;
+    }
+
+    set_visibility_command(commands, visibility) {
+        // Method to set the visibility of a specific command
+        let cmd = this.commands.filter((c) => {
+            return commands.includes(c.command);
+        });
+
+        cmd.forEach((c) => {
+            c.show = visibility;
+        });
     }
 
     get_list(filter) {

@@ -168,6 +168,9 @@ export default {
 
             // If the sidebar is unavailble, we hide it as well
             state.sidebar_visible = false;
+
+            // Set the visibility of the sidebar commands
+            cmdlist.set_visibility_command(['sidebar.hide', 'sidebar.show', 'sidebar.toggle'], value);
         },
         cmd_palette_available_set(state, value) {
             // Method to set the availability of the command palette
