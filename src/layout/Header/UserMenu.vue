@@ -54,15 +54,18 @@ export default {
     methods: {
         show_settings() {
             cmdlist.execute('command', 'user.open_settings');
+            this.active = false;
         },
         set_theme(theme) {
             this.$store.commit('set_theme', theme.name);
         },
         show_cmd_palette() {
             cmdlist.execute('command', 'command_palette.show');
+            this.active = false;
         },
         logout() {
             cmdlist.execute('command', 'user.logout');
+            this.active = false;
         },
     },
 };
