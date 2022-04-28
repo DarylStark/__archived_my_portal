@@ -10,8 +10,8 @@ class Command {
         this.type = 'command';
         this.scope = 'global';
         this.command = '';
-        this.group = 'undefined';
-        this.title = 'undefined';
+        this.group = undefined;
+        this.title = undefined;
         this.show = true;
         this.keybinding = undefined;
         this.enabled = true;
@@ -29,7 +29,10 @@ class Command {
     }
 
     get fullname() {
-        return `${this.group}: ${this.title}`;
+        if (this.group) {
+            return `${this.group}: ${this.title}`;
+        }
+        return this.title;
     }
 }
 

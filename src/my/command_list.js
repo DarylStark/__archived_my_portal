@@ -10,20 +10,20 @@ class CommandList {
 
         // TODO: read the tags from the database
         this.tags = [
-            {
-                fullname: 'My first tag',
+            new Command({
                 type: 'tag',
-                command: 'my-first-tag',
+                title: 'My first tag',
+                command: 'my_first_tag',
                 show: true,
                 icon: 'fa-hashtag'
-            },
-            {
-                fullname: 'My second tag',
+            }),
+            new Command({
                 type: 'tag',
-                command: 'my-second-tag',
-                show: false,
+                title: 'My second tag',
+                command: 'my_second_tag',
+                show: true,
                 icon: 'fa-hashtag'
-            }
+            }),
         ];
 
         // Create the map with possible prefixes
