@@ -24,7 +24,8 @@ class CommandList {
 
         // Create the map with possible prefixes
         this.search_prefixes = new Map([
-            ['#', 'tags']
+            ['#', 'tags'],
+            ['>', 'commands']
         ]);
     }
 
@@ -70,8 +71,8 @@ class CommandList {
     }
 
     get_list(filter) {
-        // Default list is the command list
-        let lst = this.commands;
+        // Default list is empty. Can be set to anything
+        let lst = [];
 
         // Check if a prefix is given
         let list = '';
@@ -79,6 +80,12 @@ class CommandList {
         if (prefix) {
             list = prefix;
             filter = filter.substring(1);
+        }
+
+        if (list == 'commands') {
+            lst = this.commands.filter(function (item) {
+                return item.show;
+            });
         }
 
         if (list == 'tags') {

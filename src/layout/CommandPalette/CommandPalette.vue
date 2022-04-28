@@ -34,7 +34,7 @@ export default {
     },
     data() {
         return {
-            input: '',
+            input: '>',
             max_index: 0,
             active_index: -1,
         };
