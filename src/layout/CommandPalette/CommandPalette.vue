@@ -33,12 +33,14 @@ export default {
     components: { Input, Command },
     created() {
         this.$store.commit('dimmer_visible_set', true);
+        this.eventbus.on('dimmer-clicked', this.close);
     },
     mounted() {
         this.$refs.input.focus();
     },
     unmounted() {
         this.$store.commit('dimmer_visible_set', false);
+        this.eventbus.off('dimmer-clicked', this.close);
     },
     data() {
         return {
@@ -57,6 +59,9 @@ export default {
         },
     },
     methods: {
+        close() {
+            cmdlist.execute('command', 'command_palette.hide');
+        },
         increase_active_index(increase) {
             if (this.max_index >= 0) {
                 this.active_index += increase;
@@ -83,7 +88,7 @@ export default {
             if (index < 0) index = this.active_index;
             let cmd = this.commands[index];
             cmdlist.execute(cmd.type, cmd.command);
-            cmdlist.execute('command', 'command_palette.hide');
+            this.close();
         },
         keydown(event) {
             if (event.keyCode == 40) {
@@ -109,8 +114,8 @@ export default {
                 return;
             }
             if (event.keyCode == 27) {
-                // TODO: make this a command
-                cmdlist.execute('command', 'command_palette.hide');
+                // Escape
+                this.close();
                 event.preventDefault();
             }
         },
