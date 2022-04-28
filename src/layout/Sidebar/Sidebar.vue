@@ -50,6 +50,7 @@ export default {
                 method: this.$store.commit,
                 args: 'sidebar_visible_toggle',
                 icon: 'fa-list-ul',
+                keybinding: new KeyBinding(true, true, false, 'B'),
             })
         );
     },
