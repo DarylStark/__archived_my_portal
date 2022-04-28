@@ -13,7 +13,7 @@
             id="nav_dashboard"
         ></NavigationSection>
         <NavigationSection
-            icon="fa-tags"
+            icon="fa-hashtag"
             title="Tags"
             url="/tags"
             id="nav_tags"

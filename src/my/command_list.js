@@ -12,13 +12,15 @@ class CommandList {
                 fullname: 'My first tag',
                 type: 'tag',
                 command: 'my-first-tag',
-                show: true
+                show: true,
+                icon: 'fa-hashtag'
             },
             {
                 fullname: 'My second tag',
                 type: 'tag',
                 command: 'my-second-tag',
-                show: false
+                show: false,
+                icon: 'fa-hashtag'
             }
         ];
 
