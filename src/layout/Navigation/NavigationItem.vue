@@ -27,7 +27,11 @@ export default {
             'navigation.open_' + this.id,
             this.title,
             this.$router.push,
-            this.url
+            this.url,
+            true,
+            undefined,
+            true,
+            this.icon
         );
     },
     methods: {
@@ -46,6 +50,10 @@ export default {
             mandatory: true,
         },
         url: {
+            type: String,
+            mandatory: true,
+        },
+        icon: {
             type: String,
             mandatory: true,
         },

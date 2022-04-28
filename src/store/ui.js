@@ -1,6 +1,7 @@
 // Store to save UI information about the dashboard
 
 import cmdlist from '../my/command_list';
+import KeyBinding from '../my/keybinding';
 
 export default {
     state() {
@@ -25,12 +26,29 @@ export default {
                 cmdlist.add_command(
                     'global',
                     'Set theme',
-                    'theme.' + theme.name,
+                    'theme.set_theme_' + theme.name,
                     theme.full_name,
                     store.commit,
-                    ['set_theme', theme.name]
+                    ['set_theme', theme.name],
+                    true,
+                    undefined,
+                    true,
+                    'fa-adjust'
                 );
             });
+
+            cmdlist.add_command(
+                'global',
+                'Next theme',
+                'theme.next',
+                'Next theme',
+                store.commit,
+                ['next_theme'],
+                true,
+                new KeyBinding(true, false, false, "K"),
+                true,
+                'fa-adjust'
+            );
         },
         set_theme(state, my_color_theme = null) {
             // Method that sets the initial color theme. First, it tries to get

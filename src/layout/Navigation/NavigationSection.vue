@@ -42,7 +42,11 @@ export default {
             'navigation.open_' + this.id,
             this.title,
             this.$router.push,
-            this.url
+            this.url,
+            true,
+            undefined,
+            true,
+            this.icon
         );
     },
     data: () => {

@@ -46,16 +46,19 @@
                 url="/social"
                 title="Social"
                 id="nav_social"
+                icon="fa-person"
             ></NavigationItem>
             <NavigationItem
                 url="/music"
                 title="Music"
                 id="nav_music"
+                icon="fa-person"
             ></NavigationItem>
             <NavigationItem
                 url="/finances"
                 title="Finances"
                 id="nav_finances"
+                icon="fa-person"
             ></NavigationItem>
         </NavigationSection>
 
@@ -69,11 +72,13 @@
                 url="/certifications"
                 title="Certifications"
                 id="nav_certifications"
+                icon="fa-graduation-cap"
             ></NavigationItem>
             <NavigationItem
                 url="/courses"
                 title="Courses"
                 id="nav_courses"
+                icon="fa-graduation-cap"
             ></NavigationItem>
         </NavigationSection>
 
@@ -87,6 +92,7 @@
                 url="/jobs"
                 title="Jobs"
                 id="nav_jobs"
+                icon="fa-building"
             ></NavigationItem>
         </NavigationSection>
     </div>
@@ -117,7 +123,10 @@ export default {
             'Hide',
             this.$store.commit,
             ['navigation_visible_set', false],
-            true
+            true,
+            undefined,
+            true,
+            'fa-bars'
         );
         cmdlist.add_command(
             'global',
@@ -126,7 +135,10 @@ export default {
             'Show',
             this.$store.commit,
             ['navigation_visible_set', true],
-            true
+            true,
+            undefined,
+            true,
+            'fa-bars'
         );
         cmdlist.add_command(
             'global',

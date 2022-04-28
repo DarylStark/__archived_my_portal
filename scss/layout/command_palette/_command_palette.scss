@@ -55,6 +55,12 @@ div#command_palette {
                 color: var(--cmd-palette-cmd-text-active);
             }
 
+            .icon {
+                width: 24px;
+                flex-grow: 0;
+                text-align: center;
+            }
+
             .text {
                 flex-grow: 1;
             }
@@ -64,6 +70,7 @@ div#command_palette {
                 text-align: right;
 
                 >div {
+                    // TODO: Add to themes
                     background-color: #ccc;
                     color: black;
                     display: inline-block;

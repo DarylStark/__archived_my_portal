@@ -26,7 +26,10 @@ export default {
             'Hide',
             this.$store.commit,
             ['sidebar_visible_set', false],
-            true
+            true,
+            undefined,
+            true,
+            'fa-list-ul'
         );
         cmdlist.add_command(
             'global',
@@ -35,7 +38,10 @@ export default {
             'Show',
             this.$store.commit,
             ['sidebar_visible_set', true],
-            true
+            true,
+            undefined,
+            true,
+            'fa-list-ul'
         );
         cmdlist.add_command(
             'global',
@@ -45,7 +51,9 @@ export default {
             this.$store.commit,
             'sidebar_visible_toggle',
             true,
-            new KeyBinding(true, true, false, 'B')
+            new KeyBinding(true, true, false, 'B'),
+            true,
+            'fa-list-ul'
         );
     },
 };

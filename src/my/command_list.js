@@ -29,7 +29,7 @@ class CommandList {
         ]);
     }
 
-    add_command(scope, group, command, title, method, args = undefined, show = true, keybinding = undefined, enabled = true) {
+    add_command(scope, group, command, title, method, args = undefined, show = true, keybinding = undefined, enabled = true, icon = '') {
         // Add the command to the list
         this.commands.push({
             type: 'command',
@@ -40,7 +40,8 @@ class CommandList {
             fullname: group + ': ' + title,
             show: show,
             keybinding: keybinding,
-            enabled: enabled
+            enabled: enabled,
+            icon: icon
         });
 
         // Add the method to the map

@@ -15,6 +15,7 @@
                 v-bind:active="index == active_index"
                 v-on:click="execute(index)"
                 v-bind:keybinding="command.keybinding"
+                v-bind:icon="command.icon"
             >
                 {{ command.fullname }}
             </Command>
