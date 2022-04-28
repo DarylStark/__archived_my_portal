@@ -97,6 +97,7 @@ import NavigationItem from './NavigationItem.vue';
 import NavigationSection from './NavigationSection.vue';
 import NavigationFolders from './NavigationFolders.vue';
 import cmdlist from '../../my/command_list';
+import KeyBinding from '../../my/keybinding';
 
 export default {
     name: 'Navigation',
@@ -115,7 +116,8 @@ export default {
             'navigation.hide',
             'Hide',
             this.$store.commit,
-            ['navigation_visible_set', false]
+            ['navigation_visible_set', false],
+            true
         );
         cmdlist.add_command(
             'global',
@@ -123,7 +125,8 @@ export default {
             'navigation.show',
             'Show',
             this.$store.commit,
-            ['navigation_visible_set', true]
+            ['navigation_visible_set', true],
+            true
         );
         cmdlist.add_command(
             'global',
@@ -131,7 +134,9 @@ export default {
             'navigation.toggle',
             'Toggle',
             this.$store.commit,
-            'navigation_visible_toggle'
+            'navigation_visible_toggle',
+            true,
+            new KeyBinding(true, false, false, 'B')
         );
     },
     components: {

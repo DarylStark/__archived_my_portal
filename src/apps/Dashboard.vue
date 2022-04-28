@@ -20,6 +20,7 @@ import Feeter from '../layout/Feeter/Feeter.vue';
 import CommandPalette from '../layout/CommandPalette/CommandPalette.vue';
 import APICommand from '../my/api_command';
 import api from '../my/api';
+import KeyBinding from '../my/keybinding';
 import cmdlist from '../my/command_list';
 
 export default {
@@ -53,7 +54,27 @@ export default {
             this.$store.commit('set_device_type');
         });
 
+        window.addEventListener('keydown', (event) => {
+            if (event.key != 'Shift' && event.key != 'Alt') {
+                // Create a KeyBinding object
+                let binding = new KeyBinding(
+                    event.ctrlKey,
+                    event.shiftKey,
+                    event.altKey,
+                    event.key
+                );
+
+                // Execute the command. If we receive a true value, the command
+                // has been found and we can stop the default browser behaviour
+                // for the keybinding.
+                if (cmdlist.execute_from_keybinding(binding)) {
+                    event.preventDefault();
+                }
+            }
+        });
+
         // Retrieve UserSession and User details
+        // TODO: move this to a command so we can update it whenever we need
         api.execute(
             new APICommand(
                 'user_sessions',
@@ -80,7 +101,8 @@ export default {
             'Show',
             this.$store.commit,
             ['cmd_palette_available_set', true],
-            false
+            false,
+            new KeyBinding(true, true, false, 'P')
         );
         cmdlist.add_command(
             'global',
@@ -97,7 +119,9 @@ export default {
             'user.open_settings',
             'Settings',
             this.$router.push,
-            '/settings'
+            '/settings',
+            true,
+            new KeyBinding(true, false, false, ',')
         );
         cmdlist.add_command(
             'global',

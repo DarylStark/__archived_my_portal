@@ -6,6 +6,7 @@
 
 <script>
 import cmdlist from '../../my/command_list';
+import KeyBinding from '../../my/keybinding';
 
 export default {
     name: 'Sidebar',
@@ -24,7 +25,8 @@ export default {
             'sidebar.hide',
             'Hide',
             this.$store.commit,
-            ['sidebar_visible_set', false]
+            ['sidebar_visible_set', false],
+            true
         );
         cmdlist.add_command(
             'global',
@@ -32,7 +34,8 @@ export default {
             'sidebar.show',
             'Show',
             this.$store.commit,
-            ['sidebar_visible_set', true]
+            ['sidebar_visible_set', true],
+            true
         );
         cmdlist.add_command(
             'global',
@@ -40,7 +43,9 @@ export default {
             'sidebar.toggle',
             'Toggle',
             this.$store.commit,
-            'sidebar_visible_toggle'
+            'sidebar_visible_toggle',
+            true,
+            new KeyBinding(true, true, false, 'B')
         );
     },
 };

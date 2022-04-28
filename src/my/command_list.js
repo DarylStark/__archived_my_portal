@@ -1,7 +1,10 @@
 class CommandList {
+    // Class for the list of commands
+
     constructor() {
         this.commands = [];
         this.command_methods = new Map();
+        this.command_keybindings = new Map();
 
         // TODO: read the tags from the database
         this.tags = [
@@ -25,7 +28,7 @@ class CommandList {
         ]);
     }
 
-    add_command(scope, group, command, title, method, args = undefined, show = true) {
+    add_command(scope, group, command, title, method, args = undefined, show = true, keybinding = undefined) {
         // Add the command to the list
         this.commands.push({
             type: 'command',
@@ -34,11 +37,17 @@ class CommandList {
             command: command,
             title: title,
             fullname: group + ': ' + title,
-            show: show
+            show: show,
+            keybinding: keybinding
         });
 
         // Add the method to the map
         this.command_methods.set(command, [method, args]);
+
+        // Add the keybinding to the map
+        if (keybinding) {
+            this.command_keybindings.set(keybinding.get_string(), command);
+        }
     }
 
     sort_method(first, second) {
@@ -84,6 +93,8 @@ class CommandList {
     }
 
     execute(type, command) {
+        // Method to execute a command
+
         if (type == 'command') {
             // Execute the command
             let cmd = this.command_methods.get(command);
@@ -95,6 +106,18 @@ class CommandList {
                 cmd[0](cmd[1]);
             }
         }
+    }
+
+    execute_from_keybinding(keybinding) {
+        // Method that runs a command from a keybinding. Returns true if the
+        // binding is found, false if it isn't
+        let keybinding_string = keybinding.get_string();
+        let cmd = this.command_keybindings.get(keybinding_string);
+        if (cmd) {
+            this.execute('command', cmd);
+            return true;
+        }
+        return false;
     }
 };
 
