@@ -11,6 +11,7 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--header-borders);
+    z-index: $zindex-feeter;
 
     >div {
         flex-grow: 0;

@@ -8,7 +8,12 @@ $max-height-feeter: 50px;
 
 // Z-indexes for different items
 $zindex-dashboard: 3;
+$zindex-nav: 5;
+$zindex-sidebar: 5;
+$zindex-header: 10;
+$zindex-feeter: 10;
 $zindex-modal: 200;
+$zindex-dimmer: 100;
 
 // Import fonts
 @import 'fonts';

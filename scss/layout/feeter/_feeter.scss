@@ -10,6 +10,7 @@
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid var(--feeter-borders);
+    z-index: $zindex-header;
 
     >div {
         flex-grow: 0;
