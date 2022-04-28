@@ -37,11 +37,13 @@ div#command_palette {
 
         >div.command {
             width: 100%;
+            box-sizing: border-box;
             padding: 8px;
             cursor: pointer;
             background: var(--cmd-palette-cmd-bg);
             color: var(--cmd-palette-cmd-text);
             border-bottom: 1px solid var(--cmd-palette-cmd-borders);
+            display: flex;
 
             &:hover {
                 background: var(--cmd-palette-cmd-bg-hover);
@@ -51,6 +53,28 @@ div#command_palette {
             &.active {
                 background: var(--cmd-palette-cmd-bg-active);
                 color: var(--cmd-palette-cmd-text-active);
+            }
+
+            .text {
+                flex-grow: 1;
+            }
+
+            .keybinding {
+                flex-grow: 1;
+                text-align: right;
+
+                >div {
+                    background-color: #ccc;
+                    color: black;
+                    display: inline-block;
+                    border-radius: 2px;
+                    padding: 0 3px 0 3px;
+                    margin-right: 3px;
+
+                    &:last-child {
+                        margin-right: 0px;
+                    }
+                }
             }
         }
     }

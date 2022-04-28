@@ -6,7 +6,7 @@ class KeyBinding {
         this.ctrl = ctrl;
         this.shift = shift;
         this.alt = alt;
-        this.key = key;
+        this.key = key.toUpperCase();
     }
 
     get_string() {
@@ -23,6 +23,20 @@ class KeyBinding {
 
         // Return the resulting string
         return str;
+    }
+
+    get_keys() {
+        // Returns a list with the keys that are configured for this binding
+        let list = [];
+
+        // Add modifiers
+        if (this.ctrl) list.push("Ctrl");
+        if (this.shift) list.push("Shift");
+        if (this.alt) list.push("Alt");
+        list.push(this.key);
+
+        // Return the list
+        return list;
     }
 }
 
