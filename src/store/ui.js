@@ -17,7 +17,8 @@ export default {
             sidebar_available: false,
             sidebar_visible: false,
             device_type: null,
-            cmd_palette_visible: false
+            cmd_palette_visible: false,
+            dimmed: false
         }
     },
     mutations: {
@@ -192,5 +193,9 @@ export default {
             // Method to set the availability of the command palette
             state.cmd_palette_visible = value;
         },
+        dimmer_visible_set(state, value) {
+            // Method to enable or disable the dimmer
+            state.dimmed = value;
+        }
     },
 };

@@ -3,6 +3,7 @@ div#dashboard {
     flex-direction: column;
     flex-wrap: nowrap;
     height: 100%;
+    z-index: $zindex-dashboard;
 
     >.content_nav {
         flex-grow: 1;

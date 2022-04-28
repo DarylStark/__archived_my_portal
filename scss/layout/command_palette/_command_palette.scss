@@ -15,7 +15,7 @@ div#command_palette {
     max-width: 100%;
     background: var(--cmd-palette-bg);
     border: 1px solid var(--cmd-palette-borders);
-    z-index: 200;
+    z-index: $zindex-modal;
 
     display: flex;
     flex-direction: column;

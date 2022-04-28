@@ -6,6 +6,10 @@ $max-width-phone: 799px;
 $max-height-header: 76px;
 $max-height-feeter: 50px;
 
+// Z-indexes for different items
+$zindex-dashboard: 3;
+$zindex-modal: 200;
+
 // Import fonts
 @import 'fonts';
 
@@ -58,6 +62,7 @@ body {
 @import 'layout/navigation/navigation';
 @import 'layout/sidebar/sidebar';
 @import 'layout/command_palette/command_palette';
+@import 'layout/dimmer/dimmer';
 
 // Import layout elements
 @import 'layout/flexbox';

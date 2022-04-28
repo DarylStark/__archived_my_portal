@@ -31,8 +31,14 @@ import cmdlist from '../../my/command_list';
 export default {
     name: 'CommandPalette',
     components: { Input, Command },
+    created() {
+        this.$store.commit('dimmer_visible_set', true);
+    },
     mounted() {
         this.$refs.input.focus();
+    },
+    unmounted() {
+        this.$store.commit('dimmer_visible_set', false);
     },
     data() {
         return {

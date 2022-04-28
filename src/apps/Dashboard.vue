@@ -8,6 +8,7 @@
         </div>
         <Feeter></Feeter>
         <CommandPalette v-if="cmd_palette_visible"></CommandPalette>
+        <Dimmer v-if="dimmed"></Dimmer>
     </div>
 </template>
 
@@ -23,6 +24,7 @@ import api from '../my/api';
 import KeyBinding from '../my/keybinding';
 import cmdlist from '../my/command_list';
 import Command from '../my/command';
+import Dimmer from '../layout/Dimmer/Dimmer.vue';
 
 export default {
     name: 'Dashboard',
@@ -33,10 +35,14 @@ export default {
         Feeter,
         Sidebar,
         CommandPalette,
+        Dimmer,
     },
     computed: {
         cmd_palette_visible() {
             return this.$store.state.ui.cmd_palette_visible;
+        },
+        dimmed() {
+            return this.$store.state.ui.dimmed;
         },
     },
     created: function () {
