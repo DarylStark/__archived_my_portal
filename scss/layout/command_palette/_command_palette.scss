@@ -70,9 +70,8 @@ div#command_palette {
                 text-align: right;
 
                 >div {
-                    // TODO: Add to themes
-                    background-color: #ccc;
-                    color: black;
+                    background: var(--cmd-palette-keybinding-bg);
+                    color: var(--cmd-palette-keybinding-text);
                     display: inline-block;
                     border-radius: 2px;
                     padding: 0 3px 0 3px;
