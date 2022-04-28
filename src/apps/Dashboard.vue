@@ -121,7 +121,9 @@ export default {
             this.$router.push,
             '/settings',
             true,
-            new KeyBinding(true, false, false, ',')
+            new KeyBinding(true, false, false, ','),
+            true,
+            'fa-sliders'
         );
         cmdlist.add_command(
             'global',
@@ -146,7 +148,12 @@ export default {
                         }
                     )
                 );
-            }
+            },
+            undefined,
+            true,
+            undefined,
+            true,
+            'fa-sign-out-alt'
         );
     },
 };

@@ -15,7 +15,7 @@
             <UserMenuItem icon="fa-terminal" v-on:click="show_cmd_palette"
                 >Command palette</UserMenuItem
             >
-            <UserMenuItem icon="fa-cog" v-on:click="show_settings"
+            <UserMenuItem icon="fa-sliders" v-on:click="show_settings"
                 >Settings</UserMenuItem
             >
             <UserMenuItem

@@ -148,7 +148,9 @@ export default {
             this.$store.commit,
             'navigation_visible_toggle',
             true,
-            new KeyBinding(true, false, false, 'B')
+            new KeyBinding(true, false, false, 'B'),
+            true,
+            'fa-bars'
         );
     },
     components: {
