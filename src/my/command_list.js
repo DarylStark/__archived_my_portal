@@ -1,3 +1,5 @@
+import Command from './command';
+
 class CommandList {
     // Class for the list of commands
 
@@ -31,27 +33,21 @@ class CommandList {
         ]);
     }
 
-    add_command(scope, group, command, title, method, args = undefined, show = true, keybinding = undefined, enabled = true, icon = '') {
-        // Add the command to the list
-        this.commands.push({
-            type: 'command',
-            scope: scope,
-            group: group,
-            command: command,
-            title: title,
-            fullname: group + ': ' + title,
-            show: show,
-            keybinding: keybinding,
-            enabled: enabled,
-            icon: icon
-        });
+    add_command(command_object) {
+        // Method to add commands to the list
+        if (!(command_object instanceof Command)) {
+            console.warn('Argument should be a Command-instance');
+            return;
+        }
+
+        this.commands.push(command_object);
 
         // Add the method to the map
-        this.command_methods.set(command, [method, args]);
+        this.command_methods.set(command_object.command, [command_object.method, command_object.args]);
 
         // Add the keybinding to the map
-        if (keybinding) {
-            this.command_keybindings.set(keybinding.get_string(), command);
+        if (command_object.keybinding) {
+            this.command_keybindings.set(command_object.keybinding.get_string(), command_object.command);
         }
     }
 

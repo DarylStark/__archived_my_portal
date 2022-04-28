@@ -104,6 +104,7 @@ import NavigationSection from './NavigationSection.vue';
 import NavigationFolders from './NavigationFolders.vue';
 import cmdlist from '../../my/command_list';
 import KeyBinding from '../../my/keybinding';
+import Command from '../../my/command';
 
 export default {
     name: 'Navigation',
@@ -117,40 +118,37 @@ export default {
     },
     created() {
         cmdlist.add_command(
-            'global',
-            'Navigation',
-            'navigation.hide',
-            'Hide',
-            this.$store.commit,
-            ['navigation_visible_set', false],
-            true,
-            undefined,
-            true,
-            'fa-bars'
+            new Command({
+                command: 'nav_bar.hide',
+                group: 'Navigation Bar',
+                title: 'Hide',
+                method: this.$store.commit,
+                args: ['navigation_visible_set', false],
+                icon: 'fa-bars',
+            })
         );
+
         cmdlist.add_command(
-            'global',
-            'Navigation',
-            'navigation.show',
-            'Show',
-            this.$store.commit,
-            ['navigation_visible_set', true],
-            true,
-            undefined,
-            true,
-            'fa-bars'
+            new Command({
+                command: 'nav_bar.show',
+                group: 'Navigation Bar',
+                title: 'Show',
+                method: this.$store.commit,
+                args: ['navigation_visible_set', true],
+                icon: 'fa-bars',
+            })
         );
+
         cmdlist.add_command(
-            'global',
-            'Navigation',
-            'navigation.toggle',
-            'Toggle',
-            this.$store.commit,
-            'navigation_visible_toggle',
-            true,
-            new KeyBinding(true, false, false, 'B'),
-            true,
-            'fa-bars'
+            new Command({
+                command: 'nav_bar.toggle',
+                group: 'Navigation Bar',
+                title: 'Toggle',
+                method: this.$store.commit,
+                args: 'navigation_visible_toggle',
+                icon: 'fa-bars',
+                keybinding: new KeyBinding(true, false, false, 'B'),
+            })
         );
     },
     components: {

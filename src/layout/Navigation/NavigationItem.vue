@@ -17,21 +17,20 @@
 
 <script>
 import cmdlist from '../../my/command_list';
+import Command from '../../my/command';
 
 export default {
     name: 'NavigationItem',
     created() {
         cmdlist.add_command(
-            'global',
-            'Navigation',
-            'navigation.open_' + this.id,
-            this.title,
-            this.$router.push,
-            this.url,
-            true,
-            undefined,
-            true,
-            this.icon
+            new Command({
+                command: 'navigation.open_' + this.id,
+                group: 'Navigation',
+                title: this.title,
+                method: this.$router.push,
+                args: this.url,
+                icon: this.icon,
+            })
         );
     },
     methods: {

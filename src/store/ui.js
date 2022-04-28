@@ -2,6 +2,7 @@
 
 import cmdlist from '../my/command_list';
 import KeyBinding from '../my/keybinding';
+import Command from '../my/command';
 
 export default {
     state() {
@@ -24,30 +25,27 @@ export default {
             let store = this;
             state.installed_themes.forEach(function (theme) {
                 cmdlist.add_command(
-                    'global',
-                    'Set theme',
-                    'theme.set_theme_' + theme.name,
-                    theme.full_name,
-                    store.commit,
-                    ['set_theme', theme.name],
-                    true,
-                    undefined,
-                    true,
-                    'fa-adjust'
+                    new Command({
+                        command: 'theme.set_theme_' + theme.name,
+                        group: 'Themes',
+                        title: theme.full_name,
+                        method: store.commit,
+                        args: ['set_theme', theme.name],
+                        icon: 'fa-adjust',
+                    })
                 );
             });
 
             cmdlist.add_command(
-                'global',
-                'Next theme',
-                'theme.next',
-                'Next theme',
-                store.commit,
-                ['next_theme'],
-                true,
-                new KeyBinding(true, false, false, "K"),
-                true,
-                'fa-adjust'
+                new Command({
+                    command: 'theme.next_theme',
+                    group: 'Themes',
+                    title: 'Next theme',
+                    method: store.commit,
+                    args: 'next_theme',
+                    icon: 'fa-adjust',
+                    keybinding: new KeyBinding(true, false, false, "K")
+                })
             );
         },
         set_theme(state, my_color_theme = null) {

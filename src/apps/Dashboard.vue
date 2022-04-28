@@ -22,6 +22,7 @@ import APICommand from '../my/api_command';
 import api from '../my/api';
 import KeyBinding from '../my/keybinding';
 import cmdlist from '../my/command_list';
+import Command from '../my/command';
 
 export default {
     name: 'Dashboard',
@@ -95,65 +96,64 @@ export default {
 
         // Add commands
         cmdlist.add_command(
-            'global',
-            'Command Palette',
-            'command_palette.show',
-            'Show',
-            this.$store.commit,
-            ['cmd_palette_available_set', true],
-            false,
-            new KeyBinding(true, true, false, 'P')
+            new Command({
+                command: 'command_palette.show',
+                group: 'Command Palette',
+                title: 'Show',
+                method: this.$store.commit,
+                args: ['cmd_palette_available_set', true],
+                show: false,
+                keybinding: new KeyBinding(true, true, false, 'P'),
+            })
         );
         cmdlist.add_command(
-            'global',
-            'Command Palette',
-            'command_palette.hide',
-            'Hide',
-            this.$store.commit,
-            ['cmd_palette_available_set', false],
-            false
+            new Command({
+                command: 'command_palette.hide',
+                group: 'Command Palette',
+                title: 'Hide',
+                method: this.$store.commit,
+                args: ['cmd_palette_available_set', false],
+                show: false,
+            })
         );
         cmdlist.add_command(
-            'global',
-            'User',
-            'user.open_settings',
-            'Settings',
-            this.$router.push,
-            '/settings',
-            true,
-            new KeyBinding(true, false, false, ','),
-            true,
-            'fa-sliders'
+            new Command({
+                command: 'user.open_settings',
+                group: 'User',
+                title: 'Settings',
+                method: this.$router.push,
+                args: '/settings',
+                keybinding: new KeyBinding(true, false, false, ','),
+                icon: 'fa-sliders',
+            })
         );
+
         cmdlist.add_command(
-            'global',
-            'User',
-            'user.logout',
-            'Logout',
-            function () {
-                api.execute(
-                    new APICommand(
-                        'aaa',
-                        'logout',
-                        'GET',
-                        null,
-                        function () {
-                            // Logged out; redirect the user to the
-                            // login screen
-                            window.location.href = '/ui/login';
-                        },
-                        function () {
-                            // TODO: Give an error
-                            console.log('Error while logging out');
-                        }
-                    )
-                );
-            },
-            undefined,
-            true,
-            undefined,
-            true,
-            'fa-sign-out-alt'
+            new Command({
+                command: 'user.logout',
+                group: 'User',
+                title: 'Logout',
+                method: () => {
+                    api.execute(
+                        new APICommand(
+                            'aaa',
+                            'logout',
+                            'GET',
+                            null,
+                            function () {
+                                // Logged out; redirect the user to the
+                                // login screen
+                                window.location.href = '/ui/login';
+                            },
+                            function () {
+                                // TODO: Give an error
+                                console.log('Error while logging out');
+                            }
+                        )
+                    );
+                },
+                icon: 'fa-sign-out-alt',
+            })
         );
     },
 };

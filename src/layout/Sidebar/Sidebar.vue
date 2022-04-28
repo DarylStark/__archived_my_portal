@@ -7,6 +7,7 @@
 <script>
 import cmdlist from '../../my/command_list';
 import KeyBinding from '../../my/keybinding';
+import Command from '../../my/command';
 
 export default {
     name: 'Sidebar',
@@ -20,40 +21,36 @@ export default {
     },
     created() {
         cmdlist.add_command(
-            'global',
-            'Sidebar',
-            'sidebar.hide',
-            'Hide',
-            this.$store.commit,
-            ['sidebar_visible_set', false],
-            true,
-            undefined,
-            true,
-            'fa-list-ul'
+            new Command({
+                command: 'sidebar.hide',
+                group: 'Sidebar',
+                title: 'Hide',
+                method: this.$store.commit,
+                args: ['sidebar_visible_set', false],
+                icon: 'fa-list-ul',
+            })
         );
+
         cmdlist.add_command(
-            'global',
-            'Sidebar',
-            'sidebar.show',
-            'Show',
-            this.$store.commit,
-            ['sidebar_visible_set', true],
-            true,
-            undefined,
-            true,
-            'fa-list-ul'
+            new Command({
+                command: 'sidebar.show',
+                group: 'Sidebar',
+                title: 'Show',
+                method: this.$store.commit,
+                args: ['sidebar_visible_set', true],
+                icon: 'fa-list-ul',
+            })
         );
+
         cmdlist.add_command(
-            'global',
-            'Sidebar',
-            'sidebar.toggle',
-            'Toggle',
-            this.$store.commit,
-            'sidebar_visible_toggle',
-            true,
-            new KeyBinding(true, true, false, 'B'),
-            true,
-            'fa-list-ul'
+            new Command({
+                command: 'sidebar.toggle',
+                group: 'Sidebar',
+                title: 'Toggle',
+                method: this.$store.commit,
+                args: 'sidebar_visible_toggle',
+                icon: 'fa-list-ul',
+            })
         );
     },
 };
