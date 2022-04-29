@@ -10,6 +10,11 @@
         <CommandPalette v-if="cmd_palette_visible"></CommandPalette>
         <Toasts></Toasts>
         <Dimmer v-if="dimmed"></Dimmer>
+        <SplashScreen
+            v-if="loading"
+            v-bind:done="loading_done"
+            v-bind:total="loading_total"
+        ></SplashScreen>
     </div>
 </template>
 
@@ -27,6 +32,7 @@ import cmdlist from '../my/command_list';
 import Command from '../my/command';
 import Dimmer from '../layout/Dimmer/Dimmer.vue';
 import Toasts from '../layout/Toasts/Toasts.vue';
+import SplashScreen from '../layout/SplashScreen/SplashScreen.vue';
 
 export default {
     name: 'Dashboard',
@@ -39,6 +45,7 @@ export default {
         CommandPalette,
         Dimmer,
         Toasts,
+        SplashScreen,
     },
     computed: {
         cmd_palette_visible() {
@@ -47,6 +54,29 @@ export default {
         dimmed() {
             return this.$store.state.ui.dimmed;
         },
+        loadin_elements() {
+            return [
+                this.$store.state.user_session.session == null,
+                this.component_loading,
+                this.$store.state.ui.current_theme == null,
+                this.$store.state.ui.theme_commands_set == null,
+                this.$store.state.ui.device_type == null,
+            ];
+        },
+        loading() {
+            return this.loadin_elements.includes(true);
+        },
+        loading_done() {
+            return this.loadin_elements.filter((x) => !x).length;
+        },
+        loading_total() {
+            return this.loadin_elements.length;
+        },
+    },
+    data() {
+        return {
+            component_loading: true,
+        };
     },
     created: function () {
         // Set a local variable that the callsbacks can use for 'this'
@@ -156,7 +186,6 @@ export default {
                 icon: 'fa-rotate',
             })
         );
-
         cmdlist.add_command(
             new Command({
                 command: 'user.logout',
@@ -192,6 +221,9 @@ export default {
                 icon: 'fa-sign-out-alt',
             })
         );
+
+        // Done with the creation
+        this.component_loading = false;
     },
 };
 </script>

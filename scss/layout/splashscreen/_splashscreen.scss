@@ -1,0 +1,30 @@
+#splashscreen {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: var(--splash-bg);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .progressbar {
+        width: 500px;
+        max-width: 70%;
+        display: flex;
+        justify-content: left;
+        background: var(--splash-progress-empty-bg);
+        border-radius: 3px;
+
+        div {
+            width: 0%;
+            height: 6px;
+            background: var(--splash-progress-filled-bg);
+            transition: width 250ms;
+            border-radius: 3px;
+        }
+    }
+}

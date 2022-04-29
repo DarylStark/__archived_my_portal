@@ -7,6 +7,7 @@ import Command from '../my/command';
 export default {
     state() {
         return {
+            theme_commands_set: false,
             current_theme: null,
             current_theme_index: null,
             installed_themes: [
@@ -48,6 +49,8 @@ export default {
                     keybinding: new KeyBinding(true, false, false, "K")
                 })
             );
+
+            state.theme_commands_set = true;
         },
         set_theme(state, my_color_theme = null) {
             // Method that sets the initial color theme. First, it tries to get

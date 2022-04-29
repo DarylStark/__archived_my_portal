@@ -1,5 +1,8 @@
 <template>
-    <div v-bind:class="['usermenu', { active: active }]">
+    <div
+        v-bind:class="['usermenu', { active: active }]"
+        v-if="$store.state.user_session.session"
+    >
         <div class="button" v-on:click="active = !active">
             <div
                 v-if="
