@@ -153,7 +153,7 @@ export default {
                 title: 'Restart',
                 method: () => location.reload(),
                 keybinding: new KeyBinding(true, true, false, 'F5'),
-                icon: 'fa-sliders',
+                icon: 'fa-rotate',
             })
         );
 
