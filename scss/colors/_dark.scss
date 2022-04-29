@@ -45,6 +45,18 @@ body.theme-dark {
 
     --dimmer-bg: #000;
 
+    --toast-bg: #222836;
+    --toast-borders: #222836;
+    --toast-info-borders: #ffffff;
+    --toast-info-title-text: #ffffff;
+    --toast-success-borders: #00ff00;
+    --toast-success-title-text: #00ff00;
+    --toast-warning-borders: #ffa500;
+    --toast-warning-title-text: #ffa500;
+    --toast-error-borders: #ff0000;
+    --toast-error-title-text: #ff0000;
+    --toast-shadow: #1a1f33;
+
     // Components: Input
     --input-bg: #192038;
     --input-bg-hover: #192038;

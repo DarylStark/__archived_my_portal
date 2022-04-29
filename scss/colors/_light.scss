@@ -45,6 +45,18 @@ body.theme-light {
 
     --dimmer-bg: #000;
 
+    --toast-bg: #fff;
+    --toast-borders: #fff;
+    --toast-info-borders: #000;
+    --toast-info-title-text: #000;
+    --toast-success-borders: #00ff00;
+    --toast-success-title-text: #00ff00;
+    --toast-warning-borders: #ffa500;
+    --toast-warning-title-text: #ffa500;
+    --toast-error-borders: #ff0000;
+    --toast-error-title-text: #ff0000;
+    --toast-shadow: rgba(44, 51, 73, 0.1);
+
     // Components: Input
     --input-bg: #f7f9fc;
     --input-bg-hover: #f7f9fc;

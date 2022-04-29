@@ -194,8 +194,6 @@ export default {
                         } else {
                             // Credentials were wrong
                             vue_this.set_state('credentials');
-
-                            // TODO: Give an error
                         }
                     }
                 )

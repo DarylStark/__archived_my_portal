@@ -8,6 +8,7 @@
         </div>
         <Feeter></Feeter>
         <CommandPalette v-if="cmd_palette_visible"></CommandPalette>
+        <Toasts></Toasts>
         <Dimmer v-if="dimmed"></Dimmer>
     </div>
 </template>
@@ -25,6 +26,7 @@ import KeyBinding from '../my/keybinding';
 import cmdlist from '../my/command_list';
 import Command from '../my/command';
 import Dimmer from '../layout/Dimmer/Dimmer.vue';
+import Toasts from '../layout/Toasts/Toasts.vue';
 
 export default {
     name: 'Dashboard',
@@ -36,6 +38,7 @@ export default {
         Sidebar,
         CommandPalette,
         Dimmer,
+        Toasts,
     },
     computed: {
         cmd_palette_visible() {
@@ -88,14 +91,23 @@ export default {
                 'current',
                 'GET',
                 null,
-                function (data) {
+                (data) => {
                     // We have the details. Let's save the user account and the
                     // session to the store for later user
                     cb_this.$store.commit('set_session', data.data);
                 },
                 (error) => {
-                    // TODO: give error
+                    // Something went wrong; print the error in the Console
                     console.log(error);
+
+                    // Give the user a error message on screen
+                    this.eventbus.emit('toast_show', {
+                        title: 'Error while retrieving user session',
+                        type: 'error',
+                        text: 'Something went wrong while retrieving the user session. See the console for more information',
+                        icon: 'fa-user-circle',
+                        timeout: -1,
+                    });
                 }
             )
         );
@@ -146,14 +158,22 @@ export default {
                             'logout',
                             'GET',
                             null,
-                            function () {
+                            () => {
                                 // Logged out; redirect the user to the
                                 // login screen
                                 window.location.href = '/ui/login';
                             },
-                            function () {
-                                // TODO: Give an error
-                                console.log('Error while logging out');
+                            (error) => {
+                                // Something went wrong; print the error in the Console
+                                console.log(error);
+
+                                // Give the user a error message on screen
+                                cb_this.eventbus.emit('toast_show', {
+                                    title: 'Error while logging out',
+                                    type: 'error',
+                                    text: 'Something went wrong while logging out the user session. See the console for more information',
+                                    icon: 'fa-sign-out-alt',
+                                });
                             }
                         )
                     );

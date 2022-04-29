@@ -14,6 +14,7 @@ $zindex-header: 10;
 $zindex-feeter: 10;
 $zindex-modal: 200;
 $zindex-dimmer: 100;
+$zindex-toasts: 150;
 
 // Import fonts
 @import 'fonts';
@@ -68,6 +69,7 @@ body {
 @import 'layout/sidebar/sidebar';
 @import 'layout/command_palette/command_palette';
 @import 'layout/dimmer/dimmer';
+@import 'layout/toasts/toasts';
 
 // Import layout elements
 @import 'layout/flexbox';
