@@ -148,6 +148,17 @@ export default {
 
         cmdlist.add_command(
             new Command({
+                command: 'ui.reload',
+                group: 'UI',
+                title: 'Restart',
+                method: () => location.reload(),
+                keybinding: new KeyBinding(true, true, false, 'F5'),
+                icon: 'fa-sliders',
+            })
+        );
+
+        cmdlist.add_command(
+            new Command({
                 command: 'user.logout',
                 group: 'User',
                 title: 'Logout',
