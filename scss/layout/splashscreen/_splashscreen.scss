@@ -5,7 +5,7 @@
     height: 100%;
     width: 100%;
     background: var(--splash-bg);
-    z-index: 500;
+    z-index: $zindex-splash-screen;
     display: flex;
     align-items: center;
     justify-content: center;
