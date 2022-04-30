@@ -145,6 +145,26 @@ export default {
                     // We have the details. Let's save the user account and the
                     // session to the store for later user
                     cb_this.$store.commit('set_session', data.data);
+
+                    // If no title is set for this session, we give the user a
+                    // toast with the option to go to the settingspage to set
+                    // a title
+                    console.log(data);
+                    if (!data.data.session.title) {
+                        cb_this.eventbus.emit('toast_show', {
+                            title: 'Usersession has no name',
+                            type: 'info',
+                            text: 'This usersession has no name set. Setting a name for this session will increase security and gives you the ability to identify the session. Click here to go to the settings to set a name.',
+                            icon: 'fa-user-circle',
+                            click: () => {
+                                cmdlist.execute(
+                                    'command',
+                                    'user.open_settings'
+                                );
+                                return true;
+                            },
+                        });
+                    }
                 },
                 (error) => {
                     // Something went wrong. We set the error in the store
