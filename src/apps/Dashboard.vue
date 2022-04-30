@@ -124,6 +124,11 @@ export default {
                 // for the keybinding.
                 if (cmdlist.execute_from_keybinding(binding)) {
                     event.preventDefault();
+                } else {
+                    // If we don't have a keybinding for this key, we raise an
+                    // global event. If there is something, like a menu, that
+                    // wants to do something with this, it can
+                    cb_this.eventbus.emit('keydown', binding);
                 }
             }
         });

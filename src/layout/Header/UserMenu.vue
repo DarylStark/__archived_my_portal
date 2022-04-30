@@ -49,6 +49,13 @@ export default {
             active: false,
         };
     },
+    created() {
+        this.eventbus.on('keydown', (binding) => {
+            if (binding.key == 'ESCAPE') {
+                this.active = false;
+            }
+        });
+    },
     computed: {
         installed_themes() {
             return this.$store.state.ui.installed_themes;
