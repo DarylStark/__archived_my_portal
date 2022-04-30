@@ -225,8 +225,12 @@ export default {
                                 cb_this.eventbus.emit('toast_show', {
                                     title: 'Error while logging out',
                                     type: 'error',
-                                    text: 'Something went wrong while logging out the user session. See the console for more information',
+                                    text: 'Something went wrong while logging out the user session. Click here to reload the page or see the console for error information',
                                     icon: 'fa-sign-out-alt',
+                                    click: () => {
+                                        location.reload();
+                                        return false;
+                                    },
                                 });
                             }
                         )

@@ -1,12 +1,10 @@
 <template>
-    <div v-bind:class="['toast', type]" v-on:click="dismiss">
+    <div v-bind:class="['toast', type]" v-on:click="click_action">
         <div class="icon" v-if="icon">
             <i v-bind:class="['fa-solid', icon]"></i>
         </div>
         <div class="title">{{ title }}</div>
-        <div class="text">
-            {{ text }}
-        </div>
+        <div class="text">{{ text }}</div>
     </div>
 </template>
 
@@ -14,6 +12,15 @@
 export default {
     name: 'Toast',
     methods: {
+        click_action() {
+            if (this.click) {
+                if (this.click()) {
+                    this.dismiss();
+                }
+            } else {
+                this.dismiss();
+            }
+        },
         dismiss() {
             // When the toast gets dismissed, we fire a 'dismiss_toast' event so
             // the parent knows to remove it from the stack.
@@ -52,6 +59,9 @@ export default {
             type: Number,
             required: false,
             default: 15,
+        },
+        click: {
+            required: false,
         },
     },
 };

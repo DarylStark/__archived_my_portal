@@ -9,6 +9,7 @@
             v-bind:type="toast.type"
             v-bind:icon="toast.icon"
             v-bind:timeout="toast.timeout"
+            v-bind:click="toast.click"
         ></Toast>
     </div>
 </template>
