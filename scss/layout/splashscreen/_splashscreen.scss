@@ -11,6 +11,22 @@
     justify-content: center;
     flex-direction: column;
 
+    .items {
+        margin-bottom: 24px;
+        width: 500px;
+        max-width: 70%;
+
+        div {
+            margin: 0px;
+            padding: 0 0 8px 0;
+            text-align: left;
+
+            i {
+                margin-right: 10px;
+            }
+        }
+    }
+
     .progressbar {
         width: 500px;
         max-width: 70%;

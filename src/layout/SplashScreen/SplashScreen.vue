@@ -1,5 +1,12 @@
 <template>
     <div id="splashscreen">
+        <div class="items">
+            <div v-for="element in elements" v-bind:key="element">
+                <i class="fas fa-spinner spin" v-if="element.loading"></i>
+                <i class="fas fa-check" v-if="!element.loading"></i>
+                {{ element.title }}
+            </div>
+        </div>
         <div class="progressbar">
             <div v-bind:style="progressbar_style"></div>
         </div>
@@ -10,6 +17,12 @@
 export default {
     name: 'SplashScreen',
     computed: {
+        done() {
+            return this.elements.filter((x) => !x.loading).length;
+        },
+        total() {
+            return this.elements.length;
+        },
         percent() {
             return (this.done / this.total) * 100;
         },
@@ -20,12 +33,8 @@ export default {
         },
     },
     props: {
-        done: {
-            type: Number,
-            required: true,
-        },
-        total: {
-            type: Number,
+        elements: {
+            type: Array,
             required: true,
         },
     },

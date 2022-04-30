@@ -12,8 +12,7 @@
         <Dimmer v-if="dimmed"></Dimmer>
         <SplashScreen
             v-if="loading"
-            v-bind:done="loading_done"
-            v-bind:total="loading_total"
+            v-bind:elements="loading_elements"
         ></SplashScreen>
     </div>
 </template>
@@ -54,23 +53,34 @@ export default {
         dimmed() {
             return this.$store.state.ui.dimmed;
         },
-        loadin_elements() {
+        loading_elements() {
             return [
-                this.$store.state.user_session.session == null,
-                this.component_loading,
-                this.$store.state.ui.current_theme == null,
-                this.$store.state.ui.theme_commands_set == null,
-                this.$store.state.ui.device_type == null,
+                {
+                    title: 'Retrieving user session',
+                    loading: this.$store.state.user_session.session == null,
+                },
+                {
+                    title: 'Setting listeners and commands',
+                    loading: this.component_loading,
+                },
+                {
+                    title: 'Setting theme',
+                    loading: this.$store.state.ui.current_theme == null,
+                },
+                {
+                    title: 'Configuring theme switcher',
+                    loading: this.$store.state.ui.theme_commands_set == null,
+                },
+                {
+                    title: 'Setting device type',
+                    loading: this.$store.state.ui.device_type == null,
+                },
             ];
         },
         loading() {
-            return this.loadin_elements.includes(true);
-        },
-        loading_done() {
-            return this.loadin_elements.filter((x) => !x).length;
-        },
-        loading_total() {
-            return this.loadin_elements.length;
+            return this.loading_elements
+                .map((element) => element.loading)
+                .includes(true);
         },
     },
     data() {
