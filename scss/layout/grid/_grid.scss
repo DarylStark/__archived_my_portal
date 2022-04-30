@@ -1,3 +1,128 @@
-div.flexbox {
+$grid-desktop-max-cols: 12;
+$grid-tablet-max-cols: 8;
+$grid-phone-max-cols: 4;
+
+div.grid {
     display: flex;
+    width: 100%;
+    max-width: 1500px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    margin: 0 auto 0 auto;
+    left: 0px;
+    padding: 0;
+
+    >.spacer {
+        border: 0;
+        box-sizing: border-box;
+        max-width: 100%;
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding: 0;
+    }
+
+    >.cell {
+        border: 0;
+        box-sizing: border-box;
+        max-width: 100%;
+        padding: 0;
+        flex-grow: 0;
+        flex-shrink: 0;
+
+        @media (min-width: $max-width-tablet) {
+            @for $i from 1 through $grid-desktop-max-cols {
+                &.cols-#{$i} {
+                    width: percentage($i * (100 / $grid-desktop-max-cols / 100));
+                }
+
+                &.cols-desktop-#{$i} {
+                    width: percentage($i * (100 / $grid-desktop-max-cols / 100)) !important;
+                }
+            }
+
+            &.hide-tablet {
+                display: initial;
+            }
+
+            &.hide-phone {
+                display: initial;
+            }
+
+            &.hide-desktop {
+                display: none;
+            }
+        }
+
+        @media (min-width: $max-width-phone) and (max-width: $max-width-tablet) {
+
+            // Column sizes for tablet
+            @for $i from 1 through $grid-tablet-max-cols {
+                &.cols-#{$i} {
+                    width: percentage($i * (100 / $grid-tablet-max-cols / 100));
+                }
+
+                &.cols-tablet-#{$i} {
+                    width: percentage($i * (100 / $grid-tablet-max-cols / 100)) !important;
+                }
+            }
+
+            @for $i from $grid-tablet-max-cols+1 through $grid-desktop-max-cols {
+                &.cols-#{$i} {
+                    width: 100%;
+                }
+
+                &.cols-tablet-#{$i} {
+                    width: 100% !important;
+                }
+            }
+
+            &.hide-desktop {
+                display: initial;
+            }
+
+            &.hide-phone {
+                display: initial;
+            }
+
+            &.hide-tablet {
+                display: none;
+            }
+        }
+
+        @media (max-width: $max-width-phone) {
+
+            // Column sizes for tablet
+            @for $i from 1 through $grid-phone-max-cols {
+                &.cols-#{$i} {
+                    width: percentage($i * (100 / $grid-phone-max-cols / 100));
+                }
+
+                &.cols-phone-#{$i} {
+                    width: percentage($i * (100 / $grid-phone-max-cols / 100)) !important;
+                }
+            }
+
+            @for $i from $grid-phone-max-cols+1 through $grid-desktop-max-cols {
+                &.cols-#{$i} {
+                    width: 100%;
+                }
+
+                &.cols-phone-#{$i} {
+                    width: 100% !important;
+                }
+            }
+
+            &.hide-desktop {
+                display: initial;
+            }
+
+            &.hide-tablet {
+                display: initial;
+            }
+
+            &.hide-phone {
+                display: none;
+            }
+        }
+    }
 }
