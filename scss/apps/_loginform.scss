@@ -1,12 +1,18 @@
 div#app_loginform {
-    form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    >form {
         width: 600px;
         max-width: 90%;
-    }
 
-    .form {
-        >.input {
-            margin-bottom: 16px;
+        .form {
+            >.input {
+                margin-bottom: 16px;
+            }
         }
     }
 }

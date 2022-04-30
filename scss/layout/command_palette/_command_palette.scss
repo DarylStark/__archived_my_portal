@@ -8,10 +8,7 @@ div#command_palette {
     right: 0;
     top: 0;
     bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto;
     max-width: 100%;
     background: var(--cmd-palette-bg);
     border: 1px solid var(--cmd-palette-borders);

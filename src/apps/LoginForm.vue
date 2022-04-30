@@ -1,5 +1,5 @@
 <template>
-    <Flexbox centerv centerh id="app_loginform">
+    <div id="app_loginform">
         <form v-on:submit="submit_form">
             <Card title_icon="fas fa-user-circle">
                 <template #title>Login</template>
@@ -65,13 +65,12 @@
                 </template>
             </Card>
         </form>
-    </Flexbox>
+    </div>
 </template>
 
 <script>
 import api from '../my/api.js';
 import APICommand from '../my/api_command.js';
-import Flexbox from '../layout/Flexbox';
 import Card from '../cards/Card.vue';
 import CardTitleAction from '../cards/CardTitleAction.vue';
 import Input from '../components/Input.vue';
@@ -81,7 +80,6 @@ import axios from 'axios';
 export default {
     name: 'LoginForm',
     components: {
-        Flexbox,
         Card,
         CardTitleAction,
         Input,
