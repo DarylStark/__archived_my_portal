@@ -3,7 +3,8 @@ export default {
     state() {
         return {
             user_fullname: null,
-            session: null
+            session: null,
+            session_error: null
         }
     },
     mutations: {
@@ -12,6 +13,11 @@ export default {
                 account: session.user_account,
                 session: session.session
             }
+        },
+        set_session_error(state, error) {
+            state.session = null;
+            state.session_error = error;
+            console.log(error);
         }
     }
 };

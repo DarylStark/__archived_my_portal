@@ -21,6 +21,11 @@
             padding: 0 0 8px 0;
             text-align: left;
 
+            &.error {
+                color: var(--splash-error-text);
+                font-weight: bold;
+            }
+
             i {
                 margin-right: 10px;
             }
@@ -42,5 +47,13 @@
             transition: width 250ms;
             border-radius: 3px;
         }
+
+        &.error div {
+            background: var(--splash-progress-filled-error-bg);
+        }
+    }
+
+    .reload {
+        text-align: center;
     }
 }

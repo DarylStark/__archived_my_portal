@@ -58,28 +58,33 @@ export default {
                 {
                     title: 'Retrieving user session',
                     loading: this.$store.state.user_session.session == null,
+                    error: this.$store.state.user_session.session_error != null,
                 },
                 {
                     title: 'Setting listeners and commands',
                     loading: this.component_loading,
+                    error: false,
                 },
                 {
                     title: 'Setting theme',
                     loading: this.$store.state.ui.current_theme == null,
+                    error: false,
                 },
                 {
                     title: 'Configuring theme switcher',
                     loading: this.$store.state.ui.theme_commands_set == null,
+                    error: false,
                 },
                 {
                     title: 'Setting device type',
                     loading: this.$store.state.ui.device_type == null,
+                    error: false,
                 },
             ];
         },
         loading() {
             return this.loading_elements
-                .map((element) => element.loading)
+                .map((element) => element.loading || element.error)
                 .includes(true);
         },
     },
@@ -137,16 +142,10 @@ export default {
                     cb_this.$store.commit('set_session', data.data);
                 },
                 (error) => {
-                    // Something went wrong; print the error in the Console
-                    console.log(error);
-
-                    // Give the user a error message on screen
-                    this.eventbus.emit('toast_show', {
-                        title: 'Error while retrieving user session',
-                        type: 'error',
-                        text: 'Something went wrong while retrieving the user session. See the console for more information',
-                        icon: 'fa-user-circle',
-                        timeout: -1,
+                    // Something went wrong. We set the error in the store
+                    // so the Splash Screen knows not to go away
+                    cb_this.$store.commit('set_session_error', {
+                        error,
                     });
                 }
             )
