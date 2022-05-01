@@ -1,0 +1,37 @@
+#settings {
+    padding: 16px 24px 16px 24px;
+
+    .setting {
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+        flex-wrap: nowrap;
+        margin-bottom: 12px;
+
+        &:last-child {
+            margin: 0;
+        }
+
+        >.icon {
+            flex-grow: 0;
+            flex-shrink: 0;
+            margin-right: 12px;
+        }
+
+        >.name {
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
+
+        >.value {
+            flex-grow: 1;
+            flex-shrink: 1;
+            text-align: right;
+        }
+
+        &:hover {
+            color: var(--settings-setting-text-hover);
+            cursor: pointer;
+        }
+    }
+}

@@ -5,6 +5,18 @@ div.card {
     border-width: 1px;
     border-style: solid;
     border-radius: 0;
+    box-shadow: none;
+
+    &.no_padding {
+        >div.content {
+            padding: 0 !important;
+        }
+    }
+
+    &.raised {
+        box-shadow: 0.5rem 0.5rem 1rem 0 var(--card-shadow);
+
+    }
 
     >div.title {
         background: var(--card-title-bg);

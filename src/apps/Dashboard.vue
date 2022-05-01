@@ -149,7 +149,6 @@ export default {
                     // If no title is set for this session, we give the user a
                     // toast with the option to go to the settingspage to set
                     // a title
-                    console.log(data);
                     if (!data.data.session.title) {
                         cb_this.eventbus.emit('toast_show', {
                             title: 'Usersession has no name',

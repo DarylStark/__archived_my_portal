@@ -93,16 +93,8 @@ body.theme-light {
     --card-title-action-bg: #ffffff;
     --card-title-action-bg-hover: #598bff;
     --card-title-action-text: #000;
+    --card-shadow: rgba(44, 51, 73, 0.1);
 
-    // Unused?
-    // --font-text-family: 'Open Sans';
-    // --font-text-size: 15px;
-    // --font-text-weight: 400;
-    // --font-text-style: normal;
-    // --font-text-decoration: none;
-    // --font-card-title-family: 'Open Sans';
-    // --font-card-title-size: 15px;
-    // --font-card-title-weight: 600;
-    // --font-card-title-style: normal;
-    // --font-card-title-decoration: none;
+    // Pages: Settings
+    --settings-setting-text-hover: #000;
 }

@@ -3,7 +3,7 @@
         <label v-if="!!this.$slots['default']" v-bind:for="id">
             <slot></slot>
         </label>
-        <div v-bind:class="['field', { error: error }, { disabled: disabled }]">
+        <div v-bind:class="outer_class">
             <div class="icon" v-if="icon">
                 <i v-bind:class="icon"></i>
             </div>
@@ -16,6 +16,7 @@
                 ref="input"
                 v-on:input="update_value"
                 v-bind:disabled="disabled"
+                v-on:keydown="keydown"
             />
         </div>
     </div>
@@ -38,6 +39,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        flat: {
+            type: Boolean,
+            default: false,
+        },
         disabled: {
             type: Boolean,
             default: false,
@@ -45,8 +50,33 @@ export default {
         validate_re: {
             type: String,
         },
+        align: {
+            type: String,
+            default: 'left',
+        },
     },
-    emits: ['update:modelValue'],
+    computed: {
+        outer_class() {
+            // Classlist for the out div of the input
+
+            let classes = [
+                'field',
+                { error: this.error },
+                { disabled: this.disabled },
+                { flat: this.flat },
+            ];
+
+            if (['left', 'center', 'right'].includes(this.align)) {
+                // A correct 'align' type is given
+                classes = [...classes, 'align-' + this.align];
+            }
+
+            // Return the class list
+            return classes;
+        },
+    },
+
+    emits: ['update:modelValue', 'key'],
     methods: {
         focus(select = false) {
             this.$refs.input.focus();
@@ -74,6 +104,9 @@ export default {
 
             // No regex given; all values are considered correct
             return true;
+        },
+        keydown(event) {
+            this.$emit('key', event);
         },
     },
 };

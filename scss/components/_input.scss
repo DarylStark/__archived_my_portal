@@ -40,7 +40,7 @@ div.input {
             font-family: 'Open Sans';
             font-size: 15px;
             font-weight: 400;
-            font-style: normale;
+            font-style: normal;
             text-decoration: none;
             border: 0px;
             color: var(--input-text);
@@ -65,6 +65,34 @@ div.input {
         &:focus-within {
             background: var(--input-bg-active);
             border: 1px solid var(--input-border-active);
+        }
+
+        &.flat {
+            border: 0;
+            background: none;
+            padding: 0px;
+
+            >input {
+                padding: 0px;
+            }
+        }
+
+        &.align-left {
+            >input {
+                text-align: left;
+            }
+        }
+
+        &.align-center {
+            >input {
+                text-align: center;
+            }
+        }
+
+        &.align-right {
+            >input {
+                text-align: right;
+            }
         }
     }
 }

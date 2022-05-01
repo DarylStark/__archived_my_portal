@@ -124,15 +124,11 @@ export default {
 
             if (state == 'second_factor') {
                 this.state = 'second_factor';
-                this.$nextTick(function () {
-                    this.$refs.second_factor.focus(true);
-                });
+                this.$nextTick(() => this.$refs.second_factor.focus(true));
             } else if (state == 'credentials') {
                 this.state = 'credentials';
                 this.second_factor = null;
-                this.$nextTick(function () {
-                    this.$refs.username.focus(true);
-                });
+                this.$nextTick(() => this.$refs.username.focus(true));
             }
         },
         submit_form(event) {

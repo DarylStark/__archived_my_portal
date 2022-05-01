@@ -1,33 +1,30 @@
-$grid-desktop-max-cols: 12;
-$grid-tablet-max-cols: 8;
-$grid-phone-max-cols: 4;
-
 div.grid {
     display: flex;
     width: 100%;
-    max-width: 1500px;
+    max-width: 1300px;
     box-sizing: border-box;
     flex-wrap: wrap;
-    margin: 0 auto 0 auto;
+    margin: auto;
     left: 0px;
-    padding: 0;
+    padding: 5px 5px 0 0;
 
+    &.center {
+        justify-content: center;
+    }
+
+    >.spacer {
+        flex-grow: 1 !important;
+        flex-shrink: 1 !important;
+    }
+
+    >.cell,
     >.spacer {
         border: 0;
         box-sizing: border-box;
         max-width: 100%;
-        flex-grow: 1;
-        flex-shrink: 1;
-        padding: 0;
-    }
-
-    >.cell {
-        border: 0;
-        box-sizing: border-box;
-        max-width: 100%;
-        padding: 0;
         flex-grow: 0;
         flex-shrink: 0;
+        padding: 0 0 0 5px;
 
         @media (min-width: $max-width-tablet) {
             @for $i from 1 through $grid-desktop-max-cols {

@@ -6,7 +6,7 @@ import Dashboard from './pages/Dashboard'
 import Tags from './pages/Tags'
 import Notes from './pages/Notes'
 import RSS from './pages/RSS'
-import Settings from './pages/Settings'
+import Settings from './pages/Settings/Settings'
 
 // Error page
 import Error404 from './pages/errors/Error-404'

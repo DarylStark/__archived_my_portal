@@ -6,6 +6,11 @@ $max-width-phone: 799px;
 $max-height-header: 76px;
 $max-height-feeter: 50px;
 
+// Grid sizes
+$grid-desktop-max-cols: 12;
+$grid-tablet-max-cols: 8;
+$grid-phone-max-cols: 4;
+
 // Z-indexes for different items
 $zindex-dashboard: 3;
 $zindex-nav: 5;
@@ -73,6 +78,7 @@ body {
 @import 'layout/toasts/toasts';
 @import 'layout/splashscreen/splashscreen';
 @import 'layout/grid/grid';
+@import 'layout/titles/sectiontitle';
 
 // Import cards
 @import 'cards/card';
@@ -84,3 +90,6 @@ body {
 
 // Import animations
 @import 'animations';
+
+// Import pages
+@import 'pages/settings'
