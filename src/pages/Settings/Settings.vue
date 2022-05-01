@@ -10,13 +10,25 @@
         <Cell cols="8">
             <Card no_padding>
                 <div id="settings">
-                    <Setting icon="fa-user-circle" value="my fullname"
+                    <Setting
+                        icon="fa-user-circle"
+                        setting_type="account"
+                        setting="fullname"
+                        validate_re="^[A-Za-z0-9\- ]+$"
                         >Full name</Setting
                     >
-                    <Setting icon="fa-user" value="my username"
+                    <Setting
+                        icon="fa-user"
+                        setting_type="account"
+                        setting="username"
+                        validate_re="^[A-Za-z][A-Za-z0-9\-_.]+$"
                         >Username</Setting
                     >
-                    <Setting icon="fa-at" value="my address"
+                    <Setting
+                        icon="fa-at"
+                        setting_type="account"
+                        setting="email"
+                        validate_re="^[a-z0-9_\-.]+@[a-z.-]+\.[a-z.]+$"
                         >E-mail address</Setting
                     >
                 </div>

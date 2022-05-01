@@ -1,6 +1,29 @@
 #settings {
     padding: 16px 24px 16px 24px;
 
+    .error {
+        color: var(--settings-setting-text-error);
+
+        &:hover {
+            color: var(--settings-setting-text-error) !important;
+        }
+
+        >.value {
+            color: var(--settings-setting-text-error) !important;
+        }
+
+        input {
+            color: var(--settings-setting-text-error) !important;
+        }
+    }
+
+    .saving {
+        &:hover {
+            color: inherit !important;
+            cursor: inherit;
+        }
+    }
+
     .setting {
         display: flex;
         width: 100%;
