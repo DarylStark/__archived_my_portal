@@ -13,12 +13,14 @@
         </div>
         <div class="value" v-if="edit_mode">
             <Input
+                v-if="type == 'input'"
                 type="text"
                 flat
                 align="right"
                 v-model="value"
                 ref="input"
                 v-on:key="keydown"
+                v-on:focusout="focusout"
                 id="test"
                 v-bind:disabled="saving"
                 v-bind:validate_re="validate_re"
@@ -63,6 +65,11 @@ export default {
         setting_type: {
             type: String,
             required: true,
+        },
+        type: {
+            type: String,
+            required: false,
+            default: 'input',
         },
     },
     created() {
@@ -169,6 +176,15 @@ export default {
             if (event.keyCode == 13) {
                 // Save
                 this.save_setting();
+            }
+        },
+        focusout(event) {
+            if (this.value != this.correct_value) {
+                this.edit();
+            } else {
+                this.edit_mode = false;
+                this.error = false;
+                this.value = this.correct_value;
             }
         },
     },

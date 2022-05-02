@@ -17,6 +17,7 @@
                 v-on:input="update_value"
                 v-bind:disabled="disabled"
                 v-on:keydown="keydown"
+                v-on:focusout="focusout"
             />
         </div>
     </div>
@@ -76,7 +77,7 @@ export default {
         },
     },
 
-    emits: ['update:modelValue', 'key'],
+    emits: ['update:modelValue', 'key', 'focusout'],
     methods: {
         focus(select = false) {
             this.$refs.input.focus();
@@ -107,6 +108,9 @@ export default {
         },
         keydown(event) {
             this.$emit('key', event);
+        },
+        focusout(event) {
+            this.$emit('focusout', event);
         },
     },
 };

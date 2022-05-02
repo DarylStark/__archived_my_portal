@@ -9,7 +9,7 @@
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
         <Cell cols="8">
             <Card no_padding>
-                <div id="settings">
+                <div class="settings">
                     <Setting
                         icon="fa-user-circle"
                         setting_type="account"
@@ -30,6 +30,27 @@
                         setting="email"
                         validate_re="^[a-z0-9_\-.]+@[a-z.-]+\.[a-z.]+$"
                         >E-mail address</Setting
+                    >
+                </div>
+            </Card>
+        </Cell>
+        <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
+
+        <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
+        <Cell cols="8">
+            <SectionTitle>Security</SectionTitle>
+        </Cell>
+        <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
+
+        <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
+        <Cell cols="8">
+            <Card no_padding>
+                <div class="settings">
+                    <Setting
+                        icon="fa-key"
+                        setting_type="account"
+                        setting="password"
+                        >Password</Setting
                     >
                 </div>
             </Card>
