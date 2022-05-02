@@ -1,5 +1,5 @@
 div.settings {
-    padding: 16px 24px 16px 24px;
+    // padding: 16px 24px 16px 24px;
 
     .error {
         color: var(--settings-setting-text-error);
@@ -29,10 +29,10 @@ div.settings {
         width: 100%;
         box-sizing: border-box;
         flex-wrap: nowrap;
-        margin-bottom: 12px;
+        padding: 12px 24px 0px 24px;
 
         &:last-child {
-            margin: 0;
+            padding-bottom: 12px;
         }
 
         >.icon {
@@ -57,5 +57,10 @@ div.settings {
             color: var(--settings-setting-text-hover);
             cursor: pointer;
         }
+    }
+
+    .block {
+        padding: 12px 24px 12px 24px;
+        margin-top: 12px;
     }
 }
