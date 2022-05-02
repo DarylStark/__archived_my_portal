@@ -2,7 +2,7 @@
     <Grid>
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
         <Cell cols="8">
-            <SectionTitle>Account settings</SectionTitle>
+            <SectionTitle>Account</SectionTitle>
         </Cell>
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
 
@@ -36,7 +36,7 @@
 
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
         <Cell cols="8">
-            <SectionTitle>Security</SectionTitle>
+            <SectionTitle>Account security</SectionTitle>
         </Cell>
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
 
