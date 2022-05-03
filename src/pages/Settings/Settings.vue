@@ -54,11 +54,23 @@
                 <div class="block" v-show="password_edit">
                     <PasswordChanger ref="password_changer"></PasswordChanger>
                 </div>
-                <Setting icon="fa-key" v-on:click="open_update_tfa">
+                <Setting
+                    icon="fa-key"
+                    v-on:click="open_update_tfa"
+                    v-bind:saving="tfa_saving"
+                >
                     Two-factor authentication
-                    <template v-slot:value>Disabled</template>
+                    <template v-slot:value>
+                        <template v-if="tfa_enabled">Enabled</template>
+                        <template v-if="!tfa_enabled">Disabled</template>
+                    </template>
                 </Setting>
-                <div class="block" v-if="tfa_edit">2FA EDIT</div>
+                <div class="block" v-if="tfa_edit && tfa_enabled">
+                    Disable 2FA
+                </div>
+                <div class="block" v-if="tfa_edit && !tfa_enabled">
+                    <Enable2FA></Enable2FA>
+                </div>
             </Card>
         </Cell>
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
@@ -86,6 +98,7 @@ import TextSetting from './TextSetting.vue';
 import Setting from './Setting.vue';
 import DateTime from '../../my/datetime';
 import PasswordChanger from './PasswordChanger';
+import Enable2FA from './Enable2FA.vue';
 
 export default {
     name: 'Settings',
@@ -97,12 +110,14 @@ export default {
         TextSetting,
         Setting,
         PasswordChanger,
+        Enable2FA,
     },
     data() {
         return {
             password_edit: false,
             password_saving: false,
             tfa_edit: false,
+            tfa_saving: false,
         };
     },
     created() {
@@ -115,6 +130,15 @@ export default {
             if (success) {
                 this.password_edit = false;
                 this.$refs.password_changer.reset();
+            }
+        });
+        this.eventbus.on('second_factor_setting', () => {
+            this.tfa_saving = true;
+        });
+        this.eventbus.on('second_factor_set', (success) => {
+            this.tfa_saving = false;
+            if (success) {
+                this.tfa_edit = false;
             }
         });
     },
@@ -131,6 +155,9 @@ export default {
                 changed_text = 'yesterday';
             }
             return `Changed ${changed_text}`;
+        },
+        tfa_enabled() {
+            return this.$store.state.user_session.session.account.second_factor;
         },
     },
     methods: {

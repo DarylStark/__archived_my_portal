@@ -59,6 +59,19 @@ body {
     }
 }
 
+// Links
+a:link,
+a:active,
+a:visited {
+    color: var(--link-text);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--link-text-hover);
+    text-decoration: none;
+}
+
 // Import apps
 @import 'apps/dashboard';
 @import 'apps/loginform';
