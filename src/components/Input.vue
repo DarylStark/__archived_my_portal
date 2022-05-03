@@ -77,7 +77,7 @@ export default {
         },
     },
 
-    emits: ['update:modelValue', 'key', 'focusout'],
+    emits: ['update:modelValue', 'key', 'focusout', 'enter'],
     methods: {
         focus(select = false) {
             this.$refs.input.focus();
@@ -106,8 +106,14 @@ export default {
             // No regex given; all values are considered correct
             return true;
         },
+        enter(event) {
+            this.$emit('enter', event);
+        },
         keydown(event) {
             this.$emit('key', event);
+            if (event.keyCode == 13) {
+                this.enter();
+            }
         },
         focusout(event) {
             this.$emit('focusout', event);

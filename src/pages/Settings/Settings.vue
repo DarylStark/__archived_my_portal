@@ -43,15 +43,21 @@
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
         <Cell cols="8">
             <Card no_padding no_border_bottom class="settings">
-                <LabelSetting icon="fa-lock" v-on:click="open_update_password">
+                <Setting
+                    icon="fa-lock"
+                    v-on:click="open_update_password"
+                    v-bind:saving="password_saving"
+                >
                     Password
-                    <template v-slot:label>{{ password_date }}</template>
-                </LabelSetting>
-                <div class="block" v-if="password_edit">PW EDIT</div>
-                <LabelSetting icon="fa-key" v-on:click="open_update_tfa">
+                    <template v-slot:value>{{ password_date }}</template>
+                </Setting>
+                <div class="block" v-show="password_edit">
+                    <PasswordChanger ref="password_changer"></PasswordChanger>
+                </div>
+                <Setting icon="fa-key" v-on:click="open_update_tfa">
                     Two-factor authentication
-                    <template v-slot:label>Disabled</template>
-                </LabelSetting>
+                    <template v-slot:value>Disabled</template>
+                </Setting>
                 <div class="block" v-if="tfa_edit">2FA EDIT</div>
             </Card>
         </Cell>
@@ -77,8 +83,9 @@ import Cell from '../../layout/Grid/Cell';
 import Card from '../../cards/Card';
 import SectionTitle from '../../layout/Titles/SectionTitle.vue';
 import TextSetting from './TextSetting.vue';
-import LabelSetting from './LabelSetting.vue';
+import Setting from './Setting.vue';
 import DateTime from '../../my/datetime';
+import PasswordChanger from './PasswordChanger';
 
 export default {
     name: 'Settings',
@@ -88,16 +95,28 @@ export default {
         Card,
         SectionTitle,
         TextSetting,
-        LabelSetting,
+        Setting,
+        PasswordChanger,
     },
     data() {
         return {
             password_edit: false,
+            password_saving: false,
             tfa_edit: false,
         };
     },
     created() {
         this.$store.commit('sidebar_available_set', true);
+        this.eventbus.on('changing_password', () => {
+            this.password_saving = true;
+        });
+        this.eventbus.on('changed_password', (success) => {
+            this.password_saving = false;
+            if (success) {
+                this.password_edit = false;
+                this.$refs.password_changer.reset();
+            }
+        });
     },
     computed: {
         password_date() {
@@ -117,6 +136,9 @@ export default {
     methods: {
         open_update_password() {
             this.password_edit = !this.password_edit;
+            if (this.password_edit) {
+                this.$nextTick(() => this.$refs.password_changer.focus());
+            }
         },
         open_update_tfa() {
             this.tfa_edit = !this.tfa_edit;

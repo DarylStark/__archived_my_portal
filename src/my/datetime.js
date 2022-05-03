@@ -16,7 +16,13 @@ class DateTime {
             this.datetime.getMonth(),
             this.datetime.getDate()
         );
-        return (today - date) / (1000 * 3600 * 24);
+        return Math.ceil((today - date) / (1000 * 3600 * 24));
+    }
+
+    database_string() {
+        // Method that returns the date as a string for the database
+        let s = this.datetime.toISOString();
+        return `${s.split('T')[0]} ${s.split('T')[1].split('.')[0]}`;
     }
 }
 

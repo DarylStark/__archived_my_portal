@@ -17,7 +17,9 @@ export default {
         set_session_error(state, error) {
             state.session = null;
             state.session_error = error;
-            console.log(error);
+        },
+        set_password_date(state, date) {
+            state.session.account['password_date'] = date;
         }
     }
 };

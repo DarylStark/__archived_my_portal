@@ -60,7 +60,21 @@ div.settings {
     }
 
     .block {
+        background: var(--settings-block-bg);
         padding: 12px 24px 12px 24px;
         margin-top: 12px;
+        border-top: 1px solid var(--settings-borders);
+        border-bottom: 1px solid var(--settings-borders);
+
+        div {
+            >.input {
+                margin-bottom: 12px;
+            }
+        }
+
+        div.save {
+            margin-top: 12px;
+            text-align: center;
+        }
     }
 }

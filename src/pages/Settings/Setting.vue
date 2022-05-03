@@ -1,23 +1,22 @@
 <template>
     <div class="setting">
-        <div class="icon">
+        <div class="icon" v-if="icon">
             <i v-bind:class="['fas', icon]" v-if="!saving"></i>
             <i class="fas fa-spinner spin" v-if="saving"></i>
         </div>
         <div class="name"><slot></slot></div>
         <div class="value">
-            <slot name="label"></slot>
+            <slot name="value"></slot>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'FoldSetting',
+    name: 'Setting',
     props: {
         icon: {
             type: String,
-            default: 'fa-gear',
         },
         saving: {
             type: Boolean,
