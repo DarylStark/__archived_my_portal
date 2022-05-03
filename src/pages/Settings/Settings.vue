@@ -65,11 +65,11 @@
                         <template v-if="!tfa_enabled">Disabled</template>
                     </template>
                 </Setting>
-                <div class="block" v-if="tfa_edit && tfa_enabled">
-                    Disable 2FA
-                </div>
                 <div class="block" v-if="tfa_edit && !tfa_enabled">
                     <Enable2FA></Enable2FA>
+                </div>
+                <div class="block" v-if="tfa_edit && tfa_enabled">
+                    <Disable2FA></Disable2FA>
                 </div>
             </Card>
         </Cell>
@@ -99,6 +99,7 @@ import Setting from './Setting.vue';
 import DateTime from '../../my/datetime';
 import PasswordChanger from './PasswordChanger';
 import Enable2FA from './Enable2FA.vue';
+import Disable2FA from './Disable2FA.vue';
 
 export default {
     name: 'Settings',
@@ -111,6 +112,7 @@ export default {
         Setting,
         PasswordChanger,
         Enable2FA,
+        Disable2FA,
     },
     data() {
         return {
@@ -136,6 +138,13 @@ export default {
             this.tfa_saving = true;
         });
         this.eventbus.on('second_factor_set', (success) => {
+            this.tfa_saving = false;
+            if (success) {
+                this.tfa_edit = false;
+            }
+        });
+
+        this.eventbus.on('second_factor_disabled', (success) => {
             this.tfa_saving = false;
             if (success) {
                 this.tfa_edit = false;

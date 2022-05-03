@@ -7,6 +7,15 @@ button.button {
     cursor: pointer;
     border-radius: 4px;
 
+    &.critical {
+        background: var(--button-critical-bg) !important;
+
+        &:hover {
+            outline: none;
+            background: var(--button-critical-bg-hover) !important;
+        }
+    }
+
     >div {
         display: flex;
 

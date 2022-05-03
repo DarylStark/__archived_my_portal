@@ -1,6 +1,6 @@
 <template>
     <button
-        class="button"
+        v-bind:class="['button', { critical: critical }]"
         v-bind:type="type"
         v-bind:disabled="disabled"
         v-on:click="click"
@@ -31,6 +31,10 @@ export default {
             default: false,
         },
         loading: {
+            type: Boolean,
+            default: false,
+        },
+        critical: {
             type: Boolean,
             default: false,
         },

@@ -101,8 +101,11 @@ a:hover {
 @import 'components/input';
 @import 'components/spacer';
 
+// Import pages
+@import 'pages/settings';
+
 // Import animations
 @import 'animations';
 
-// Import pages
-@import 'pages/settings'
+// Import generic classes
+@import 'generic';
