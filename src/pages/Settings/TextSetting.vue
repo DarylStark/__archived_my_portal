@@ -1,41 +1,42 @@
 <template>
-    <div
-        v-bind:class="['setting', { error: error }, { saving: saving }]"
+    <Setting
+        v-bind:error="error"
+        v-bind:saving="saving"
         v-on:click="edit"
+        v-bind:icon="icon"
     >
-        <div class="icon">
-            <i v-bind:class="['fas', icon]" v-if="!saving"></i>
-            <i class="fas fa-spinner spin" v-if="saving"></i>
-        </div>
-        <div class="name"><slot></slot></div>
-        <div class="value" v-if="!edit_mode">
-            {{ value }}
-        </div>
-        <div class="value" v-if="edit_mode">
-            <Input
-                v-if="type == 'input'"
-                type="text"
-                flat
-                align="right"
-                v-model="value"
-                ref="input"
-                v-on:key="keydown"
-                v-on:focusout="focusout"
-                id="test"
-                v-bind:disabled="saving"
-                v-bind:validate_re="validate_re"
-            ></Input>
-        </div>
-    </div>
+        <slot></slot>
+        <template v-slot:value>
+            <div class="value" v-if="!edit_mode">
+                {{ value }}
+            </div>
+            <div class="value" v-if="edit_mode">
+                <Input
+                    v-if="type == 'input'"
+                    type="text"
+                    flat
+                    align="right"
+                    v-model="value"
+                    ref="input"
+                    v-on:key="keydown"
+                    v-on:focusout="focusout"
+                    id="test"
+                    v-bind:disabled="saving"
+                    v-bind:validate_re="validate_re"
+                ></Input>
+            </div>
+        </template>
+    </Setting>
 </template>
 
 <script>
+import Setting from './Setting.vue';
 import Input from '../../components/Input.vue';
 import api from '../../my/api';
 import APICommand from '../../my/api_command';
 
 export default {
-    name: 'Setting',
+    name: 'TextSetting',
     data() {
         return {
             edit_mode: false,
@@ -47,6 +48,7 @@ export default {
     },
     components: {
         Input,
+        Setting,
     },
     props: {
         icon: {
@@ -78,7 +80,7 @@ export default {
                 this.$store.state.user_session.session.account[this.setting];
             this.correct_value = this.value;
         } else {
-            // Set value for 'normal' setting
+            // TODO: Set value for 'normal' setting
         }
     },
     methods: {
@@ -98,12 +100,6 @@ export default {
                     this.error = false;
 
                     if (this.setting_type == 'account') {
-                        // When everything was correct
-                        // this.correct_value = this.value;
-                        // this.$store.state.user_session.session.account[
-                        //     this.setting
-                        // ] = this.value;
-
                         // Create data object for the the API request
                         let data = {};
                         data[this.setting] = this.value;

@@ -1,5 +1,5 @@
 <template>
-    <div class="setting">
+    <div v-bind:class="['setting', { error: error }]">
         <div class="icon" v-if="icon">
             <i v-bind:class="['fas', icon]" v-if="!saving"></i>
             <i class="fas fa-spinner spin" v-if="saving"></i>
@@ -19,6 +19,10 @@ export default {
             type: String,
         },
         saving: {
+            type: Boolean,
+            default: false,
+        },
+        error: {
             type: Boolean,
             default: false,
         },
