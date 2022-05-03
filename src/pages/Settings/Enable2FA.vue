@@ -1,5 +1,5 @@
 <template>
-    <div id="">
+    <div>
         <template v-if="!enabling">
             <p>
                 Enabling Two Factor Authentication secures your account by
