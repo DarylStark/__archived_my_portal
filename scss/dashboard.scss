@@ -60,6 +60,7 @@ body {
 }
 
 // Links
+// TODO: Move to '_generic.scss'
 a:link,
 a:active,
 a:visited {
@@ -100,6 +101,7 @@ a:hover {
 @import 'components/button';
 @import 'components/input';
 @import 'components/spacer';
+@import 'components/toggle';
 
 // Import pages
 @import 'pages/settings';
