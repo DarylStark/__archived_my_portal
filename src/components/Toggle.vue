@@ -1,6 +1,6 @@
 <template>
     <div
-        v-bind:class="['toggle', { checked: value }]"
+        v-bind:class="['toggle', { checked: value }, { disabled: disabled }]"
         v-on:click="toggle_click"
     >
         <div class="inner"></div>
@@ -21,22 +21,29 @@ export default {
             required: false,
             default: true,
         },
+        disabled: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
     data() {
         return {
-            value: this.checked,
+            value: this.toggled,
         };
     },
     emits: ['changed'],
     methods: {
         toggle_click() {
-            if (this.toc) {
+            if (this.toc && !this.disable) {
                 this.toggle();
             }
         },
-        toggle() {
-            this.value = !this.value;
-            this.$emit('changed');
+        toggle(emit_change = true) {
+            if (!this.disable) {
+                this.value = !this.value;
+                if (emit_change) this.$emit('changed');
+            }
         },
     },
 };

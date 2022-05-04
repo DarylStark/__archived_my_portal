@@ -56,11 +56,6 @@ export default {
         loading_elements() {
             return [
                 {
-                    title: 'Retrieving user session',
-                    loading: this.$store.state.user_session.session == null,
-                    error: this.$store.state.user_session.session_error != null,
-                },
-                {
                     title: 'Setting listeners and commands',
                     loading: this.component_loading,
                     error: false,
@@ -79,6 +74,18 @@ export default {
                     title: 'Setting device type',
                     loading: this.$store.state.ui.device_type == null,
                     error: false,
+                },
+                {
+                    title: 'Retrieving user session',
+                    loading: this.$store.state.user_session.session == null,
+                    error: this.$store.state.user_session.session_error != null,
+                },
+                {
+                    title: 'User settings',
+                    loading: this.$store.state.api_data.web_ui_settings == null,
+                    error:
+                        this.$store.state.api_data.web_ui_settings_error !=
+                        null,
                 },
             ];
         },
@@ -103,6 +110,7 @@ export default {
         // Get the color theme
         this.$store.commit('set_theme_commands');
         this.$store.commit('set_theme');
+        this.$store.commit('get_settings');
 
         // Add a handler to the resizing of the window
         window.addEventListener('resize', () => {
@@ -148,7 +156,7 @@ export default {
 
                     // If no title is set for this session, we give the user a
                     // toast with the option to go to the settingspage to set
-                    // a title
+                    // a title.
                     if (!data.data.session.title) {
                         cb_this.eventbus.emit('toast_show', {
                             title: 'Usersession has no name',

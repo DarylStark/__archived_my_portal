@@ -65,6 +65,7 @@
                         <template v-if="!tfa_enabled">Disabled</template>
                     </template>
                 </Setting>
+
                 <div class="block" v-if="tfa_edit && !tfa_enabled">
                     <Enable2FA></Enable2FA>
                 </div>
@@ -86,6 +87,26 @@
             <Card>Hier komen de user sessies</Card>
         </Cell>
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
+
+        <!-- Other settings -->
+
+        <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
+        <Cell cols="8">
+            <SectionTitle>User Interface</SectionTitle>
+        </Cell>
+        <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
+
+        <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
+        <Cell cols="8">
+            <Card no_padding no_border_bottom class="settings">
+                <ToggleSetting
+                    setting_type="ui"
+                    setting="warn_on_unnamed_session"
+                    >Warning for unnamed sessions</ToggleSetting
+                >
+            </Card>
+        </Cell>
+        <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
     </Grid>
 </template>
 
@@ -100,6 +121,7 @@ import DateTime from '../../my/datetime';
 import PasswordChanger from './PasswordChanger';
 import Enable2FA from './Enable2FA.vue';
 import Disable2FA from './Disable2FA.vue';
+import ToggleSetting from './ToggleSetting';
 
 export default {
     name: 'Settings',
@@ -113,6 +135,7 @@ export default {
         PasswordChanger,
         Enable2FA,
         Disable2FA,
+        ToggleSetting,
     },
     data() {
         return {
