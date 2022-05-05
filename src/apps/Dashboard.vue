@@ -185,22 +185,6 @@ export default {
 
         cmdlist.execute('command', 'user.reload_settings');
 
-        // Get the settings from the user
-        // TODO: move this to a command so we can update it whenever we need
-        // this.$store.commit('get_settings', {
-        //     done: () => {
-        //         // Set the theme
-        //         this.$store.commit('set_theme');
-
-        //         // Update the user session
-        //         cmdlist.execute('command', 'user_session.refresh');
-        //     },
-        //     error: (error) => {
-        //         // Something went wrong while collecting settings
-        //         this.$store.commit('set_session_error', error);
-        //     },
-        // });
-
         // Add a handler to the resizing of the window
         window.addEventListener('resize', () => {
             this.$store.commit('set_device_type');
