@@ -11,11 +11,13 @@ export default {
         }
     },
     mutations: {
-        get_settings(state, callback_done = null) {
+        get_settings(state, callbacks = null) {
             // Set the default settings
             let settings = {
                 warn_on_unnamed_session: 1
             }
+
+            // Get the callbacks from the given callbacks
 
             // Retrieve the settings from the database
             api.execute(
@@ -34,13 +36,14 @@ export default {
                         // Set the object in the store
                         state.web_ui_settings = settings;
 
-                        // If a callback is set, we run it now
-                        if (callback_done) {
-                            callback_done();
-                        }
+                        // Run the callback, if set
+                        if ('done' in callbacks) callbacks['done'](data);
                     },
                     (error) => {
                         state.web_ui_settings_error = error;
+
+                        // Run the callback, if set
+                        if ('error' in callbacks) callbacks['error'](error);
                     }
                 )
             );

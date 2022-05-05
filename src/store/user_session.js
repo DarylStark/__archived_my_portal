@@ -15,7 +15,11 @@ export default {
         set_password_date(state, date) {
             state.session.account['password_date'] = date;
         },
-        get_user_session(state, callback = null) {
+        set_session_error(state, error) {
+            state.session = null;
+            state.session_error = error;
+        },
+        get_user_session(state, callbacks = null) {
             api.execute(
                 new APICommand(
                     'user_sessions',
@@ -31,13 +35,16 @@ export default {
                         }
 
                         // Run the callback, if set
-                        if (callback) callback();
+                        if ('done' in callbacks) callbacks['done'](data);
                     },
                     (error) => {
                         // Something went wrong. We set the error in the store
                         // so the Splash Screen knows not to go away
                         state.session = null;
                         state.session_error = error;
+
+                        // Run the callback, if set
+                        if ('error' in callbacks) callbacks['error'](error);
                     }
                 )
             );
