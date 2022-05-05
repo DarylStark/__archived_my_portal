@@ -63,6 +63,7 @@ export default {
             // Save setting
             this.saving = true;
 
+            // TODO: move this to the Store so we can update it from anywhere
             if (this.setting_type == 'ui') {
                 let value = this.$refs.toggle.value ? '1' : '0';
                 api.execute(
