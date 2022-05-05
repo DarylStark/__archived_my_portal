@@ -112,6 +112,46 @@ export default {
         // Get the color theme
         this.$store.commit('set_theme_commands');
 
+        cmdlist.add_command(
+            new Command({
+                command: 'user_session.refresh',
+                group: 'User session',
+                title: 'Refresh',
+                method: this.$store.commit,
+                args: [
+                    'get_user_session',
+                    {
+                        done: () => {
+                            // If no title is set for this session, we give the user a
+                            // toast with the option to go to the settingspage to set
+                            // a title.
+                            if (
+                                this.$store.state.user_session.session.session
+                                    .title == null &&
+                                this.$store.state.api_data.web_ui_settings
+                                    .warn_on_unnamed_session == '1'
+                            ) {
+                                cb_this.eventbus.emit('toast_show', {
+                                    title: 'Usersession has no name',
+                                    type: 'info',
+                                    text: 'This usersession has no name set. Setting a name for this session will increase security and gives you the ability to identify the session. Click here to go to the settings to set a name.',
+                                    icon: 'fa-user-circle',
+                                    click: () => {
+                                        cmdlist.execute(
+                                            'command',
+                                            'user.open_settings'
+                                        );
+                                        return true;
+                                    },
+                                });
+                            }
+                        },
+                    },
+                ],
+                show: true,
+            })
+        );
+
         // Get the settings from the user
         // TODO: move this to a command so we can update it whenever we need
         this.$store.commit('get_settings', {
@@ -119,35 +159,8 @@ export default {
                 // Set the theme
                 this.$store.commit('set_theme');
 
-                // Retrieve UserSession and User details
-                // TODO: move this to a command so we can update it whenever we need
-                cb_this.$store.commit('get_user_session', {
-                    done: () => {
-                        // If no title is set for this session, we give the user a
-                        // toast with the option to go to the settingspage to set
-                        // a title.
-                        if (
-                            this.$store.state.user_session.session.session
-                                .title == null &&
-                            this.$store.state.api_data.web_ui_settings
-                                .warn_on_unnamed_session == '1'
-                        ) {
-                            cb_this.eventbus.emit('toast_show', {
-                                title: 'Usersession has no name',
-                                type: 'info',
-                                text: 'This usersession has no name set. Setting a name for this session will increase security and gives you the ability to identify the session. Click here to go to the settings to set a name.',
-                                icon: 'fa-user-circle',
-                                click: () => {
-                                    cmdlist.execute(
-                                        'command',
-                                        'user.open_settings'
-                                    );
-                                    return true;
-                                },
-                            });
-                        }
-                    },
-                });
+                // Update the user session
+                cmdlist.execute('command', 'user_session.refresh');
             },
             error: (error) => {
                 // Something went wrong while collecting settings
