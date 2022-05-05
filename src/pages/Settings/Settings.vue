@@ -102,6 +102,7 @@
                 <ToggleSetting
                     setting_type="ui"
                     setting="warn_on_unnamed_session"
+                    icon="fa-at"
                     >Warning for unnamed sessions</ToggleSetting
                 >
             </Card>

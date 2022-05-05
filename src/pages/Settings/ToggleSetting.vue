@@ -1,6 +1,6 @@
 <template>
     <Setting
-        v-bind:icon="['fas', icon]"
+        v-bind:icon="icon"
         v-on:click="$refs.toggle.toggle()"
         v-bind:saving="saving"
         v-bind:error="error"
