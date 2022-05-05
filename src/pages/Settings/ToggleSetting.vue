@@ -1,6 +1,6 @@
 <template>
     <Setting
-        v-bind:icon="['fa-gear', icon]"
+        v-bind:icon="['fas', icon]"
         v-on:click="$refs.toggle.toggle()"
         v-bind:saving="saving"
         v-bind:error="error"
@@ -51,14 +51,22 @@ export default {
             required: true,
         },
     },
-    created() {
-        // Retrieve setting
-        if (this.setting_type == 'ui') {
-            this.toggled =
-                this.$store.state.api_data.web_ui_settings[this.setting] == '1';
-        }
+    mounted() {
+        this.set_value();
+        this.eventbus.on('settings_reloaded', this.set_value);
+    },
+    unmounted() {
+        this.eventbus.off('settings_reloaded', this.set_value);
     },
     methods: {
+        set_value() {
+            if (this.setting_type == 'ui') {
+                this.toggled =
+                    this.$store.state.api_data.web_ui_settings[this.setting] ==
+                    '1';
+            }
+            this.$refs.toggle.set_value(this.toggled);
+        },
         update_setting() {
             // Save setting
             this.saving = true;

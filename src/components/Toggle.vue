@@ -45,6 +45,9 @@ export default {
                 if (emit_change) this.$emit('changed');
             }
         },
+        set_value(value) {
+            this.value = value;
+        },
     },
 };
 </script>

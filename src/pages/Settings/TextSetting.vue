@@ -75,15 +75,24 @@ export default {
         },
     },
     created() {
-        if (this.setting_type == 'account') {
-            this.value =
-                this.$store.state.user_session.session.account[this.setting];
-            this.correct_value = this.value;
-        } else {
-            // TODO: Set value for 'normal' setting
-        }
+        this.set_value();
+        this.eventbus.on('settings_reloaded', this.set_value);
+    },
+    unmounted() {
+        this.eventbus.off('settings_reloaded', this.set_value);
     },
     methods: {
+        set_value() {
+            if (this.setting_type == 'account') {
+                this.value =
+                    this.$store.state.user_session.session.account[
+                        this.setting
+                    ];
+                this.correct_value = this.value;
+            } else {
+                // TODO: Set value for 'normal' setting
+            }
+        },
         edit() {
             if (!this.saving) {
                 this.edit_mode = true;

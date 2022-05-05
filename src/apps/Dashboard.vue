@@ -112,6 +112,7 @@ export default {
         // Get the color theme
         this.$store.commit('set_theme_commands');
 
+        // Add a command to refresh the user session
         cmdlist.add_command(
             new Command({
                 command: 'user_session.refresh',
@@ -131,6 +132,7 @@ export default {
                                 this.$store.state.api_data.web_ui_settings
                                     .warn_on_unnamed_session == '1'
                             ) {
+                                this.eventbus.emit('settings_reloaded');
                                 cb_this.eventbus.emit('toast_show', {
                                     title: 'Usersession has no name',
                                     type: 'info',
@@ -152,21 +154,52 @@ export default {
             })
         );
 
+        // Add a command to reload the user settings
+        cmdlist.add_command(
+            new Command({
+                command: 'user.reload_settings',
+                group: 'User',
+                title: 'Reload settings',
+                method: this.$store.commit,
+                args: [
+                    'get_settings',
+                    {
+                        done: () => {
+                            // Set the theme
+                            this.$store.commit('set_theme');
+
+                            // Update the user session
+                            cmdlist.execute('command', 'user_session.refresh');
+
+                            // Send a event that the settings are reloaded
+                            this.eventbus.emit('settings_reloaded');
+                        },
+                        error: (error) => {
+                            // Something went wrong while collecting settings
+                            this.$store.commit('set_session_error', error);
+                        },
+                    },
+                ],
+            })
+        );
+
+        cmdlist.execute('command', 'user.reload_settings');
+
         // Get the settings from the user
         // TODO: move this to a command so we can update it whenever we need
-        this.$store.commit('get_settings', {
-            done: () => {
-                // Set the theme
-                this.$store.commit('set_theme');
+        // this.$store.commit('get_settings', {
+        //     done: () => {
+        //         // Set the theme
+        //         this.$store.commit('set_theme');
 
-                // Update the user session
-                cmdlist.execute('command', 'user_session.refresh');
-            },
-            error: (error) => {
-                // Something went wrong while collecting settings
-                this.$store.commit('set_session_error', error);
-            },
-        });
+        //         // Update the user session
+        //         cmdlist.execute('command', 'user_session.refresh');
+        //     },
+        //     error: (error) => {
+        //         // Something went wrong while collecting settings
+        //         this.$store.commit('set_session_error', error);
+        //     },
+        // });
 
         // Add a handler to the resizing of the window
         window.addEventListener('resize', () => {
