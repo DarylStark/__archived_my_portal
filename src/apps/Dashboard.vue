@@ -103,16 +103,36 @@ export default {
         };
     },
     created: function () {
-        // Set a local variable that the callsbacks can use for 'this'
-        let cb_this = this;
+        // Add a handler to the resizing of the window
+        window.addEventListener('resize', () => {
+            this.$store.commit('set_device_type');
+        });
 
-        // Set the device type
-        this.$store.commit('set_device_type');
+        window.addEventListener('keydown', (event) => {
+            if (event.key != 'Shift' && event.key != 'Alt') {
+                // Create a KeyBinding object
+                let binding = new KeyBinding(
+                    event.ctrlKey,
+                    event.shiftKey,
+                    event.altKey,
+                    event.key
+                );
 
-        // Get the color theme
-        this.$store.commit('set_theme_commands');
+                // Execute the command. If we receive a true value, the command
+                // has been found and we can stop the default browser behaviour
+                // for the keybinding.
+                if (cmdlist.execute_from_keybinding(binding)) {
+                    event.preventDefault();
+                } else {
+                    // If we don't have a keybinding for this key, we raise an
+                    // global event. If there is something, like a menu, that
+                    // wants to do something with this, it can
+                    this.eventbus.emit('keydown', binding);
+                }
+            }
+        });
 
-        // Add a command to refresh the user session
+        // Add commands for the global application
         cmdlist.add_command(
             new Command({
                 command: 'user_session.refresh',
@@ -133,7 +153,7 @@ export default {
                                     .warn_on_unnamed_session == '1'
                             ) {
                                 this.eventbus.emit('settings_reloaded');
-                                cb_this.eventbus.emit('toast_show', {
+                                this.eventbus.emit('toast_show', {
                                     title: 'Usersession has no name',
                                     type: 'info',
                                     text: 'This usersession has no name set. Setting a name for this session will increase security and gives you the ability to identify the session. Click here to go to the settings to set a name.',
@@ -154,7 +174,6 @@ export default {
             })
         );
 
-        // Add a command to reload the user settings
         cmdlist.add_command(
             new Command({
                 command: 'user.reload_settings',
@@ -183,38 +202,6 @@ export default {
             })
         );
 
-        cmdlist.execute('command', 'user.reload_settings');
-
-        // Add a handler to the resizing of the window
-        window.addEventListener('resize', () => {
-            this.$store.commit('set_device_type');
-        });
-
-        window.addEventListener('keydown', (event) => {
-            if (event.key != 'Shift' && event.key != 'Alt') {
-                // Create a KeyBinding object
-                let binding = new KeyBinding(
-                    event.ctrlKey,
-                    event.shiftKey,
-                    event.altKey,
-                    event.key
-                );
-
-                // Execute the command. If we receive a true value, the command
-                // has been found and we can stop the default browser behaviour
-                // for the keybinding.
-                if (cmdlist.execute_from_keybinding(binding)) {
-                    event.preventDefault();
-                } else {
-                    // If we don't have a keybinding for this key, we raise an
-                    // global event. If there is something, like a menu, that
-                    // wants to do something with this, it can
-                    cb_this.eventbus.emit('keydown', binding);
-                }
-            }
-        });
-
-        // Add commands
         cmdlist.add_command(
             new Command({
                 command: 'command_palette.show',
@@ -280,7 +267,7 @@ export default {
                                 console.log(error);
 
                                 // Give the user a error message on screen
-                                cb_this.eventbus.emit('toast_show', {
+                                this.eventbus.emit('toast_show', {
                                     title: 'Error while logging out',
                                     type: 'error',
                                     text: 'Something went wrong while logging out the user session. Click here to reload the page or see the console for error information',
@@ -297,6 +284,15 @@ export default {
                 icon: 'fa-sign-out-alt',
             })
         );
+
+        // Initialize the application
+        cmdlist.execute('command', 'user.reload_settings');
+
+        // Set the device type
+        this.$store.commit('set_device_type');
+
+        // Get the color theme
+        this.$store.commit('set_theme_commands');
 
         // Done with the creation
         this.component_loading = false;

@@ -14,7 +14,8 @@ export default {
         get_settings(state, callbacks = null) {
             // Set the default settings
             let settings = {
-                warn_on_unnamed_session: 1
+                warn_on_unnamed_session: 1,
+                theme: 'dark'
             }
 
             // Get the callbacks from the given callbacks
