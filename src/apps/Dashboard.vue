@@ -109,8 +109,36 @@ export default {
 
         // Get the color theme
         this.$store.commit('set_theme_commands');
-        this.$store.commit('set_theme');
-        this.$store.commit('get_settings');
+
+        // Get the settings from the user
+        this.$store.commit('get_settings', () => {
+            this.$store.commit('set_theme');
+
+            // Retrieve UserSession and User details
+            // TODO: move this to a command so we can update it whenever we need
+            cb_this.$store.commit('get_user_session', () => {
+                // If no title is set for this session, we give the user a
+                // toast with the option to go to the settingspage to set
+                // a title.
+                if (
+                    this.$store.state.user_session.session.session.title ==
+                        null &&
+                    this.$store.state.api_data.web_ui_settings
+                        .warn_on_unnamed_session == '1'
+                ) {
+                    cb_this.eventbus.emit('toast_show', {
+                        title: 'Usersession has no name',
+                        type: 'info',
+                        text: 'This usersession has no name set. Setting a name for this session will increase security and gives you the ability to identify the session. Click here to go to the settings to set a name.',
+                        icon: 'fa-user-circle',
+                        click: () => {
+                            cmdlist.execute('command', 'user.open_settings');
+                            return true;
+                        },
+                    });
+                }
+            });
+        });
 
         // Add a handler to the resizing of the window
         window.addEventListener('resize', () => {
@@ -140,48 +168,6 @@ export default {
                 }
             }
         });
-
-        // Retrieve UserSession and User details
-        // TODO: move this to a command so we can update it whenever we need
-        api.execute(
-            new APICommand(
-                'user_sessions',
-                'current',
-                'GET',
-                null,
-                (data) => {
-                    // We have the details. Let's save the user account and the
-                    // session to the store for later user
-                    cb_this.$store.commit('set_session', data.data);
-
-                    // If no title is set for this session, we give the user a
-                    // toast with the option to go to the settingspage to set
-                    // a title.
-                    if (!data.data.session.title) {
-                        cb_this.eventbus.emit('toast_show', {
-                            title: 'Usersession has no name',
-                            type: 'info',
-                            text: 'This usersession has no name set. Setting a name for this session will increase security and gives you the ability to identify the session. Click here to go to the settings to set a name.',
-                            icon: 'fa-user-circle',
-                            click: () => {
-                                cmdlist.execute(
-                                    'command',
-                                    'user.open_settings'
-                                );
-                                return true;
-                            },
-                        });
-                    }
-                },
-                (error) => {
-                    // Something went wrong. We set the error in the store
-                    // so the Splash Screen knows not to go away
-                    cb_this.$store.commit('set_session_error', {
-                        error,
-                    });
-                }
-            )
-        );
 
         // Add commands
         cmdlist.add_command(
