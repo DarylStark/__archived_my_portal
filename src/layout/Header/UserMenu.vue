@@ -21,13 +21,8 @@
             <UserMenuItem icon="fa-sliders" v-on:click="show_settings"
                 >Settings</UserMenuItem
             >
-            <UserMenuItem
-                v-for="theme in installed_themes"
-                icon="fa-adjust"
-                v-on:click="set_theme(theme)"
-                v-bind:key="theme.name"
-            >
-                Set theme: {{ theme['full_name'] }}
+            <UserMenuItem icon="fa-adjust" v-on:click="next_theme">
+                Next theme
             </UserMenuItem>
             <UserMenuItem icon="fa-edit">Rename session</UserMenuItem>
             <UserMenuItem icon="fa-sign-out-alt" v-on:click="logout"
@@ -66,8 +61,8 @@ export default {
             cmdlist.execute('command', 'user.open_settings');
             this.active = false;
         },
-        set_theme(theme) {
-            this.$store.commit('set_theme', theme.name);
+        next_theme(theme) {
+            this.$store.commit('next_theme');
         },
         show_cmd_palette() {
             cmdlist.execute('command', 'command_palette.show');

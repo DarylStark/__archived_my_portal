@@ -3,6 +3,7 @@
 import cmdlist from '../my/command_list';
 import KeyBinding from '../my/keybinding';
 import Command from '../my/command';
+import eventbus from '../dashboard-eventbus';
 
 export default {
     state() {
@@ -100,6 +101,9 @@ export default {
                     value: my_color_theme
                 }
             )
+
+            // Let the system know the settings are changed
+            eventbus.emit('settings_reloaded');
         },
         set_device_type(state) {
             // Calculate the device_type
