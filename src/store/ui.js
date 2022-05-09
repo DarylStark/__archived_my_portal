@@ -56,7 +56,6 @@ export default {
             // Method that sets the initial color theme. First, it tries to get
             // a configured color theme from the local storage. If there is
             // none, it sets the first one in the list of `installed_themese`
-
             if (my_color_theme == null) {
                 my_color_theme = localStorage.getItem('my_color_theme');
             }
@@ -94,7 +93,7 @@ export default {
             state.current_theme = my_color_theme;
             state.current_theme_index = my_color_theme_index;
 
-            // Save the theme to the local storage
+            // Save the theme to the settings
             localStorage.setItem('my_color_theme', my_color_theme);
         },
         set_device_type(state) {

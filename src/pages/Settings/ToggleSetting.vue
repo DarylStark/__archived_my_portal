@@ -74,31 +74,23 @@ export default {
             // TODO: move this to the Store so we can update it from anywhere
             if (this.setting_type == 'ui') {
                 let value = this.$refs.toggle.value ? '1' : '0';
-                api.execute(
-                    new APICommand(
-                        'web_ui_settings',
-                        'set_setting',
-                        'POST',
-                        {
-                            setting: this.setting,
-                            value: value,
-                        },
-                        (data) => {
-                            // Done!
-                            this.$store.state.api_data.web_ui_settings[
-                                this.setting
-                            ] = value;
-                            this.saving = false;
-                            this.error = false;
-                        },
-                        (error) => {
-                            // TODO: give toast
-                            this.saving = false;
-                            this.error = true;
-                            this.$refs.toggle.toggle(false);
-                        }
-                    )
-                );
+                this.$store.commit('set_settings', {
+                    setting: this.setting,
+                    value: value,
+                    done: (data) => {
+                        this.$store.state.api_data.web_ui_settings[
+                            this.setting
+                        ] = value;
+                        this.saving = false;
+                        this.error = false;
+                    },
+                    error: (error) => {
+                        // TODO: give toast
+                        this.saving = false;
+                        this.error = true;
+                        this.$refs.toggle.toggle(false);
+                    },
+                });
             }
         },
     },

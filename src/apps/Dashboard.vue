@@ -103,6 +103,9 @@ export default {
         };
     },
     created: function () {
+        // Set default theme
+        document.body.className = 'theme-dark';
+
         // Add a handler to the resizing of the window
         window.addEventListener('resize', () => {
             this.$store.commit('set_device_type');

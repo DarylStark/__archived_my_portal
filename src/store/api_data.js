@@ -37,6 +37,9 @@ export default {
                         // Set the object in the store
                         state.web_ui_settings = settings;
 
+                        // Set the correct theme
+                        this.commit('set_theme', settings['theme']);
+
                         // Run the callback, if set
                         if ('done' in callbacks) callbacks['done'](data);
                     },
@@ -49,5 +52,27 @@ export default {
                 )
             );
         },
+        set_settings(state, setting_object) {
+            if ('setting' in setting_object && 'value' in setting_object) {
+                api.execute(
+                    new APICommand(
+                        'web_ui_settings',
+                        'set_setting',
+                        'POST',
+                        {
+                            setting: setting_object.setting,
+                            value: setting_object.value,
+                        },
+                        (data) => {
+                            // Done!
+                            if ('done' in setting_object) setting_object['done'](data);
+                        },
+                        (error) => {
+                            if ('error' in setting_object) setting_object['error'](error);
+                        }
+                    )
+                );
+            }
+        }
     }
 };
