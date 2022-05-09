@@ -64,6 +64,8 @@ export default {
                             value: setting_object.value,
                         },
                         (data) => {
+                            state.web_ui_settings[setting_object.setting] = setting_object.value;
+
                             // Done!
                             if ('done' in setting_object) setting_object['done'](data);
                         },

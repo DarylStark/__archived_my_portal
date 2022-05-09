@@ -78,9 +78,6 @@ export default {
                     setting: this.setting,
                     value: value,
                     done: (data) => {
-                        this.$store.state.api_data.web_ui_settings[
-                            this.setting
-                        ] = value;
                         this.saving = false;
                         this.error = false;
                     },
