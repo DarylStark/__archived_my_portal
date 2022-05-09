@@ -7,7 +7,8 @@ export default {
     state() {
         return {
             web_ui_settings: null,
-            web_ui_settings_error: null
+            web_ui_settings_error: null,
+            user_sessions: null
         }
     },
     mutations: {
@@ -85,6 +86,32 @@ export default {
                     )
                 );
             }
+        },
+        get_user_sessions(state, callbacks = null) {
+            if (callbacks == null) {
+                callbacks = {}
+            }
+
+            // Retrieve the user sessions from the database
+            api.execute(
+                new APICommand(
+                    'user_sessions',
+                    'user_sessions',
+                    'GET',
+                    null,
+                    (data) => {
+                        // Set the user sessions
+                        state.user_sessions = data.data;
+
+                        // Run the callback, if set
+                        if ('done' in callbacks) callbacks['done'](data);
+                    },
+                    (error) => {
+                        // Run the callback, if set
+                        if ('error' in callbacks) callbacks['error'](error);
+                    }
+                )
+            );
         }
     }
 };

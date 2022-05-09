@@ -38,7 +38,7 @@
 
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
         <Cell cols="8">
-            <p>Hier komen de user sessies</p>
+            <UserSessions></UserSessions>
         </Cell>
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
 
@@ -65,6 +65,7 @@ import SectionTitle from '../../layout/Titles/SectionTitle.vue';
 import AccountSettings from './AccountSettings.vue';
 import AccountSecuritySettings from './AccountSecuritySettings.vue';
 import UISettings from './UISettings.vue';
+import UserSessions from './UserSessions.vue';
 
 export default {
     name: 'Settings',
@@ -75,6 +76,7 @@ export default {
         AccountSettings,
         AccountSecuritySettings,
         UISettings,
+        UserSessions,
     },
     created() {
         this.$store.commit('sidebar_available_set', true);
