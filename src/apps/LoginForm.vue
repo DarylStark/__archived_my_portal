@@ -85,10 +85,7 @@ export default {
         Input,
         Button,
     },
-    created() {
-        // Get the color theme
-        this.$store.commit('set_theme');
-    },
+    created() {},
     mounted() {
         this.$refs.username.focus();
     },
@@ -110,9 +107,6 @@ export default {
         };
     },
     methods: {
-        next_theme() {
-            this.$store.commit('next_theme');
-        },
         set_state(state) {
             // Set the state for the loginform. Can either be 'credentials'
             // or 'second_factor'. If it is 'credentials', the form for the

@@ -56,12 +56,14 @@ export default {
         set_theme(state, theme_obj) {
             let my_color_theme = null;
             let update_api = true;
-            if ('theme' in theme_obj) {
-                my_color_theme = theme_obj['theme'];
-            }
+            if (theme_obj) {
+                if ('theme' in theme_obj) {
+                    my_color_theme = theme_obj['theme'];
+                }
 
-            if ('api' in theme_obj) {
-                update_api = theme_obj['a[o'];
+                if ('api' in theme_obj) {
+                    update_api = theme_obj['a[o'];
+                }
             }
 
             // Method that sets the initial color theme. First, it tries to get

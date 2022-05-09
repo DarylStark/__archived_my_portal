@@ -102,6 +102,7 @@ export default {
 
             if (this.new_pass_1 != this.new_pass_2) {
                 this.new_pass_2_error = true;
+                return;
             }
 
             if (this.current_password && this.new_pass_1 && this.new_pass_2) {
