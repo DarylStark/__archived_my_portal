@@ -62,10 +62,6 @@ export default {
     },
     methods: {
         set_value() {
-            console.log(
-                'upating value: ' +
-                    this.$store.state.api_data.web_ui_settings[this.setting]
-            );
             if (this.setting_type == 'ui') {
                 this.selected =
                     this.$store.state.api_data.web_ui_settings[this.setting];

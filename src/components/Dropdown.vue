@@ -39,7 +39,6 @@ export default {
             this.$emit('changed');
         },
         set_value(value) {
-            console.log(value);
             this.selected_value = value;
         },
     },
