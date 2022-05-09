@@ -74,7 +74,7 @@ export default {
             // TODO: move this to the Store so we can update it from anywhere
             if (this.setting_type == 'ui') {
                 let value = this.$refs.toggle.value ? '1' : '0';
-                this.$store.commit('set_settings', {
+                this.$store.commit('set_setting', {
                     setting: this.setting,
                     value: value,
                     done: (data) => {

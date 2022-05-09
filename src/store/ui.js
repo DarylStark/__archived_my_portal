@@ -57,7 +57,7 @@ export default {
             // a configured color theme from the local storage. If there is
             // none, it sets the first one in the list of `installed_themese`
             if (my_color_theme == null) {
-                my_color_theme = localStorage.getItem('my_color_theme');
+                my_color_theme = this.state.api_data.web_ui_settings['theme'];
             }
 
             if (my_color_theme) {
@@ -73,7 +73,7 @@ export default {
                 my_color_theme = null;
             }
 
-            // No color theme defined in local storage, set the default
+            // No color theme defined in settings, set the default
             if (my_color_theme == null) {
                 my_color_theme = state.installed_themes[0].name;
             }
@@ -94,7 +94,12 @@ export default {
             state.current_theme_index = my_color_theme_index;
 
             // Save the theme to the settings
-            localStorage.setItem('my_color_theme', my_color_theme);
+            this.commit('set_setting',
+                {
+                    setting: 'theme',
+                    value: my_color_theme
+                }
+            )
         },
         set_device_type(state) {
             // Calculate the device_type

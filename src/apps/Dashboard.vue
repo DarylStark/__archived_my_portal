@@ -103,7 +103,7 @@ export default {
         };
     },
     created: function () {
-        // Set default theme
+        // Set default theme. Will be overriden by the user preference later
         document.body.className = 'theme-dark';
 
         // Add a handler to the resizing of the window
@@ -187,9 +187,6 @@ export default {
                     'get_settings',
                     {
                         done: () => {
-                            // Set the theme
-                            this.$store.commit('set_theme');
-
                             // Update the user session
                             cmdlist.execute('command', 'user_session.refresh');
 

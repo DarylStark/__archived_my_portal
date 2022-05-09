@@ -52,7 +52,7 @@ export default {
                 )
             );
         },
-        set_settings(state, setting_object) {
+        set_setting(state, setting_object) {
             if ('setting' in setting_object && 'value' in setting_object) {
                 api.execute(
                     new APICommand(
