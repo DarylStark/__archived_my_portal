@@ -21,8 +21,6 @@
 <script>
 import Setting from './Setting.vue';
 import Toggle from '../../components/Toggle.vue';
-import api from '../../my/api';
-import APICommand from '../../my/api_command';
 
 export default {
     name: 'ToggleSetting',
