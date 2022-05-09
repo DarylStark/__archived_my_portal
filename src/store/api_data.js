@@ -38,7 +38,7 @@ export default {
                         state.web_ui_settings = settings;
 
                         // Set the correct theme
-                        this.commit('set_theme', settings['theme']);
+                        this.commit('set_theme', { theme: settings['theme'] });
 
                         // Run the callback, if set
                         if ('done' in callbacks) callbacks['done'](data);
@@ -54,6 +54,14 @@ export default {
         },
         set_setting(state, setting_object) {
             if ('setting' in setting_object && 'value' in setting_object) {
+                // Save the current value
+                let current_value = state.web_ui_settings[setting_object.setting];
+
+                // Update the value in the settings object
+                state.web_ui_settings[setting_object.setting] = setting_object.value;
+
+                if ('before_api' in setting_object) setting_object['before_api']();
+
                 api.execute(
                     new APICommand(
                         'web_ui_settings',
@@ -64,12 +72,14 @@ export default {
                             value: setting_object.value,
                         },
                         (data) => {
-                            state.web_ui_settings[setting_object.setting] = setting_object.value;
-
                             // Done!
                             if ('done' in setting_object) setting_object['done'](data);
                         },
                         (error) => {
+                            // Reset the value
+                            state.web_ui_settings[setting_object.setting] = current_value;
+
+                            // Done!
                             if ('error' in setting_object) setting_object['error'](error);
                         }
                     )

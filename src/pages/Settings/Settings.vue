@@ -108,6 +108,33 @@
             </Card>
         </Cell>
         <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
+
+        <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
+        <Cell cols="8">
+            <Card no_padding no_border_bottom class="settings">
+                <!-- <Setting icon="fa-gear">
+                    Theme ({{ theme_value }})
+                    <template v-slot:value>
+                        <Dropdown
+                            v-bind:options="temp_options"
+                            selected="dark"
+                            ref="s"
+                            v-on:changed="
+                                theme_value = this.$refs.s.selected_value
+                            "
+                        ></Dropdown
+                    ></template>
+                </Setting> -->
+                <DropdownSetting
+                    icon="fa-adjust"
+                    setting="theme"
+                    setting_type="ui"
+                >
+                    Theme
+                </DropdownSetting>
+            </Card>
+        </Cell>
+        <Cell cols_desktop="2" hide_tablet hide_phone type="spacer"></Cell>
     </Grid>
 </template>
 
@@ -123,6 +150,7 @@ import PasswordChanger from './PasswordChanger';
 import Enable2FA from './Enable2FA.vue';
 import Disable2FA from './Disable2FA.vue';
 import ToggleSetting from './ToggleSetting';
+import DropdownSetting from './DropdownSetting.vue';
 
 export default {
     name: 'Settings',
@@ -137,6 +165,7 @@ export default {
         Enable2FA,
         Disable2FA,
         ToggleSetting,
+        DropdownSetting,
     },
     data() {
         return {
@@ -144,6 +173,11 @@ export default {
             password_saving: false,
             tfa_edit: false,
             tfa_saving: false,
+            temp_options: [
+                { value: 'dark', title: 'Dark' },
+                { value: 'light', title: 'Light' },
+            ],
+            theme_value: '',
         };
     },
     created() {

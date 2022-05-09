@@ -89,6 +89,13 @@ body.theme-light {
     --button-text: #ffffff;
     --button-text-disabled: rgba(143, 155, 179, 0.48);
 
+    // Component: Dropdown
+    --dropdown-bg: transparent;
+    --dropdown-text: #222b45;
+    --dropdown-hover-text: #000;
+    --dropdown-option-bg: #ffffff;
+    --dropdown-option-text: #222b45;
+
     // Components: Cards
     --card-bg: #ffffff;
     --card-text: #222b45;

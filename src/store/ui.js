@@ -33,7 +33,7 @@ export default {
                         group: 'Themes',
                         title: theme.full_name,
                         method: store.commit,
-                        args: ['set_theme', theme.name],
+                        args: ['set_theme', { 'theme': theme.name }],
                         icon: 'fa-adjust',
                     })
                 );
@@ -53,7 +53,17 @@ export default {
 
             state.theme_commands_set = true;
         },
-        set_theme(state, my_color_theme = null) {
+        set_theme(state, theme_obj) {
+            let my_color_theme = null;
+            let update_api = true;
+            if ('theme' in theme_obj) {
+                my_color_theme = theme_obj['theme'];
+            }
+
+            if ('api' in theme_obj) {
+                update_api = theme_obj['a[o'];
+            }
+
             // Method that sets the initial color theme. First, it tries to get
             // a configured color theme from the local storage. If there is
             // none, it sets the first one in the list of `installed_themese`
@@ -95,15 +105,18 @@ export default {
             state.current_theme_index = my_color_theme_index;
 
             // Save the theme to the settings
-            this.commit('set_setting',
-                {
-                    setting: 'theme',
-                    value: my_color_theme
-                }
-            )
-
-            // Let the system know the settings are changed
-            eventbus.emit('settings_reloaded');
+            if (update_api) {
+                this.commit('set_setting',
+                    {
+                        setting: 'theme',
+                        value: my_color_theme,
+                        before_api: () => {
+                            // Let the system know the settings are changed
+                            eventbus.emit('settings_reloaded');
+                        }
+                    }
+                )
+            }
         },
         set_device_type(state) {
             // Calculate the device_type
@@ -136,7 +149,7 @@ export default {
         next_theme(state) {
             // Method that activates the next theme
             let next_theme = (state.current_theme_index + 1) % state.installed_themes.length;
-            this.commit('set_theme', state.installed_themes[next_theme].name);
+            this.commit('set_theme', { theme: state.installed_themes[next_theme].name });
         },
         navigation_visible_toggle(state) {
             // Method to toggle the visibility of the navigation

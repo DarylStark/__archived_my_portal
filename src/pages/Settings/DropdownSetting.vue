@@ -1,39 +1,35 @@
 <template>
-    <Setting
-        v-bind:icon="icon"
-        v-on:click="$refs.toggle.toggle()"
-        v-bind:saving="saving"
-        v-bind:error="error"
-    >
+    <Setting v-bind:icon="icon" v-bind:saving="saving" v-bind:error="error">
         <slot></slot>
         <template v-slot:value>
-            <Toggle
+            <Dropdown
                 v-on:changed="update_setting"
-                v-bind:toggled="toggled"
-                v-bind:toc="false"
+                v-bind:selected="selected"
                 v-bind:disabled="saving"
-                ref="toggle"
-            ></Toggle>
+                v-bind:options="options"
+                ref="dropdown"
+            ></Dropdown>
         </template>
     </Setting>
 </template>
 
 <script>
 import Setting from './Setting.vue';
-import Toggle from '../../components/Toggle.vue';
+import Dropdown from '../../components/Dropdown.vue';
 
 export default {
-    name: 'ToggleSetting',
+    name: 'DropdownSetting',
     data() {
         return {
-            toggled: false,
+            selected: '',
+            options: [],
             saving: false,
             error: false,
         };
     },
     components: {
         Setting,
-        Toggle,
+        Dropdown,
     },
     props: {
         icon: {
@@ -52,25 +48,45 @@ export default {
     mounted() {
         this.set_value();
         this.eventbus.on('settings_reloaded', this.set_value);
+
+        // Set the needed options
+        if (this.setting == 'theme' && this.setting_type == 'ui') {
+            this.options = [
+                { value: 'dark', title: 'Dark' },
+                { value: 'light', title: 'Light' },
+            ];
+        }
     },
     unmounted() {
         this.eventbus.off('settings_reloaded', this.set_value);
     },
     methods: {
         set_value() {
+            console.log(
+                'upating value: ' +
+                    this.$store.state.api_data.web_ui_settings[this.setting]
+            );
             if (this.setting_type == 'ui') {
-                this.toggled =
-                    this.$store.state.api_data.web_ui_settings[this.setting] ==
-                    '1';
+                this.selected =
+                    this.$store.state.api_data.web_ui_settings[this.setting];
+                this.$refs.dropdown.set_value(this.selected);
             }
-            this.$refs.toggle.set_value(this.toggled);
         },
         update_setting() {
             // Save setting
             this.saving = true;
+            let value = this.$refs.dropdown.selected_value;
+
+            // If we updated the theme, update the theme for the
+            // dashboard now
+            if (this.setting == 'theme' && this.setting_type == 'ui') {
+                this.$store.commit('set_theme', {
+                    theme: value,
+                    api: false,
+                });
+            }
 
             if (this.setting_type == 'ui') {
-                let value = this.$refs.toggle.value ? '1' : '0';
                 this.$store.commit('set_setting', {
                     setting: this.setting,
                     value: value,

@@ -1,0 +1,30 @@
+.dropdown {
+    font-family: 'Open Sans';
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    border: 0px;
+    width: 200px;
+    max-width: 100%;
+    background: var(--dropdown-bg);
+    text-align: right;
+    color: var(--dropwdown-text);
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:hover {
+        color: var(--dropwdown-hover-text);
+    }
+
+    >option {
+        background: var(--dropdown-option-bg);
+        color: var(--dropdown-option-text);
+    }
+}
