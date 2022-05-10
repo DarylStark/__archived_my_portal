@@ -71,4 +71,28 @@ div.card {
         padding: 16px;
         text-align: right;
     }
+
+    &.list {
+        >div.content {
+            >div.actions {
+                background-color: lime;
+            }
+
+            >div.item {
+                display: flex;
+                flex-wrap: nowrap;
+                background-color: red;
+
+                >div {
+                    flex-grow: 1;
+                    flex-shrink: 0;
+
+                    &.checkbox {
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                    }
+                }
+            }
+        }
+    }
 }

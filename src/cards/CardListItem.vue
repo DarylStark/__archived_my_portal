@@ -1,0 +1,70 @@
+<template>
+    <div class="item">
+        <div v-if="checkbox" class="checkbox">
+            <input type="checkbox" v-on:change="check" v-model="value" />
+        </div>
+        <slot></slot>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'CardListItem',
+    props: {
+        id: {
+            type: String,
+            required: true,
+        },
+        list_id: {
+            type: String,
+            required: true,
+        },
+        checkbox: {
+            type: Boolean,
+            required: false,
+            default: true,
+        },
+        checked: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+    },
+    created() {
+        // Create the string for events to listen on
+        this.event = `card_list_changed_${this.list_id}`;
+
+        // Set the value
+        this.value = this.checked;
+
+        // Subscribe to events for this list
+        this.eventbus.on(this.event, this.check_all);
+    },
+    unmounted() {
+        this.eventbus.off(this.event, this.check_all);
+    },
+    data() {
+        return {
+            value: false,
+            event: '',
+        };
+    },
+    methods: {
+        check() {
+            this.eventbus.emit(this.event, {
+                action: 'change_selection',
+                id: this.id,
+                type: this.value ? 'add' : 'remove',
+            });
+        },
+        check_all(data) {
+            // A event is submitted, check if we need to check this element or
+            // uncheck it
+            if (data.action == 'check_all') {
+                this.value = data.value;
+                this.check();
+            }
+        },
+    },
+};
+</script>
