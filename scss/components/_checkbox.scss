@@ -1,0 +1,38 @@
+input[type="checkbox"] {
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: transparent;
+	margin: 0;
+	font: inherit;
+	width: 18px;
+	height: 18px;
+	border: 2px solid var(--checkbox-border);
+	border-radius: 0;
+	display: grid;
+	place-content: center;
+	cursor: pointer;
+
+	&::before {
+		content: "";
+		width: 0.65em;
+		height: 0.65em;
+		transform: scale(0);
+		box-shadow: inset 1em 1em var(--checkbox-check);
+		background-color: CanvasText;
+		transform-origin: center center;
+		clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+	}
+
+	&:checked::before {
+		transform: scale(1);
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:disabled {
+		color: #959495;
+		cursor: not-allowed;
+	}
+}

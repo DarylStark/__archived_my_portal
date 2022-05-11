@@ -1,0 +1,21 @@
+div.list_action {
+    background: var(--card-list-actions-action-bg);
+    color: var(--card-list-actions-action-text);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 4px 0 0 0;
+    margin: 0;
+    text-align: center;
+    align-content: center;
+    box-sizing: border-box;
+    flex-grow: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--card-list-actions-action-hover-bg);
+        color: var(--card-list-actions-action-hover-text);
+    }
+}

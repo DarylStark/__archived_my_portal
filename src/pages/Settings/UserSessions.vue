@@ -3,6 +3,10 @@
         <UserSessionsLoading v-if="user_sessions == null">
             Loading the user sessions
         </UserSessionsLoading>
+        <template v-slot:headers>
+            <div class="settings-usersessions-col-title">Session</div>
+            <div class="settings-usersessions-col-datetime">Host</div>
+        </template>
         <template v-if="user_sessions != null">
             <CardListItem
                 v-for="session in $store.state.api_data.user_sessions"
@@ -10,14 +14,28 @@
                 list_id="usersessions"
                 v-bind:id="create_id(session.id)"
             >
-                {{ session.id }} --> {{ session.title }} ({{ session.host }})
+                <div class="settings-usersessions-col-title">
+                    <EditableText
+                        v-bind:value="session.title"
+                        empty_text="No title"
+                    >
+                    </EditableText>
+                </div>
+                <div class="settings-usersessions-col-datetime">
+                    {{ session.created }}
+                </div>
+
+                <template v-slot:actions>
+                    <CardListAction icon="fa-trash"></CardListAction>
+                </template>
             </CardListItem>
         </template>
         <template v-slot:actions>
-            <CardListAction list_id="usersessions">New</CardListAction>
-            <CardListAction list_id="usersessions" no_selection_disable
-                >Verwijderen</CardListAction
-            >
+            <CardListAction
+                list_id="usersessions"
+                no_selection_disable
+                icon="fa-trash"
+            ></CardListAction>
         </template>
     </CardList>
 </template>
@@ -27,6 +45,9 @@ import CardList from '../../cards/CardList';
 import CardListAction from '../../cards/CardListAction';
 import CardListItem from '../../cards/CardListItem';
 import UserSessionsLoading from './UserSessionsLoading.vue';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import EditableText from './EditableText';
 
 export default {
     name: 'UserSessions',
@@ -35,6 +56,9 @@ export default {
         UserSessionsLoading,
         CardListAction,
         CardListItem,
+        Button,
+        Input,
+        EditableText,
     },
     created() {
         // Load the user sessions from the API
@@ -48,6 +72,11 @@ export default {
     methods: {
         create_id(id) {
             return `session_id_${id}`;
+        },
+        get_session_title(title) {
+            console.log(title);
+            if (title == null) return 'No title';
+            return title;
         },
     },
 };

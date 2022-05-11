@@ -10,7 +10,7 @@
                 <i v-bind:class="icon" v-if="!loading"></i>
                 <i class="fas fa-circle-notch spin" v-if="loading"></i>
             </div>
-            <div class="text" v-if="!!this.$slots['default']">
+            <div class="text" v-if="!no_text">
                 <slot></slot>
             </div>
         </div>
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { Comment } from 'vue';
+
 export default {
     name: 'Button',
     props: {
@@ -35,6 +37,10 @@ export default {
             default: false,
         },
         critical: {
+            type: Boolean,
+            default: false,
+        },
+        no_text: {
             type: Boolean,
             default: false,
         },

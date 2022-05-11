@@ -74,22 +74,94 @@ div.card {
 
     &.list {
         >div.content {
-            >div.actions {
-                background-color: lime;
+            >div.headers {
+                display: flex;
+                flex-wrap: nowrap;
+                background: var(--card-list-headers-bg);
+
+                >div {
+                    box-sizing: border-box;
+                    font-weight: bold;
+
+                    &.checkbox {
+                        text-align: left;
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                        padding: 12px 0 12px 12px;
+                    }
+
+                    &.columns {
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        display: flex;
+                        flex-wrap: nowrap;
+                        justify-content: stretch;
+
+                        >div {
+                            padding: 10px 12px 12px 12px;
+                            flex-grow: 0;
+                            flex-shrink: 0;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+
+                    &.actions {
+                        padding: 6px 12px 6px 0;
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                        display: flex;
+                        flex-wrap: nowrap;
+                        justify-content: flex-end;
+                    }
+                }
             }
 
             >div.item {
                 display: flex;
                 flex-wrap: nowrap;
-                background-color: red;
+                background: var(--card-list-item-bg);
+                border-top: 1px solid var(--card-list-borders);
+
+                &.checked {
+                    background: var(--card-list-item-checked-bg);
+                }
 
                 >div {
-                    flex-grow: 1;
-                    flex-shrink: 0;
+                    box-sizing: border-box;
 
                     &.checkbox {
+                        text-align: left;
                         flex-grow: 0;
                         flex-shrink: 0;
+                        padding: 12px 0 12px 12px;
+                    }
+
+                    &.columns {
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        display: flex;
+                        flex-wrap: nowrap;
+                        justify-content: stretch;
+
+                        >div {
+                            padding: 10px 12px 12px 12px;
+                            flex-grow: 0;
+                            flex-shrink: 0;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+
+                    &.actions {
+                        padding: 6px 12px 6px 0;
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                        display: flex;
+                        flex-wrap: nowrap;
+                        justify-content: flex-end;
                     }
                 }
             }

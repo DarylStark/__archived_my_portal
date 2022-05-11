@@ -2,6 +2,8 @@ body.theme-light {
     // Colors for the main structure of the application
     --bg: #eaeef6;
     --text: #222b45;
+    --notice-text: #E0610E;
+    --sub-text: #eaeef6;
 
     --link-text: #222b45;
     --link-text-hover: #000;
@@ -106,6 +108,18 @@ body.theme-light {
     --card-title-action-bg-hover: #598bff;
     --card-title-action-text: #000;
     --card-shadow: rgba(44, 51, 73, 0.1);
+    --card-list-headers-bg: #fff;
+    --card-list-item-bg: #ffffff;
+    --card-list-item-checked-bg: #cfcfcf;
+    --card-list-borders: #eaeef6;
+    --card-list-actions-action-bg: transparent;
+    --card-list-actions-action-text: inherit;
+    --card-list-actions-action-hover-bg: #333;
+    --card-list-actions-action-hover-text: #fff;
+
+    // Components: Checkbox
+    --checkbox-border: #000;
+    --checkbox-check: #000;
 
     // Pages: Settings
     --settings-setting-text-hover: #000;

@@ -1,5 +1,7 @@
 <template>
-    <Button v-bind:disabled="disabled"><slot></slot></Button>
+    <div class="list_action">
+        <i v-bind:class="['fas', icon]"></i>
+    </div>
 </template>
 
 <script>
@@ -16,6 +18,16 @@ export default {
             required: true,
         },
         no_selection_disable: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        icon: {
+            type: String,
+            required: false,
+            default: null,
+        },
+        critical: {
             type: Boolean,
             required: false,
             default: false,

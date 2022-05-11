@@ -285,6 +285,15 @@ export default {
             })
         );
 
+        cmdlist.add_command(
+            new Command({
+                command: 'user_sessions.update',
+                group: 'User sessions',
+                title: 'Refresh',
+                method: () => this.$store.commit('get_user_sessions'),
+            })
+        );
+
         // Initialize the application
         cmdlist.execute('command', 'user.reload_settings');
 

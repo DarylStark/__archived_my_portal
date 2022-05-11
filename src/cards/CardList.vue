@@ -6,7 +6,7 @@
         </template>
         <!-- when not loading -->
         <template v-if="!loading">
-            <div class="actions" v-if="$slots.actions" v-bind:list_id="id">
+            <div class="headers" v-if="$slots.headers">
                 <div v-if="checkbox" class="checkbox">
                     <input
                         type="checkbox"
@@ -14,7 +14,12 @@
                         v-model="check_all"
                     />
                 </div>
-                <slot name="actions"></slot>
+                <div class="columns">
+                    <slot name="headers"></slot>
+                </div>
+                <div class="actions" v-if="$slots.actions" v-bind:list_id="id">
+                    <slot name="actions"></slot>
+                </div>
             </div>
             <slot></slot>
         </template>

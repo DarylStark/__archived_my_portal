@@ -1,9 +1,14 @@
 <template>
-    <div class="item">
+    <div v-bind:class="['item', { checked: value }]">
         <div v-if="checkbox" class="checkbox">
             <input type="checkbox" v-on:change="check" v-model="value" />
         </div>
-        <slot></slot>
+        <div class="columns">
+            <slot></slot>
+        </div>
+        <div v-if="checkbox" class="actions">
+            <slot name="actions"></slot>
+        </div>
     </div>
 </template>
 
@@ -64,6 +69,10 @@ export default {
                 this.value = data.value;
                 this.check();
             }
+        },
+        toggle() {
+            this.value = !this.value;
+            this.check();
         },
     },
 };

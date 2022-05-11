@@ -14,6 +14,10 @@ button.button {
             outline: none;
             background: var(--button-critical-bg-hover) !important;
         }
+
+        &:disabled:hover {
+            background: var(--button-critical-bg) !important;
+        }
     }
 
     >div {
@@ -21,12 +25,12 @@ button.button {
 
         .icon {
             flex-grow: 0;
-            padding: 11px 0px 11px 18px;
+            padding: 11px 18px 11px 18px;
         }
 
         .text {
             flex-grow: 1;
-            padding: 11px 18px 11px 18px;
+            padding: 11px 18px 11px 0;
         }
     }
 
