@@ -1,5 +1,9 @@
 <template>
-    <CardList id="usersessions" v-bind:loading="user_sessions == null">
+    <CardList
+        id="usersessions"
+        v-bind:loading="user_sessions == null"
+        ref="list"
+    >
         <UserSessionsLoading v-if="user_sessions == null">
             Loading the user sessions
         </UserSessionsLoading>
@@ -26,7 +30,11 @@
                 </div>
 
                 <template v-slot:actions>
-                    <CardListAction icon="fa-trash"></CardListAction>
+                    <CardListAction
+                        icon="fa-trash"
+                        v-bind:action="action_remove"
+                        v-bind:action_args="session.id"
+                    ></CardListAction>
                 </template>
             </CardListItem>
         </template>
@@ -34,13 +42,14 @@
             <CardListAction
                 list_id="usersessions"
                 icon="fa-trash"
+                v-bind:action="action_remove_selected"
             ></CardListAction>
         </template>
         <template v-slot:actions>
             <CardListAction
                 list_id=""
                 icon="fa-arrows-rotate"
-                v-on:click="refresh"
+                v-bind:action="refresh"
             ></CardListAction>
         </template>
     </CardList>
@@ -87,6 +96,24 @@ export default {
         },
         refresh() {
             cmdlist.execute('command', 'user_sessions.update');
+        },
+        remove_sessions(sessions) {
+            // TODO: Implement
+            console.log(sessions);
+        },
+        action_remove(id) {
+            this.remove_sessions([id]);
+        },
+        action_remove_selected() {
+            // Get all ID's of selected elements
+            let selected = new Array();
+            this.$refs.list.selected.forEach((element) => {
+                element = element.replace('session_id_', '');
+                selected.push(element);
+            });
+
+            // Remove the elements
+            this.remove_sessions(selected);
         },
     },
 };

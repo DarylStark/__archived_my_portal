@@ -1,5 +1,5 @@
 <template>
-    <div class="list_action">
+    <div class="list_action" v-on:click="run_action">
         <i v-bind:class="['fas', icon]"></i>
     </div>
 </template>
@@ -13,14 +13,22 @@ export default {
         Button,
     },
     props: {
-        list_id: {
-            type: String,
-            required: true,
-        },
         icon: {
             type: String,
             required: false,
             default: null,
+        },
+        action: {
+            required: true,
+        },
+        action_args: {
+            required: false,
+            default: null,
+        },
+    },
+    methods: {
+        run_action() {
+            this.action(this.action_args);
         },
     },
 };
