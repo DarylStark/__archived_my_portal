@@ -112,6 +112,30 @@ export default {
                     }
                 )
             );
+        },
+        delete_user_sessions(state, object) {
+            api.execute(
+                new APICommand(
+                    'user_sessions',
+                    'remove_user_sessions',
+                    'DELETE',
+                    {
+                        session_ids: object.sessions,
+                    },
+                    (data) => {
+                        // Remove all sessions from the state that are deleted
+                        console.log(this.get_user_sessions);
+                        this.commit('get_user_sessions');
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
         }
     }
 };

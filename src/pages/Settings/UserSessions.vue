@@ -64,6 +64,8 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import EditableText from './EditableText';
 import cmdlist from '../../my/command_list';
+import api from '../../my/api';
+import APICommand from '../../my/api_command';
 
 export default {
     name: 'UserSessions',
@@ -98,8 +100,10 @@ export default {
             cmdlist.execute('command', 'user_sessions.update');
         },
         remove_sessions(sessions) {
-            // TODO: Implement
-            console.log(sessions);
+            // Delete the user sessions
+            this.$store.commit('delete_user_sessions', {
+                sessions: sessions,
+            });
         },
         action_remove(id) {
             this.remove_sessions([id]);
