@@ -3,9 +3,9 @@
         <template v-if="value != null">
             {{ value }}
         </template>
-        <template v-if="value == null">
+        <div v-if="value == null" class="empty">
             {{ empty_text }}
-        </template>
+        </div>
     </div>
 </template>
 

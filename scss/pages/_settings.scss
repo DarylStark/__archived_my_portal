@@ -101,6 +101,10 @@ div.settings {
 
 .settings-usersessions-col-title {
     width: 60%;
+
+    .empty {
+        font-style: italic;
+    }
 }
 
 .settings-usersessions-col-datetime {
