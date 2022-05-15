@@ -118,6 +118,42 @@ div.card {
                 }
             }
 
+            >.actions_selected {
+                display: flex;
+                flex-wrap: nowrap;
+                background: var(--card-list-headers-selected-bg);
+                color: var(--card-list-headers-selected-text);
+
+                >div {
+                    box-sizing: border-box;
+
+                    &.checkbox {
+                        text-align: left;
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                        padding: 12px 0 12px 12px;
+                    }
+
+                    &.count {
+                        flex-grow: 1;
+                        flex-shrink: 1;
+                        padding: 10px 12px 12px 12px;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+
+                    &.actions {
+                        padding: 6px 12px 6px 0;
+                        flex-grow: 0;
+                        flex-shrink: 0;
+                        display: flex;
+                        flex-wrap: nowrap;
+                        justify-content: flex-end;
+                    }
+                }
+            }
+
             >div.item {
                 display: flex;
                 flex-wrap: nowrap;

@@ -17,44 +17,10 @@ export default {
             type: String,
             required: true,
         },
-        no_selection_disable: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
         icon: {
             type: String,
             required: false,
             default: null,
-        },
-        critical: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
-    },
-    data() {
-        return {
-            disabled: true,
-        };
-    },
-    created() {
-        // Create the string for events to listen on
-        this.event = `card_list_changed_${this.list_id}_empty`;
-
-        // Listen for the events
-        this.eventbus.on(this.event, this.update);
-
-        if (!this.no_selection_disable) {
-            this.disabled = false;
-        }
-    },
-    unmounted() {
-        this.eventbus.off(this.event, this.update);
-    },
-    methods: {
-        update(value) {
-            if (this.no_selection_disable) this.disabled = value;
         },
     },
 };

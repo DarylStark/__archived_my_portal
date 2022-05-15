@@ -6,7 +6,23 @@
         </template>
         <!-- when not loading -->
         <template v-if="!loading">
-            <div class="headers" v-if="$slots.headers">
+            <div
+                class="actions_selected"
+                v-if="$slots.actions_selected && selected.length > 0"
+            >
+                <div v-if="checkbox" class="checkbox">
+                    <input
+                        type="checkbox"
+                        v-on:change="change_all"
+                        v-model="check_all"
+                    />
+                </div>
+                <div class="count">{{ selected_count_text }}</div>
+                <div class="actions">
+                    <slot name="actions_selected"></slot>
+                </div>
+            </div>
+            <div class="headers" v-if="$slots.headers && selected.length == 0">
                 <div v-if="checkbox" class="checkbox">
                     <input
                         type="checkbox"
@@ -17,7 +33,7 @@
                 <div class="columns">
                     <slot name="headers"></slot>
                 </div>
-                <div class="actions" v-if="$slots.actions" v-bind:list_id="id">
+                <div class="actions" v-if="$slots.actions">
                     <slot name="actions"></slot>
                 </div>
             </div>
@@ -56,6 +72,15 @@ export default {
             event: '',
             check_all: false,
         };
+    },
+    computed: {
+        selected_count_text() {
+            let word = 'item';
+            if (this.selected.length > 1) {
+                word = 'items';
+            }
+            return `${this.selected.length} ${word} selected`;
+        },
     },
     created() {
         // Create the string for events to listen on

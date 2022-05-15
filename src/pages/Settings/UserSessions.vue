@@ -30,11 +30,17 @@
                 </template>
             </CardListItem>
         </template>
-        <template v-slot:actions>
+        <template v-slot:actions_selected>
             <CardListAction
                 list_id="usersessions"
-                no_selection_disable
                 icon="fa-trash"
+            ></CardListAction>
+        </template>
+        <template v-slot:actions>
+            <CardListAction
+                list_id=""
+                icon="fa-arrows-rotate"
+                v-on:click="refresh"
             ></CardListAction>
         </template>
     </CardList>
@@ -48,6 +54,7 @@ import UserSessionsLoading from './UserSessionsLoading.vue';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import EditableText from './EditableText';
+import cmdlist from '../../my/command_list';
 
 export default {
     name: 'UserSessions',
@@ -77,6 +84,9 @@ export default {
             console.log(title);
             if (title == null) return 'No title';
             return title;
+        },
+        refresh() {
+            cmdlist.execute('command', 'user_sessions.update');
         },
     },
 };
