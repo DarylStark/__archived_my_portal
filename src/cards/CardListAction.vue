@@ -79,7 +79,7 @@ export default {
                 return;
             }
 
-            //this.action(this.action_args);
+            this.action(this.action_args);
             this.state = 'normal';
 
             // Cancel the timeout
