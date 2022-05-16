@@ -1,6 +1,14 @@
 <template>
-    <div class="list_action" v-on:click="run_action">
-        <i v-bind:class="['fas', icon]"></i>
+    <div
+        v-bind:class="[
+            'list_action',
+            {
+                confirm: state != 'normal',
+            },
+        ]"
+        v-on:click="run_action"
+    >
+        <i v-bind:class="icon_class"></i>
     </div>
 </template>
 
@@ -25,10 +33,57 @@ export default {
             required: false,
             default: null,
         },
+        confirm_first: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    data() {
+        return {
+            state: 'normal',
+            cancel_timeout: null,
+        };
+    },
+    computed: {
+        icon_class() {
+            if (this.state != 'confirming') {
+                return ['fas', this.icon];
+            }
+            return ['fas', 'fa-circle-check'];
+        },
+    },
+    created() {
+        this.eventbus.on('keydown', this.keypress);
+    },
+    unmounted() {
+        this.eventbus.off('keydown', this.keypress);
     },
     methods: {
+        keypress(key) {
+            // Return to normal mode
+            if (key.key == 'ESCAPE') {
+                this.state = 'normal';
+            }
+        },
         run_action() {
-            this.action(this.action_args);
+            if (this.confirm_first && this.state != 'confirming') {
+                // Go to confirm mode
+                this.state = 'confirming';
+
+                // Set a timeout to cancel confirm mode
+                this.cancel_timeout = setTimeout(() => {
+                    this.state = 'normal';
+                }, 10000);
+
+                // Done
+                return;
+            }
+
+            //this.action(this.action_args);
+            this.state = 'normal';
+
+            // Cancel the timeout
+            clearTimeout(this.cancel_timeout);
         },
     },
 };

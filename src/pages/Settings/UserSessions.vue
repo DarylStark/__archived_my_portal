@@ -34,6 +34,7 @@
                         icon="fa-trash"
                         v-bind:action="action_remove"
                         v-bind:action_args="session.id"
+                        confirm_first
                     ></CardListAction>
                 </template>
             </CardListItem>
@@ -43,6 +44,7 @@
                 list_id="usersessions"
                 icon="fa-trash"
                 v-bind:action="action_remove_selected"
+                confirm_first
             ></CardListAction>
         </template>
         <template v-slot:actions>

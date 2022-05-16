@@ -18,4 +18,13 @@ div.list_action {
         background: var(--card-list-actions-action-hover-bg);
         color: var(--card-list-actions-action-hover-text);
     }
+
+    &.confirm {
+        border: 3px solid var(--text);
+        padding-top: 2px;
+
+        &:hover {
+            border-color: var(--card-list-actions-action-hover-text);
+        }
+    }
 }
