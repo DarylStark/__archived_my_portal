@@ -16,7 +16,6 @@ export default {
     mutations: {
         get_settings(state, callbacks = null) {
             if (state.working.indexOf('get_settings') == -1) {
-                console.log('getting settings');
                 state.working.push('get_settings');
 
                 // Set the default settings
@@ -102,7 +101,6 @@ export default {
         },
         get_user_sessions(state, callbacks = null) {
             if (state.working.indexOf('get_user_settings') == -1) {
-                console.log('getting user sessions');
                 state.working.push('get_user_settings');
 
                 if (callbacks == null) {
@@ -117,8 +115,14 @@ export default {
                         'GET',
                         null,
                         (data) => {
+                            // Add the 'loading' element to all
+                            data.data.forEach((element) => {
+                                element.loading = false;
+                            });
+
                             // Set the user sessions
                             state.user_sessions = data.data;
+                            console.log(state.user_sessions);
 
                             // Emit an event
                             eventbus.emit('get_user_sessions_done');
@@ -144,6 +148,13 @@ export default {
             }
         },
         delete_user_sessions(state, object) {
+            // Set loading for the affected elements
+            state.user_sessions.forEach((e) => {
+                if (object.sessions.indexOf(e.id.toString()) != -1 || object.sessions.indexOf(e.id) != -1)
+                    e.loading = true;
+            })
+
+            // Execute the API
             api.execute(
                 new APICommand(
                     'user_sessions',
@@ -164,6 +175,12 @@ export default {
                         if ('done' in object) object['done'](data);
                     },
                     (error) => {
+                        // Remove the loading flag
+                        state.user_sessions.forEach((e) => {
+                            if (object.sessions.indexOf(e.id.toString()) != -1 || object.sessions.indexOf(e.id) != -1)
+                                e.loading = false;
+                        })
+
                         // Run the given callback
                         if ('error' in object) object['error'](error);
                     }

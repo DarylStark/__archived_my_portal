@@ -38,6 +38,7 @@
                         v-bind:action="action_remove"
                         v-bind:action_args="session.id"
                         confirm_first
+                        v-bind:loading="session.loading"
                     ></CardListAction>
                 </template>
             </CardListItem>
