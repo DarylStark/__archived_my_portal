@@ -124,8 +124,11 @@ export default {
                     },
                     (data) => {
                         // Remove all sessions from the state that are deleted
-                        console.log(this.get_user_sessions);
-                        this.commit('get_user_sessions');
+                        state.user_sessions = state.user_sessions.filter((e) => {
+                            if (object.sessions.indexOf(e.id.toString()) != -1)
+                                return false;
+                            return true;
+                        })
 
                         // Run the given callback
                         if ('done' in object) object['done'](data);
