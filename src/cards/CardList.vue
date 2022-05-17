@@ -97,9 +97,11 @@ export default {
     methods: {
         update(event) {
             if (event.action == 'change_selection') {
+                console.log(event);
                 if (event.type == 'add') {
                     this.selected.push(event.id);
                 } else {
+                    console.log(this.selected);
                     this.selected = this.selected.filter(
                         (element) => element != event.id
                     );

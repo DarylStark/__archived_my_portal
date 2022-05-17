@@ -125,7 +125,7 @@ export default {
                     (data) => {
                         // Remove all sessions from the state that are deleted
                         state.user_sessions = state.user_sessions.filter((e) => {
-                            if (object.sessions.indexOf(e.id.toString()) != -1)
+                            if (object.sessions.indexOf(e.id.toString()) != -1 || object.sessions.indexOf(e.id) != -1)
                                 return false;
                             return true;
                         })

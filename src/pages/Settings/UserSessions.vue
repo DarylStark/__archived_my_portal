@@ -105,6 +105,17 @@ export default {
             // Delete the user sessions
             this.$store.commit('delete_user_sessions', {
                 sessions: sessions,
+                done: (data) => {
+                    console.log(data);
+                    sessions.forEach((session) => {
+                        // Emit a event to remove it from the 'selected' list
+                        this.eventbus.emit('card_list_changed_usersessions', {
+                            action: 'change_selection',
+                            id: `session_id_${session}`,
+                            type: 'remove',
+                        });
+                    });
+                },
             });
         },
         action_remove(id) {
