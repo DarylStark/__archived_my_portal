@@ -4,6 +4,7 @@
             'list_action',
             {
                 confirm: state != 'normal',
+                spin: loading,
             },
         ]"
         v-on:click="run_action"
@@ -34,6 +35,10 @@ export default {
             default: null,
         },
         confirm_first: {
+            type: Boolean,
+            default: false,
+        },
+        loading: {
             type: Boolean,
             default: false,
         },

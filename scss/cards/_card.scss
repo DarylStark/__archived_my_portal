@@ -74,6 +74,12 @@ div.card {
 
     &.list {
         >div.content {
+            >div.empty {
+                padding: 24px;
+                text-align: center;
+                font-style: italic;
+            }
+
             >div.headers {
                 display: flex;
                 flex-wrap: nowrap;

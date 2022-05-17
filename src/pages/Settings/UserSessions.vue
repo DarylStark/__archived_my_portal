@@ -7,6 +7,9 @@
         <UserSessionsLoading v-if="user_sessions == null">
             Loading the user sessions
         </UserSessionsLoading>
+        <CardListEmpty v-if="count == 0">
+            There are no user sessions
+        </CardListEmpty>
         <template v-slot:headers>
             <div class="settings-usersessions-col-title">Session</div>
             <div class="settings-usersessions-col-datetime">Host</div>
@@ -52,6 +55,7 @@
                 list_id=""
                 icon="fa-arrows-rotate"
                 v-bind:action="refresh"
+                v-bind:loading="refreshing"
             ></CardListAction>
         </template>
     </CardList>
@@ -61,13 +65,12 @@
 import CardList from '../../cards/CardList';
 import CardListAction from '../../cards/CardListAction';
 import CardListItem from '../../cards/CardListItem';
+import CardListEmpty from '../../cards/CardListEmpty';
 import UserSessionsLoading from './UserSessionsLoading.vue';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import EditableText from './EditableText';
 import cmdlist from '../../my/command_list';
-import api from '../../my/api';
-import APICommand from '../../my/api_command';
 
 export default {
     name: 'UserSessions',
@@ -79,17 +82,39 @@ export default {
         Button,
         Input,
         EditableText,
+        CardListEmpty,
     },
     created() {
         // Load the user sessions from the API
         this.$store.commit('get_user_sessions');
+
+        // Event handler for the loading of sessions
+        this.eventbus.on('get_user_sessions_done', this.stop_refreshing);
+    },
+    unmounted() {
+        this.eventbus.off('get_user_sessions_done', this.stop_refreshing);
     },
     computed: {
         user_sessions() {
             return this.$store.state.api_data.user_sessions;
         },
+        count() {
+            console.log(this.user_sessions);
+            if (this.user_sessions != null) {
+                return this.user_sessions.length;
+            }
+            return -1;
+        },
+    },
+    data() {
+        return {
+            refreshing: true,
+        };
     },
     methods: {
+        stop_refreshing() {
+            this.refreshing = false;
+        },
         create_id(id) {
             return `session_id_${id}`;
         },
@@ -99,6 +124,7 @@ export default {
             return title;
         },
         refresh() {
+            this.refreshing = true;
             cmdlist.execute('command', 'user_sessions.update');
         },
         remove_sessions(sessions) {
