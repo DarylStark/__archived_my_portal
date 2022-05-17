@@ -15,6 +15,7 @@
                         type="checkbox"
                         v-on:change="change_all"
                         v-model="check_all"
+                        ref="checkall_1"
                     />
                 </div>
                 <div class="count">{{ selected_count_text }}</div>
@@ -28,6 +29,7 @@
                         type="checkbox"
                         v-on:change="change_all"
                         v-model="check_all"
+                        ref="checkall_2"
                     />
                 </div>
                 <div class="columns">
@@ -107,6 +109,9 @@ export default {
                     this.eventbus.emit(`${this.event}_empty`, false);
                 } else {
                     this.eventbus.emit(`${this.event}_empty`, true);
+                    this.$nextTick(() => {
+                        this.$refs.checkall_2.checked = false;
+                    });
                 }
             }
         },

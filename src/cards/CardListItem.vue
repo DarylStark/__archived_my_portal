@@ -66,8 +66,10 @@ export default {
             // A event is submitted, check if we need to check this element or
             // uncheck it
             if (data.action == 'check_all') {
-                this.value = data.value;
-                this.check();
+                if (this.value != data.value) {
+                    this.value = data.value;
+                    this.check();
+                }
             }
         },
         toggle() {
