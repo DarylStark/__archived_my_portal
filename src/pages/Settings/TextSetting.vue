@@ -20,7 +20,6 @@
                     ref="input"
                     v-on:key="keydown"
                     v-on:focusout="focusout"
-                    id="test"
                     v-bind:disabled="saving"
                     v-bind:validate_re="validate_re"
                 ></Input>

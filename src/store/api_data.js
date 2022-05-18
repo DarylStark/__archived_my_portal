@@ -122,7 +122,6 @@ export default {
 
                             // Set the user sessions
                             state.user_sessions = data.data;
-                            console.log(state.user_sessions);
 
                             // Emit an event
                             eventbus.emit('get_user_sessions_done');

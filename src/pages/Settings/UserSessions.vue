@@ -100,7 +100,6 @@ export default {
             return this.$store.state.api_data.user_sessions;
         },
         count() {
-            console.log(this.user_sessions);
             if (this.user_sessions != null) {
                 return this.user_sessions.length;
             }
@@ -120,7 +119,6 @@ export default {
             return `session_id_${id}`;
         },
         get_session_title(title) {
-            console.log(title);
             if (title == null) return 'No title';
             return title;
         },
@@ -133,7 +131,6 @@ export default {
             this.$store.commit('delete_user_sessions', {
                 sessions: sessions,
                 done: (data) => {
-                    console.log(data);
                     sessions.forEach((session) => {
                         // Emit a event to remove it from the 'selected' list
                         this.eventbus.emit('card_list_changed_usersessions', {
