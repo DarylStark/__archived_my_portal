@@ -22,6 +22,7 @@
                     v-on:focusout="focusout"
                     v-bind:disabled="saving"
                     v-bind:validate_re="validate_re"
+                    v-bind:id="id"
                 ></Input>
             </div>
         </template>
@@ -44,6 +45,11 @@ export default {
             correct_value: undefined,
             error: false,
         };
+    },
+    computed: {
+        id() {
+            return `${this.type}_${this.setting}`;
+        },
     },
     components: {
         Input,
