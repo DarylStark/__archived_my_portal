@@ -15,33 +15,11 @@
             <div class="settings-usersessions-col-datetime">Host</div>
         </template>
         <template v-if="user_sessions != null">
-            <CardListItem
+            <UserSession
                 v-for="session in $store.state.api_data.user_sessions"
                 v-bind:key="session.id"
-                list_id="usersessions"
-                v-bind:id="create_id(session.id)"
-            >
-                <div class="settings-usersessions-col-title">
-                    <EditableText
-                        v-bind:value="session.title"
-                        empty_text="No title"
-                    >
-                    </EditableText>
-                </div>
-                <div class="settings-usersessions-col-datetime">
-                    {{ session.created }}
-                </div>
-
-                <template v-slot:actions>
-                    <CardListAction
-                        icon="fa-trash"
-                        v-bind:action="action_remove"
-                        v-bind:action_args="session.id"
-                        confirm_first
-                        v-bind:loading="session.loading"
-                    ></CardListAction>
-                </template>
-            </CardListItem>
+                v-bind:session="session"
+            ></UserSession>
         </template>
         <template v-slot:actions_selected>
             <CardListAction
@@ -70,8 +48,9 @@ import CardListEmpty from '../../cards/CardListEmpty';
 import UserSessionsLoading from './UserSessionsLoading.vue';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import EditableText from './EditableText';
+import EditableText from '../../components/EditableText';
 import cmdlist from '../../my/command_list';
+import UserSession from './UserSession.vue';
 
 export default {
     name: 'UserSessions',
@@ -84,6 +63,7 @@ export default {
         Input,
         EditableText,
         CardListEmpty,
+        UserSession,
     },
     created() {
         // Load the user sessions from the API
@@ -91,9 +71,13 @@ export default {
 
         // Event handler for the loading of sessions
         this.eventbus.on('get_user_sessions_done', this.stop_refreshing);
+
+        // Event handler for removing individual sessions
+        this.eventbus.on('remove_user_session', this.action_remove);
     },
     unmounted() {
         this.eventbus.off('get_user_sessions_done', this.stop_refreshing);
+        this.eventbus.off('remove_user_session', this.action_remove);
     },
     computed: {
         user_sessions() {
@@ -112,6 +96,11 @@ export default {
         };
     },
     methods: {
+        save_title(event) {
+            console.log('saving title');
+            console.log(event);
+            return true;
+        },
         stop_refreshing() {
             this.refreshing = false;
         },

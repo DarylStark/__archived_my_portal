@@ -76,7 +76,6 @@ export default {
             return classes;
         },
     },
-
     emits: ['update:modelValue', 'key', 'focusout', 'enter'],
     methods: {
         focus(select = false) {
