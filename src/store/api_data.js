@@ -234,7 +234,6 @@ export default {
                         // title
                         if (id == this.state.user_session.session.session.id) {
                             this.state.user_session.session.session.title = title == '' ? null : title;
-                            console.log(this.state);
                         }
 
                         // Run the given callback

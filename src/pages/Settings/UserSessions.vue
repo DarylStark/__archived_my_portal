@@ -101,8 +101,6 @@ export default {
     },
     methods: {
         save_title(event) {
-            console.log('saving title');
-            console.log(event);
             return true;
         },
         stop_refreshing() {
