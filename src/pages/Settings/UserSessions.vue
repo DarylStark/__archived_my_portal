@@ -83,7 +83,17 @@ export default {
     },
     computed: {
         user_sessions() {
-            return this.$store.state.api_data.user_sessions;
+            if (this.$store.state.api_data.user_sessions) {
+                return this.$store.state.api_data.user_sessions.sort(
+                    (first, second) => {
+                        if (first.created > second.created) {
+                            return 1;
+                        }
+                        return -1;
+                    }
+                );
+            }
+            return null;
         },
         count() {
             if (this.user_sessions != null) {
