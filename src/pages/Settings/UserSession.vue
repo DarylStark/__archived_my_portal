@@ -81,7 +81,7 @@ export default {
     },
     methods: {
         save_title(new_title) {
-            let rv = this.$store.commit('set_user_session_title', {
+            this.$store.commit('set_user_session_title', {
                 id: this.session.id,
                 title: new_title,
                 done: (data) => {
