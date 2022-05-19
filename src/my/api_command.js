@@ -5,7 +5,7 @@
 'use strict';
 
 // Available types
-let methods = ['GET', 'POST', 'DELETE'];
+let methods = ['POST', 'GET', 'PATCH', 'DELETE'];
 
 class APICommand {
     constructor(group, endpoint, method = 'GET', data, cb_success, cb_catch) {

@@ -126,7 +126,7 @@ export default {
                 api.execute(
                     new APICommand(
                         'user_sessions',
-                        'user_sessions',
+                        'all',
                         'GET',
                         null,
                         (data) => {
@@ -172,7 +172,7 @@ export default {
             api.execute(
                 new APICommand(
                     'user_sessions',
-                    'remove_user_sessions',
+                    'delete',
                     'DELETE',
                     {
                         session_ids: object.sessions,
@@ -216,7 +216,7 @@ export default {
                 new APICommand(
                     'user_sessions',
                     'update',
-                    'POST',
+                    'PATCH',
                     {
                         session_id: id,
                         title: title
