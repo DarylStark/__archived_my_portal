@@ -79,7 +79,7 @@ export default {
         UserSessions,
     },
     created() {
-        this.$store.commit('sidebar_available_set', true);
+        this.$store.commit('sidebar_available_set', false);
     },
 };
 </script>
