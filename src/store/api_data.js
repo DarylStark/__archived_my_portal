@@ -353,9 +353,10 @@ export default {
                 )
             );
         },
-        set_tag_title(state, object) {
+        set_tag(state, object) {
             // Method to set the title of a tag
             let id = object.id;
+            let color = object.color;
             let title = object.title;
 
             // Set loading for the affected element
@@ -364,65 +365,25 @@ export default {
                     e.loading = true;
             });
 
-            api.execute(
-                new APICommand(
-                    'tags',
-                    'update',
-                    'PATCH',
-                    {
-                        tag_id: id,
-                        title: title
-                    },
-                    (data) => {
-                        // Update the tag title
-                        state.tags.forEach((tag) => {
-                            if (tag.id == id) {
-                                tag.title = title;
-                                tag.loading = false;
-                            }
-                        });
-
-                        // Run the given callback
-                        if ('done' in object) object['done'](data);
-                    },
-                    (error) => {
-                        // Update the tag title
-                        state.tags.forEach((tag) => {
-                            if (tag.id == id) {
-                                tag.loading = false;
-                            }
-                        });
-                        // Run the given callback
-                        if ('error' in object) object['error'](error);
-                    }
-                )
-            );
-        },
-        set_tag_color(state, object) {
-            // Method to set the title of a tag
-            let id = object.id;
-            let color = object.color;
-
-            // Set loading for the affected element
-            state.tags.forEach((e) => {
-                if (e.id == object.id)
-                    e.loading = true;
-            });
+            // Create object to send to the backend
+            let obj = {
+                tag_id: id
+            }
+            if (color) obj['color'] = color;
+            if (title) obj['title'] = title;
 
             api.execute(
                 new APICommand(
                     'tags',
                     'update',
                     'PATCH',
-                    {
-                        tag_id: id,
-                        color: color
-                    },
+                    obj,
                     (data) => {
                         // Update the tag color
                         state.tags.forEach((tag) => {
                             if (tag.id == id) {
-                                tag.color = color;
+                                if (color) tag.color = color;
+                                if (title) tag.title = title;
                                 tag.loading = false;
                             }
                         });

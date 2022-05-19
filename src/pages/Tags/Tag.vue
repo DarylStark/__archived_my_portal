@@ -70,7 +70,7 @@ export default {
     },
     methods: {
         save_title(new_title) {
-            this.$store.commit('set_tag_title', {
+            this.$store.commit('set_tag', {
                 id: this.tag.id,
                 title: new_title,
                 done: (data) => {
@@ -83,7 +83,7 @@ export default {
             });
         },
         save_color(new_color) {
-            this.$store.commit('set_tag_color', {
+            this.$store.commit('set_tag', {
                 id: this.tag.id,
                 color: new_color,
                 done: (data) => {
