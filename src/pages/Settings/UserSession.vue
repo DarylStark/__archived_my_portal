@@ -6,7 +6,8 @@
                 empty_text="No title"
                 v-bind:id="id"
                 v-bind:done="save_title"
-                validate_re="^[A-Za-z0-9]+$"
+                validate_re="^[A-Za-z0-9\ \-\._]*$"
+                ref="editabletext"
             >
             </EditableText>
         </div>
@@ -48,8 +49,17 @@ export default {
     },
     methods: {
         save_title(new_title) {
-            console.log(`Saving that title for id: ${this.session.id}`);
-            return true;
+            let rv = this.$store.commit('set_user_session_title', {
+                id: this.session.id,
+                title: new_title,
+                done: (data) => {
+                    this.$refs.editabletext.stop_input();
+                },
+                error: (error) => {
+                    console.log('ERROR');
+                    console.log(error);
+                },
+            });
         },
         action_remove() {
             this.eventbus.emit('remove_user_session', this.session.id);

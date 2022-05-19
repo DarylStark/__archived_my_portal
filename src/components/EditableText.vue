@@ -40,7 +40,6 @@ export default {
             v: null,
             saving: false,
             cancel: false,
-            input_error: false,
         };
     },
     props: {
@@ -69,8 +68,7 @@ export default {
         keydown(event) {
             if (event.keyCode == 27) {
                 // Cancel
-                this.edit_mode = false;
-                this.cancel = true;
+                this.stop_input();
             }
 
             if (event.keyCode == 13) {
@@ -86,18 +84,15 @@ export default {
             this.cancel = false;
         },
         execute_done() {
-            if (this.$refs.input.is_valid()) {
-                if (this.done(this.v)) {
-                    this.edit_mode = false;
-                    this.cancel = true;
-                    this.input_error = false;
-                    return;
-                }
+            if (this.$refs.input.is_valid() || this.v == null) {
+                this.done(this.v || '');
+                return;
             }
-
-            console.log('not valid');
-            this.input_error = true;
             this.$refs.input.focus(true);
+        },
+        stop_input() {
+            this.edit_mode = false;
+            this.cancel = true;
         },
     },
 };

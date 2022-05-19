@@ -185,6 +185,45 @@ export default {
                     }
                 )
             );
+        },
+        set_user_session_title(state, object) {
+            // Method to set the title of a user session
+            let id = object.id;
+            let title = object.title;
+
+            // Set loading for the affected element
+            state.user_sessions.forEach((e) => {
+                if (e.id == object.id)
+                    e.loading = true;
+            });
+
+            api.execute(
+                new APICommand(
+                    'user_sessions',
+                    'update',
+                    'POST',
+                    {
+                        session_id: id,
+                        title: title
+                    },
+                    (data) => {
+                        // Update the session title
+                        state.user_sessions.forEach((session) => {
+                            if (session.id == id) {
+                                session.title = title == '' ? null : title;
+                                session.loading = false;
+                            }
+                        });
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
         }
     }
 };
