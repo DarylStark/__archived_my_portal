@@ -16,7 +16,7 @@
         </template>
         <template v-if="user_sessions != null">
             <UserSession
-                v-for="session in $store.state.api_data.user_sessions"
+                v-for="session in user_sessions"
                 v-bind:key="session.id"
                 v-bind:session="session"
             ></UserSession>
