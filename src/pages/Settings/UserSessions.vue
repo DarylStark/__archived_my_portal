@@ -31,7 +31,7 @@
         </template>
         <template v-slot:actions>
             <CardListAction
-                list_id=""
+                list_id="usersessions"
                 icon="fa-arrows-rotate"
                 v-bind:action="refresh"
                 v-bind:loading="refreshing"
