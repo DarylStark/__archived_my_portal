@@ -67,7 +67,11 @@ export default {
     },
     created() {
         // Load the user sessions from the API
-        this.$store.commit('get_user_sessions');
+        if (this.user_sessions == null) {
+            this.$store.commit('get_user_sessions', { force: false });
+        } else {
+            this.refreshing = false;
+        }
 
         // Event handler for the loading of sessions
         this.eventbus.on('get_user_sessions_done', this.stop_refreshing);

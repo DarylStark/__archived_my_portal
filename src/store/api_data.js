@@ -99,14 +99,29 @@ export default {
                 );
             }
         },
-        get_user_sessions(state, callbacks = null) {
-            if (state.working.indexOf('get_user_settings') == -1) {
-                state.working.push('get_user_settings');
-
-                if (callbacks == null) {
-                    callbacks = {}
+        get_user_sessions(state, object = null) {
+            // Set the object
+            if (object == null) {
+                object = {
+                    callbacks: {}
                 }
+            }
 
+            // Set the callbacks
+            if (!('callbacks' in object)) {
+                object['callbacks'] = {}
+            }
+
+            // Get the force
+            let force = false;
+            if ('force' in object) {
+                force = object.force;
+            }
+            if (!force && state.user_sessions == null) force = true;
+            if (!force) eventbus.emit('get_user_sessions_done');
+
+            if (state.working.indexOf('get_user_settings') == -1 && force) {
+                state.working.push('get_user_settings');
                 // Retrieve the user sessions from the database
                 api.execute(
                     new APICommand(
@@ -134,7 +149,7 @@ export default {
                         },
                         (error) => {
                             // Run the callback, if set
-                            if ('error' in callbacks) callbacks['error'](error);
+                            if ('error' in object.callbacks) object.callbacks['error'](error);
 
                             // Remove it from the 'working' list
                             state.working = state.working.filter((element) => element != 'get_user_settings');

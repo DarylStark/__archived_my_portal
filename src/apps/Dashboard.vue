@@ -290,7 +290,8 @@ export default {
                 command: 'user_sessions.update',
                 group: 'User sessions',
                 title: 'Refresh',
-                method: () => this.$store.commit('get_user_sessions'),
+                method: () =>
+                    this.$store.commit('get_user_sessions', { force: true }),
             })
         );
 
