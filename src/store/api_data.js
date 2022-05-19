@@ -275,6 +275,10 @@ export default {
                         'GET',
                         null,
                         (data) => {
+                            // A empty list gets returned as 'null', so we have
+                            // to convert that to a Array
+                            if (data.data == null) data.data = new Array();
+
                             // Add the 'loading' element to all
                             data.data.forEach((element) => {
                                 element.loading = false;
@@ -302,6 +306,46 @@ export default {
                     )
                 );
             }
+        },
+        delete_tags(state, object) {
+            // Set loading for the affected elements
+            state.tags.forEach((e) => {
+                if (object.tags.indexOf(e.id.toString()) != -1 || object.tags.indexOf(e.id) != -1)
+                    e.loading = true;
+            })
+
+            // Execute the API
+            api.execute(
+                new APICommand(
+                    'tags',
+                    'delete',
+                    'DELETE',
+                    {
+                        tag_ids: object.tags,
+                    },
+                    (data) => {
+                        // Remove all tags from the state that are deleted
+                        state.tags = state.tags.filter((e) => {
+                            if (object.tags.indexOf(e.id.toString()) != -1 || object.tags.indexOf(e.id) != -1)
+                                return false;
+                            return true;
+                        })
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Remove the loading flag
+                        state.tags.forEach((e) => {
+                            if (object.tags.indexOf(e.id.toString()) != -1 || object.tags.indexOf(e.id) != -1)
+                                e.loading = false;
+                        })
+
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
         },
     }
 };

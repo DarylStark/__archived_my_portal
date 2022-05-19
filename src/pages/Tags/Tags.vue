@@ -7,7 +7,7 @@
         <Cell cols="12">
             <CardList id="tags" ref="list">
                 <CardListEmpty v-if="count == 0">
-                    There are tags
+                    There are no tags
                 </CardListEmpty>
                 <template v-slot:headers>
                     <div class="tags-col-title">Tag</div>
@@ -105,13 +105,35 @@ export default {
         stop_refreshing() {
             this.refreshing = false;
         },
+        remove_tags(tags) {
+            // Delete the tags
+            this.$store.commit('delete_tags', {
+                tags: tags,
+                done: (data) => {
+                    tags.forEach((session) => {
+                        // Emit a event to remove it from the 'selected' list
+                        this.eventbus.emit('card_list_changed_tags', {
+                            action: 'change_selection',
+                            id: `tag_id_${session}`,
+                            type: 'remove',
+                        });
+                    });
+                },
+            });
+        },
         action_remove(id) {
-            // TODO: Implement
-            console.log('remove one');
+            this.remove_tags([id]);
         },
         action_remove_selected() {
-            // TODO: Implement
-            console.log('remove a lot');
+            // Get all ID's of selected elements
+            let selected = new Array();
+            this.$refs.list.selected.forEach((element) => {
+                element = element.replace('tag_id_', '');
+                selected.push(element);
+            });
+
+            // Remove the elements
+            this.remove_tags(selected);
         },
         add() {
             // TODO: Implement
