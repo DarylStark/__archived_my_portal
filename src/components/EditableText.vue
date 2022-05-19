@@ -18,7 +18,7 @@
                 ref="input"
                 v-on:key="keydown"
                 v-on:focusout="focusout"
-                v-bind:disabled="saving"
+                v-bind:disabled="disabled"
                 v-bind:validate_re="validate_re"
                 v-bind:id="id"
             ></Input>
@@ -38,7 +38,6 @@ export default {
         return {
             edit_mode: false,
             v: null,
-            saving: false,
             cancel: false,
         };
     },
@@ -54,6 +53,10 @@ export default {
         },
         validate_re: {
             type: String,
+            required: false,
+        },
+        disabled: {
+            type: Boolean,
             required: false,
         },
     },

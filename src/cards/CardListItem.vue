@@ -1,12 +1,18 @@
 <template>
     <div v-bind:class="['item', { checked: value }]">
-        <div v-if="checkbox" class="checkbox">
-            <input type="checkbox" v-on:change="check" v-model="value" />
+        <div v-if="checkbox" v-bind:class="['checkbox', { loading: loading }]">
+            <input
+                type="checkbox"
+                v-on:change="check"
+                v-model="value"
+                v-show="!loading"
+            />
+            <i class="fas fa-spinner spin" v-show="loading"></i>
         </div>
         <div class="columns">
             <slot></slot>
         </div>
-        <div v-if="checkbox" class="actions">
+        <div class="actions">
             <slot name="actions"></slot>
         </div>
     </div>
@@ -30,6 +36,11 @@ export default {
             default: true,
         },
         checked: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        loading: {
             type: Boolean,
             required: false,
             default: false,

@@ -1,5 +1,9 @@
 <template>
-    <CardListItem list_id="usersessions" v-bind:id="id">
+    <CardListItem
+        list_id="usersessions"
+        v-bind:id="id"
+        v-bind:loading="session.loading"
+    >
         <div class="settings-usersessions-col-title">
             <EditableText
                 v-bind:value="session.title"
@@ -8,6 +12,7 @@
                 v-bind:done="save_title"
                 validate_re="^[A-Za-z0-9\ \-\._]*$"
                 ref="editabletext"
+                v-bind:disabled="session.loading"
             >
             </EditableText>
         </div>

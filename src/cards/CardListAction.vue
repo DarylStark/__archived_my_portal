@@ -71,24 +71,26 @@ export default {
             }
         },
         run_action() {
-            if (this.confirm_first && this.state != 'confirming') {
-                // Go to confirm mode
-                this.state = 'confirming';
+            if (!this.loading) {
+                if (this.confirm_first && this.state != 'confirming') {
+                    // Go to confirm mode
+                    this.state = 'confirming';
 
-                // Set a timeout to cancel confirm mode
-                this.cancel_timeout = setTimeout(() => {
-                    this.state = 'normal';
-                }, 10000);
+                    // Set a timeout to cancel confirm mode
+                    this.cancel_timeout = setTimeout(() => {
+                        this.state = 'normal';
+                    }, 10000);
 
-                // Done
-                return;
+                    // Done
+                    return;
+                }
+
+                this.action(this.action_args);
+                this.state = 'normal';
+
+                // Cancel the timeout
+                clearTimeout(this.cancel_timeout);
             }
-
-            this.action(this.action_args);
-            this.state = 'normal';
-
-            // Cancel the timeout
-            clearTimeout(this.cancel_timeout);
         },
     },
 };

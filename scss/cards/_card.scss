@@ -178,6 +178,10 @@ div.card {
                         flex-grow: 0;
                         flex-shrink: 0;
                         padding: 12px 0 12px 12px;
+
+                        &.loading {
+                            padding: 10px 0 10px 15px;
+                        }
                     }
 
                     &.columns {
