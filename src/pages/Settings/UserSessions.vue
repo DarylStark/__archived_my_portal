@@ -43,7 +43,6 @@
 <script>
 import CardList from '../../cards/CardList';
 import CardListAction from '../../cards/CardListAction';
-import CardListItem from '../../cards/CardListItem';
 import CardListEmpty from '../../cards/CardListEmpty';
 import UserSessionsLoading from './UserSessionsLoading.vue';
 import Button from '../../components/Button';
@@ -58,7 +57,6 @@ export default {
         CardList,
         UserSessionsLoading,
         CardListAction,
-        CardListItem,
         Button,
         Input,
         EditableText,
