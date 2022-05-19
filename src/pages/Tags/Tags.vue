@@ -88,7 +88,12 @@ export default {
     },
     computed: {
         tags() {
-            return this.$store.state.api_data.tags;
+            return this.$store.state.api_data.tags.sort((first, second) => {
+                if (first.title.toLowerCase() > second.title.toLowerCase()) {
+                    return 1;
+                }
+                return -1;
+            });
         },
         count() {
             if (this.tags != null) {
