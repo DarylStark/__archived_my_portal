@@ -124,6 +124,10 @@ body.theme-light {
     --checkbox-border: #000;
     --checkbox-check: #000;
 
+    // Components: EditableText
+    --editable-text-text: inherit;
+    --editable-text-text-hover: #000;
+
     // Pages: Settings
     --settings-setting-text-hover: #000;
     --settings-setting-text-error: #f00;

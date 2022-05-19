@@ -5,7 +5,7 @@
             <div v-if="value != null" v-on:click="edit">
                 {{ value }}
             </div>
-            <div v-if="value == null" class="empty" v-on:click="edit">
+            <div v-if="value == null" class="empty_name" v-on:click="edit">
                 {{ empty_text }}
             </div>
         </template>

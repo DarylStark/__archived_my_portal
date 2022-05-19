@@ -1,7 +1,12 @@
 div.editabletext {
     cursor: pointer;
+    color: var(--editable-text-text);
 
     &:hover {
-        color: white;
+        color: var(--editable-text-text-hover);
+    }
+
+    >.empty_name {
+        font-style: italic;
     }
 }

@@ -124,6 +124,10 @@ body.theme-dark {
     --checkbox-border: #fff;
     --checkbox-check: #fff;
 
+    // Components: EditableText
+    --editable-text-text: inherit;
+    --editable-text-text-hover: #fff;
+
     // Pages: Settings
     --settings-setting-text-hover: #fff;
     --settings-setting-text-error: #f00;

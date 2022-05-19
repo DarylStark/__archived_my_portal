@@ -74,13 +74,13 @@ div.card {
 
     &.list {
         >div.content {
-            >div.empty {
+            div.empty {
                 padding: 24px;
                 text-align: center;
                 font-style: italic;
             }
 
-            >div.headers {
+            div.headers {
                 display: flex;
                 flex-wrap: nowrap;
                 background: var(--card-list-headers-bg);
@@ -120,11 +120,12 @@ div.card {
                         display: flex;
                         flex-wrap: nowrap;
                         justify-content: flex-end;
+                        width: 60px;
                     }
                 }
             }
 
-            >.actions_selected {
+            .actions_selected {
                 display: flex;
                 flex-wrap: nowrap;
                 background: var(--card-list-headers-selected-bg);
@@ -160,7 +161,7 @@ div.card {
                 }
             }
 
-            >div.item {
+            div.item {
                 display: flex;
                 flex-wrap: nowrap;
                 background: var(--card-list-item-bg);
@@ -208,6 +209,7 @@ div.card {
                         display: flex;
                         flex-wrap: nowrap;
                         justify-content: flex-end;
+                        width: 60px;
                     }
                 }
             }

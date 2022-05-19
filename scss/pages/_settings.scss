@@ -1,6 +1,4 @@
 div.settings {
-    // padding: 16px 24px 16px 24px;
-
     .error {
         color: var(--settings-setting-text-error);
 
@@ -83,6 +81,19 @@ div.settings {
     }
 }
 
+.user_session {
+    >.extra_info {
+        padding: 12px;
+        border-top: 1px solid var(--settings-borders);
+
+        code {
+            font-size: 14px;
+            font-weight: bold;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+        }
+    }
+}
+
 .settings_loading {
     padding: 24px;
     display: flex;
@@ -101,10 +112,6 @@ div.settings {
 
 .settings-usersessions-col-title {
     width: 60%;
-
-    .empty {
-        font-style: italic;
-    }
 }
 
 .settings-usersessions-col-datetime {
