@@ -3,11 +3,6 @@
         <form v-on:submit="submit_form">
             <Card title_icon="fas fa-user-circle">
                 <template #title>Login</template>
-                <template #title_actions>
-                    <CardTitleAction v-on:click="next_theme">
-                        <i class="fas fa-adjust"></i>
-                    </CardTitleAction>
-                </template>
 
                 <div v-if="state == 'credentials'" class="form">
                     <Input
@@ -75,7 +70,6 @@ import Card from '../cards/Card.vue';
 import CardTitleAction from '../cards/CardTitleAction.vue';
 import Input from '../components/Input.vue';
 import Button from '../components/Button.vue';
-import axios from 'axios';
 
 export default {
     name: 'LoginForm',
@@ -85,11 +79,10 @@ export default {
         Input,
         Button,
     },
-    created() {},
     mounted() {
         this.$refs.username.focus();
     },
-    data: () => {
+    data() {
         return {
             username: null,
             password: null,
