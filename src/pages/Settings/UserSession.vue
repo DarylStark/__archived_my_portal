@@ -18,7 +18,7 @@
                 </EditableText>
             </div>
             <div class="settings-usersessions-col-datetime">
-                {{ session.created }}
+                <DateTimeView v-bind:datetime="session.created"></DateTimeView>
             </div>
             <template v-slot:actions>
                 <CardListAction
@@ -44,6 +44,7 @@
 import CardListAction from '../../cards/CardListAction';
 import CardListItem from '../../cards/CardListItem.vue';
 import EditableText from '../../components/EditableText';
+import DateTimeView from '../../components/DateTimeView.vue';
 
 export default {
     name: 'UserSession',
@@ -51,6 +52,7 @@ export default {
         CardListItem,
         CardListAction,
         EditableText,
+        DateTimeView,
     },
     props: {
         session: {
