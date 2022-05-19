@@ -4,9 +4,11 @@
         <template v-if="!edit_mode">
             <div v-if="value != null" v-on:click="edit">
                 {{ value }}
+                <span class="prepend" v-if="prepend">{{ prepend }}</span>
             </div>
             <div v-if="value == null" class="empty_name" v-on:click="edit">
                 {{ empty_text }}
+                <span class="prepend" v-if="prepend">{{ prepend }}</span>
             </div>
         </template>
         <!-- Edit mode -->
@@ -57,6 +59,10 @@ export default {
         },
         disabled: {
             type: Boolean,
+            required: false,
+        },
+        prepend: {
+            type: String,
             required: false,
         },
     },

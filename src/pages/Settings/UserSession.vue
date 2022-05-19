@@ -14,6 +14,7 @@
                     validate_re="^[A-Za-z0-9\ \-\._]*$"
                     ref="editabletext"
                     v-bind:disabled="session.loading"
+                    v-bind:prepend="prepend"
                 >
                 </EditableText>
             </div>
@@ -62,6 +63,15 @@ export default {
     computed: {
         id() {
             return `session_id_${this.session.id}`;
+        },
+        prepend() {
+            if (
+                this.session.id ==
+                this.$store.state.user_session.session.session.id
+            ) {
+                return '(Current session)';
+            }
+            return null;
         },
     },
     data() {

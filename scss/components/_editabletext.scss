@@ -9,4 +9,9 @@ div.editabletext {
     >.empty_name {
         font-style: italic;
     }
+
+    .prepend {
+        color: var(--editable-text-prepend-text);
+        font-style: italic;
+    }
 }
