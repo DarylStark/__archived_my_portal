@@ -230,6 +230,13 @@ export default {
                             }
                         });
 
+                        // If it it's the current session, update the current
+                        // title
+                        if (id == this.state.user_session.session.session.id) {
+                            this.state.user_session.session.session.title = title == '' ? null : title;
+                            console.log(this.state);
+                        }
+
                         // Run the given callback
                         if ('done' in object) object['done'](data);
                     },

@@ -82,6 +82,7 @@ export default {
 
             if (event.keyCode == 13) {
                 // Done!
+                this.cancel = true;
                 this.execute_done();
             }
         },

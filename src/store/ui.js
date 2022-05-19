@@ -20,6 +20,7 @@ export default {
             sidebar_visible: false,
             device_type: null,
             cmd_palette_visible: false,
+            cmd_palette_prefix: '#',
             dimmed: false
         }
     },
@@ -215,8 +216,12 @@ export default {
             // Set the visibility of the sidebar commands
             cmdlist.set_visibility_command(['sidebar.hide', 'sidebar.show', 'sidebar.toggle'], value);
         },
-        cmd_palette_available_set(state, value) {
+        cmd_palette_available_set(state, obj) {
+            let value = obj.value;
+            let prefix = obj.prefix || '>';
+
             // Method to set the availability of the command palette
+            state.cmd_palette_prefix = prefix;
             state.cmd_palette_visible = value;
         },
         dimmer_visible_set(state, value) {

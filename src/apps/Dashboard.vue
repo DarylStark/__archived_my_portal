@@ -7,7 +7,10 @@
             <Sidebar></Sidebar>
         </div>
         <Feeter></Feeter>
-        <CommandPalette v-if="cmd_palette_visible"></CommandPalette>
+        <CommandPalette
+            v-if="cmd_palette_visible"
+            v-bind:prefix="$store.state.ui.cmd_palette_prefix"
+        ></CommandPalette>
         <Toasts></Toasts>
         <Dimmer v-if="dimmed"></Dimmer>
         <SplashScreen
@@ -208,7 +211,7 @@ export default {
                 group: 'Command Palette',
                 title: 'Show',
                 method: this.$store.commit,
-                args: ['cmd_palette_available_set', true],
+                args: ['cmd_palette_available_set', { value: true }],
                 show: false,
                 keybinding: new KeyBinding(true, true, false, 'P'),
             })
@@ -219,10 +222,25 @@ export default {
                 group: 'Command Palette',
                 title: 'Hide',
                 method: this.$store.commit,
-                args: ['cmd_palette_available_set', false],
+                args: ['cmd_palette_available_set', { value: false }],
                 show: false,
             })
         );
+        cmdlist.add_command(
+            new Command({
+                command: 'command_palette.show_tags',
+                group: 'Command Palette',
+                title: 'Show (tags)',
+                method: this.$store.commit,
+                args: [
+                    'cmd_palette_available_set',
+                    { value: true, prefix: '#' },
+                ],
+                show: false,
+                keybinding: new KeyBinding(true, true, false, 'O'),
+            })
+        );
+
         cmdlist.add_command(
             new Command({
                 command: 'user.open_settings',

@@ -42,9 +42,16 @@ export default {
         this.$store.commit('dimmer_visible_set', false);
         this.eventbus.off('dimmer-clicked', this.close);
     },
+    props: {
+        prefix: {
+            type: String,
+            required: false,
+            default: '>',
+        },
+    },
     data() {
         return {
-            input: '>',
+            input: this.prefix,
             max_index: 0,
             active_index: -1,
         };
