@@ -238,6 +238,12 @@ export default {
                         if ('done' in object) object['done'](data);
                     },
                     (error) => {
+                        state.user_sessions.forEach((session) => {
+                            if (session.id == id) {
+                                session.loading = false;
+                            }
+                        });
+
                         // Run the given callback
                         if ('error' in object) object['error'](error);
                     }
@@ -341,6 +347,96 @@ export default {
                                 e.loading = false;
                         })
 
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        },
+        set_tag_title(state, object) {
+            // Method to set the title of a tag
+            let id = object.id;
+            let title = object.title;
+
+            // Set loading for the affected element
+            state.tags.forEach((e) => {
+                if (e.id == object.id)
+                    e.loading = true;
+            });
+
+            api.execute(
+                new APICommand(
+                    'tags',
+                    'update',
+                    'PATCH',
+                    {
+                        tag_id: id,
+                        title: title
+                    },
+                    (data) => {
+                        // Update the tag title
+                        state.tags.forEach((tag) => {
+                            if (tag.id == id) {
+                                tag.title = title;
+                                tag.loading = false;
+                            }
+                        });
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Update the tag title
+                        state.tags.forEach((tag) => {
+                            if (tag.id == id) {
+                                tag.loading = false;
+                            }
+                        });
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        },
+        set_tag_color(state, object) {
+            // Method to set the title of a tag
+            let id = object.id;
+            let color = object.color;
+
+            // Set loading for the affected element
+            state.tags.forEach((e) => {
+                if (e.id == object.id)
+                    e.loading = true;
+            });
+
+            api.execute(
+                new APICommand(
+                    'tags',
+                    'update',
+                    'PATCH',
+                    {
+                        tag_id: id,
+                        color: color
+                    },
+                    (data) => {
+                        // Update the tag color
+                        state.tags.forEach((tag) => {
+                            if (tag.id == id) {
+                                tag.color = color;
+                                tag.loading = false;
+                            }
+                        });
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Update the tag color
+                        state.tags.forEach((tag) => {
+                            if (tag.id == id) {
+                                tag.loading = false;
+                            }
+                        });
                         // Run the given callback
                         if ('error' in object) object['error'](error);
                     }

@@ -70,12 +70,30 @@ export default {
     },
     methods: {
         save_title(new_title) {
-            // TODO: Implement
-            console.log('save title');
+            this.$store.commit('set_tag_title', {
+                id: this.tag.id,
+                title: new_title,
+                done: (data) => {
+                    this.$refs.editabletext_title.stop_input();
+                },
+                error: (error) => {
+                    console.log('ERROR');
+                    console.log(error);
+                },
+            });
         },
         save_color(new_color) {
-            // TODO: Implement
-            console.log('save color');
+            this.$store.commit('set_tag_color', {
+                id: this.tag.id,
+                color: new_color,
+                done: (data) => {
+                    this.$refs.editabletext_color.stop_input();
+                },
+                error: (error) => {
+                    console.log('ERROR');
+                    console.log(error);
+                },
+            });
         },
         action_remove() {
             this.eventbus.emit('remove_tag', this.tag.id);
