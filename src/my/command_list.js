@@ -79,6 +79,7 @@ class CommandList {
                 tag.show = true;
                 tag.type = 'tag';
                 tag.command = tag.id;
+                tag.icon = 'fa-hashtag';
             })
         }
 
