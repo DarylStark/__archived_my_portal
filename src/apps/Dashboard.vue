@@ -189,9 +189,9 @@ export default {
 
         cmdlist.add_command(
             new Command({
-                command: 'tags.refresh',
+                command: 'tags.update',
                 group: 'Tags',
-                title: 'Refresh',
+                title: 'Update',
                 method: this.$store.commit,
                 args: ['get_tags', { force: true }],
                 show: true,
@@ -212,7 +212,7 @@ export default {
                             cmdlist.execute('command', 'user_session.refresh');
 
                             // Update the tags
-                            cmdlist.execute('command', 'tags.refresh');
+                            cmdlist.execute('command', 'tags.update');
 
                             // Send a event that the settings are reloaded
                             this.eventbus.emit('settings_reloaded');
@@ -328,7 +328,7 @@ export default {
             new Command({
                 command: 'user_sessions.update',
                 group: 'User sessions',
-                title: 'Refresh',
+                title: 'Update',
                 method: () =>
                     this.$store.commit('get_user_sessions', { force: true }),
             })

@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 // Import the pages
 import Dashboard from './pages/Dashboard'
-import Tags from './pages/Tags'
+import Tags from './pages/Tags/Tags'
 import Notes from './pages/Notes'
 import RSS from './pages/RSS'
 import Settings from './pages/Settings/Settings'
