@@ -12,7 +12,7 @@
         </CardListEmpty>
         <template v-slot:headers>
             <div class="settings-usersessions-col-title">Session</div>
-            <div class="settings-usersessions-col-datetime">Host</div>
+            <div class="settings-usersessions-col-datetime">Created</div>
         </template>
         <template v-if="user_sessions != null">
             <UserSession
