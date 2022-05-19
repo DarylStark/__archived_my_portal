@@ -10,7 +10,8 @@ export default {
             working: new Array(),
             web_ui_settings: null,
             web_ui_settings_error: null,
-            user_sessions: null
+            user_sessions: null,
+            tags: null
         }
     },
     mutations: {
@@ -138,9 +139,6 @@ export default {
                             // Set the user sessions
                             state.user_sessions = data.data;
 
-                            // Emit an event
-                            eventbus.emit('get_user_sessions_done');
-
                             // Remove it from the 'working' list
                             state.working = state.working.filter((element) => element != 'get_user_settings');
 
@@ -245,6 +243,65 @@ export default {
                     }
                 )
             );
-        }
+        },
+        get_tags(state, object = null) {
+            // Set the object
+            if (object == null) {
+                object = {
+                    callbacks: {}
+                }
+            }
+
+            // Set the callbacks
+            if (!('callbacks' in object)) {
+                object['callbacks'] = {}
+            }
+
+            // Get the force
+            let force = false;
+            if ('force' in object) {
+                force = object.force;
+            }
+            if (!force && state.tags == null) force = true;
+            if (!force) eventbus.emit('get_tags_done');
+
+            if (state.working.indexOf('get_tags') == -1 && force) {
+                state.working.push('get_tags');
+                // Retrieve the tags from the database
+                api.execute(
+                    new APICommand(
+                        'tags',
+                        'all',
+                        'GET',
+                        null,
+                        (data) => {
+                            // Add the 'loading' element to all
+                            data.data.forEach((element) => {
+                                element.loading = false;
+                            });
+
+                            // Set the tags
+                            state.tags = data.data;
+
+                            // Remove it from the 'working' list
+                            state.working = state.working.filter((element) => element != 'get_tags');
+
+                            // Emit an event
+                            eventbus.emit('get_tags_done');
+                        },
+                        (error) => {
+                            // Run the callback, if set
+                            if ('error' in object.callbacks) object.callbacks['error'](error);
+
+                            // Remove it from the 'working' list
+                            state.working = state.working.filter((element) => element != 'get_tags');
+
+                            // Emit an event
+                            eventbus.emit('get_tags_done');
+                        }
+                    )
+                );
+            }
+        },
     }
 };

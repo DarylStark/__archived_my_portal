@@ -92,6 +92,13 @@ export default {
                     loading: this.$store.state.user_session.session == null,
                     error: this.$store.state.user_session.session_error != null,
                 },
+                {
+                    title: 'Retrieving tags',
+                    loading: this.$store.state.api_data.tags == null,
+                    error:
+                        this.$store.state.api_data.web_ui_settings_error !=
+                        null,
+                },
             ];
         },
         loading() {
@@ -182,6 +189,17 @@ export default {
 
         cmdlist.add_command(
             new Command({
+                command: 'tags.refresh',
+                group: 'Tags',
+                title: 'Refresh',
+                method: this.$store.commit,
+                args: ['get_tags', { force: true }],
+                show: true,
+            })
+        );
+
+        cmdlist.add_command(
+            new Command({
                 command: 'user.reload_settings',
                 group: 'User',
                 title: 'Reload settings',
@@ -192,6 +210,9 @@ export default {
                         done: () => {
                             // Update the user session
                             cmdlist.execute('command', 'user_session.refresh');
+
+                            // Update the tags
+                            cmdlist.execute('command', 'tags.refresh');
 
                             // Send a event that the settings are reloaded
                             this.eventbus.emit('settings_reloaded');

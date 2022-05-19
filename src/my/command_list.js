@@ -1,4 +1,5 @@
 import Command from './command';
+import store from '../dashboard-store';
 
 class CommandList {
     // Class for the list of commands
@@ -7,24 +8,6 @@ class CommandList {
         this.commands = [];
         this.command_methods = new Map();
         this.command_keybindings = new Map();
-
-        // TODO: read the tags from the database
-        this.tags = [
-            new Command({
-                type: 'tag',
-                title: 'My first tag',
-                command: 'my_first_tag',
-                show: true,
-                icon: 'fa-hashtag'
-            }),
-            new Command({
-                type: 'tag',
-                title: 'My second tag',
-                command: 'my_second_tag',
-                show: true,
-                icon: 'fa-hashtag'
-            }),
-        ];
 
         // Create the map with possible prefixes
         this.search_prefixes = new Map([
@@ -88,9 +71,15 @@ class CommandList {
         }
 
         if (list == 'tags') {
-            lst = this.tags.filter(function (item) {
-                return item.show;
-            });
+            lst = store.state.api_data.tags;
+
+            // Enrich the object with needed fields
+            lst.forEach((tag) => {
+                tag.fullname = tag.title;
+                tag.show = true;
+                tag.type = 'tag';
+                tag.command = tag.id;
+            })
         }
 
         // Empty filter; return the complete list
@@ -102,17 +91,14 @@ class CommandList {
 
         // Returns the command list filtered on text
         filter = filter.toLowerCase();
-        let filtered_list
         return lst.filter(function (cmd) {
             if (!cmd.show) { return false; }
-            let fullname = cmd.fullname.toLowerCase();
-            return fullname.includes(filter);
+            return cmd.fullname.toLowerCase().includes(filter);
         }).sort(this.sort_method);
     }
 
     execute(type, command) {
         // Method to execute a command
-
         if (type == 'command') {
             // Execute the command
             let cmd = this.command_methods.get(command);
@@ -123,6 +109,8 @@ class CommandList {
                 }
                 cmd[0](cmd[1]);
             }
+        } else if (type == 'tag') {
+            console.log(`Opening tag ${command}`);
         }
     }
 
