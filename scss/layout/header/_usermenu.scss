@@ -36,7 +36,7 @@ div.usermenu {
     >.menu {
         position: absolute;
         right: 0px;
-        top: 76px;
+        top: $max-height-header;
         min-width: 200px;
         display: none;
         border: 1px solid var(--usermenu-borders);
