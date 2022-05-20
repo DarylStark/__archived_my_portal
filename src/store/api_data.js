@@ -404,5 +404,35 @@ export default {
                 )
             );
         },
+        add_tag(state, object) {
+            // Create a object to send to the backend
+            let obj = {
+                title: object.title,
+                color: object.color
+            }
+            // Method to add a tag
+            api.execute(
+                new APICommand(
+                    'tags',
+                    'create',
+                    'POST',
+                    obj,
+                    (data) => {
+                        // Append the correct items to the tag
+                        data.data.loading = false;
+
+                        // Add it to the list
+                        state.tags.push(data.data)
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        },
     }
 };

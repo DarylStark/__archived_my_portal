@@ -39,6 +39,7 @@
                     <slot name="actions"></slot>
                 </div>
             </div>
+            <slot name="add_row"></slot>
             <slot></slot>
         </template>
     </Card>

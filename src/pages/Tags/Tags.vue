@@ -13,6 +13,9 @@
                     <div class="tags-col-title">Tag</div>
                     <div class="tags-col-color">Color</div>
                 </template>
+                <template v-slot:add_row>
+                    <AddTag v-show="show_add_row" ref="add_tag"></AddTag>
+                </template>
                 <template v-if="tags != null">
                     <Tag
                         v-for="tag in tags"
@@ -55,6 +58,7 @@ import CardList from '../../cards/CardList';
 import CardListAction from '../../cards/CardListAction';
 import CardListEmpty from '../../cards/CardListEmpty';
 import Tag from './Tag';
+import AddTag from './AddTag.vue';
 import cmdlist from '../../my/command_list';
 
 export default {
@@ -67,6 +71,7 @@ export default {
         CardListAction,
         CardListEmpty,
         Tag,
+        AddTag,
     },
     created() {
         this.$store.commit('sidebar_available_set', false);
@@ -76,14 +81,19 @@ export default {
 
         // Event handler for removing individual tags
         this.eventbus.on('remove_tag', this.action_remove);
+
+        // Event handler for hiding the 'add' row
+        this.eventbus.on('tags_hide_add_row', this.add);
     },
     unmounted() {
         this.eventbus.off('get_tags_done', this.stop_refreshing);
         this.eventbus.off('remove_tag', this.action_remove);
+        this.eventbus.off('tags_hide_add_row', this.add);
     },
     data() {
         return {
             refreshing: false,
+            show_add_row: false,
         };
     },
     computed: {
@@ -141,8 +151,12 @@ export default {
             this.remove_tags(selected);
         },
         add() {
-            // TODO: Implement
-            console.log('adding');
+            this.show_add_row = !this.show_add_row;
+            if (this.show_add_row) {
+                this.$nextTick(() => {
+                    this.$refs.add_tag.focus();
+                });
+            }
         },
     },
 };

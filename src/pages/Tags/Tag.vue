@@ -11,7 +11,7 @@
                     empty_text="No title"
                     v-bind:id="id"
                     v-bind:done="save_title"
-                    validate_re="^[A-Za-z0-9\ \-\._]*$"
+                    validate_re="^[A-Za-z][A-Za-z0-9\-. ]+$"
                     ref="editabletext_title"
                     v-bind:disabled="tag.loading"
                 >
@@ -23,7 +23,7 @@
                     empty_text="No color"
                     v-bind:id="id"
                     v-bind:done="save_color"
-                    validate_re="^[A-Fa-f0-9]{3,6}$"
+                    validate_re="^([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$"
                     ref="editabletext_color"
                     v-bind:disabled="tag.loading"
                 >

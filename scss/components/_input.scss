@@ -1,5 +1,6 @@
 div.input {
-    //margin-bottom: 16px;
+    box-sizing: border-box;
+    max-width: 100%;
 
     >label {
         color: var(--input-text);
@@ -15,6 +16,8 @@ div.input {
         border: 1px solid var(--input-border);
         background: var(--input-bg);
         border-radius: 4px;
+        box-sizing: border-box;
+        max-width: 100%;
 
         &.error,
         &.error:focus-within {
@@ -47,6 +50,7 @@ div.input {
             padding: 8px;
             flex-grow: 1;
             background: transparent;
+            box-sizing: border-box;
 
             &::placeholder {
                 color: var(--input-placeholder-text);
