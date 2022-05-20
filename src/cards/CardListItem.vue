@@ -73,11 +73,13 @@ export default {
     },
     methods: {
         check() {
-            this.eventbus.emit(this.event, {
-                action: 'change_selection',
-                id: this.id,
-                type: this.value ? 'add' : 'remove',
-            });
+            if (!this.id.includes('special_')) {
+                this.eventbus.emit(this.event, {
+                    action: 'change_selection',
+                    id: this.id,
+                    type: this.value ? 'add' : 'remove',
+                });
+            }
         },
         check_all(data) {
             // A event is submitted, check if we need to check this element or
