@@ -2,7 +2,12 @@
     <div class="editabletext">
         <!-- Normal mode -->
         <template v-if="!edit_mode">
-            <div v-if="value != null" v-on:click="edit">
+            <div
+                v-if="value != null"
+                v-on:click="edit"
+                v-bind:style="style"
+                v-bind:class="display_as"
+            >
                 {{ value }}
                 <span class="prepend" v-if="prepend">{{ prepend }}</span>
             </div>
@@ -64,6 +69,24 @@ export default {
         prepend: {
             type: String,
             required: false,
+        },
+        display_as: {
+            type: String,
+            required: false,
+            default: '',
+        },
+    },
+    computed: {
+        style() {
+            if (this.display_as == 'tag_color') {
+                let v = {
+                    'border-color': `#${this.value}`,
+                    background: `#${this.value}90`,
+                };
+                console.log(v);
+                return v;
+            }
+            return {};
         },
     },
     methods: {

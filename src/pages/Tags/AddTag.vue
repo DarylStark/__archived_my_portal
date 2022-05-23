@@ -27,7 +27,7 @@
                     v-bind:disabled="loading"
                     v-bind:error="error_color"
                     id="add_tag_color"
-                    validate_re="^([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$"
+                    validate_re="^[A-Fa-f0-9]{6}$"
                 ></Input>
             </div>
             <template v-slot:actions>

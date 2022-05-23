@@ -125,9 +125,12 @@ body.theme-dark {
     --checkbox-check: #fff;
 
     // Components: EditableText
-    --editable-text-text: inherit;
+    --editable-text-text: #8f9bb3;
     --editable-text-text-hover: #fff;
     --editable-text-prepend-text: #E0610E;
+
+    // Components: Tags
+    --tag-default-color: #ffffff;
 
     // Pages: Settings
     --settings-setting-text-hover: #fff;

@@ -23,9 +23,10 @@
                     empty_text="No color"
                     v-bind:id="id"
                     v-bind:done="save_color"
-                    validate_re="^([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$"
+                    validate_re="^[A-Fa-f0-9]{6}$"
                     ref="editabletext_color"
                     v-bind:disabled="tag.loading"
+                    display_as="tag_color"
                 >
                 </EditableText>
             </div>

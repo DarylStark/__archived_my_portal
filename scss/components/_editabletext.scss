@@ -14,4 +14,14 @@ div.editabletext {
         color: var(--editable-text-prepend-text);
         font-style: italic;
     }
+
+    >.tag_color {
+        border-radius: 5px;
+        font-family: 'Fira Code', 'Courier New', Courier, monospace;
+        padding: 0 8px 0 8px;
+        text-align: center;
+        border-width: 1px;
+        border-style: solid;
+        color: var(--tag-default-color);
+    }
 }

@@ -125,9 +125,12 @@ body.theme-light {
     --checkbox-check: #000;
 
     // Components: EditableText
-    --editable-text-text: inherit;
+    --editable-text-text: #222b45;
     --editable-text-text-hover: #000;
     --editable-text-prepend-text: #E0610E;
+
+    // Components: Tags
+    --tag-default-color: #000000;
 
     // Pages: Settings
     --settings-setting-text-hover: #000;
