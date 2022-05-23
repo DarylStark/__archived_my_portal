@@ -79,12 +79,10 @@ export default {
     computed: {
         style() {
             if (this.display_as == 'tag_color') {
-                let v = {
+                return {
                     'border-color': `#${this.value}`,
                     background: `#${this.value}90`,
                 };
-                console.log(v);
-                return v;
             }
             return {};
         },
