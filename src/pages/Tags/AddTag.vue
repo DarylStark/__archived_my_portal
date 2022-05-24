@@ -84,7 +84,6 @@ export default {
                 title: this.title,
                 color: this.color,
                 done(data) {
-                    console.log(this);
                     vue_this.reset();
                 },
                 error(error) {
