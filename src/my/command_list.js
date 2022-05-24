@@ -1,5 +1,6 @@
 import Command from './command';
 import store from '../dashboard-store';
+import router from '../dashboard-router';
 
 class CommandList {
     // Class for the list of commands
@@ -92,7 +93,7 @@ class CommandList {
                 tag.fullname = tag.title;
                 tag.show = true;
                 tag.type = 'tag';
-                tag.command = tag.id;
+                tag.command = tag.slug;
                 tag.icon = 'fa-hashtag';
             })
         }
@@ -125,7 +126,7 @@ class CommandList {
                 cmd[0](cmd[1]);
             }
         } else if (type == 'tag') {
-            console.log(`Opening tag ${command}`);
+            router.push(`/tags/${command}`)
         }
     }
 

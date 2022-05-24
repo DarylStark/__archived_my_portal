@@ -3,6 +3,7 @@
 import api from '../my/api';
 import APICommand from '../my/api_command';
 import eventbus from '../dashboard-eventbus';
+import { get_tag_slug } from '../my/tags';
 
 export default {
     state() {
@@ -285,9 +286,10 @@ export default {
                             // to convert that to a Array
                             if (data.data == null) data.data = new Array();
 
-                            // Add the 'loading' element to all
+                            // Add the 'loading' element and a 'slug' to all elements
                             data.data.forEach((element) => {
                                 element.loading = false;
+                                element.slug = get_tag_slug(element.title);
                             });
 
                             // Set the tags
@@ -383,7 +385,10 @@ export default {
                         state.tags.forEach((tag) => {
                             if (tag.id == id) {
                                 if (color) tag.color = color;
-                                if (title) tag.title = title;
+                                if (title) {
+                                    tag.title = title
+                                    tag.slug = get_tag_slug(title)
+                                };
                                 tag.loading = false;
                             }
                         });
@@ -420,6 +425,7 @@ export default {
                     (data) => {
                         // Append the correct items to the tag
                         data.data.loading = false;
+                        data.data.slug = get_tag_slug(data.data.title)
 
                         // Add it to the list
                         state.tags.push(data.data)

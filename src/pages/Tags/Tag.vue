@@ -117,7 +117,7 @@ export default {
         },
         detail_page() {
             // TODO: Implement
-            console.log('open detail page');
+            this.$router.push(`/tags/${this.tag.slug}`);
         },
     },
 };

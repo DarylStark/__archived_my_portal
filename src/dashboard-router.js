@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // Import the pages
 import Dashboard from './pages/Dashboard'
 import Tags from './pages/Tags/Tags'
+import TagDetails from './pages/Tags/TagDetails/TagDetails';
 import Notes from './pages/Notes'
 import RSS from './pages/RSS'
 import Settings from './pages/Settings/Settings'
@@ -29,6 +30,11 @@ export default createRouter({
             path: '/tags',
             name: 'tags',
             component: Tags
+        },
+        {
+            path: '/tags/:tag_slug',
+            name: 'tagdetails',
+            component: TagDetails
         },
         {
             path: '/notes',
