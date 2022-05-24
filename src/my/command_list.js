@@ -34,6 +34,14 @@ class CommandList {
         }
     }
 
+    remove_command_scope(scope) {
+        // Remove commands with a specific scope
+        this.commands = this.commands.filter((cmd) => {
+            console.log(cmd.scope);
+            return cmd.scope != scope;
+        });
+    }
+
     sort_method(first, second) {
         if (first.fullname.toLowerCase() > second.fullname.toLowerCase()) {
             return 1;

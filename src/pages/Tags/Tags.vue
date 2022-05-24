@@ -60,6 +60,8 @@ import CardListEmpty from '../../cards/CardListEmpty';
 import Tag from './Tag';
 import AddTag from './AddTag.vue';
 import cmdlist from '../../my/command_list';
+import Command from '../../my/command';
+import KeyBinding from '../../my/keybinding';
 
 export default {
     name: 'Tags',
@@ -84,11 +86,25 @@ export default {
 
         // Event handler for hiding the 'add' row
         this.eventbus.on('tags_hide_add_row', this.add);
+
+        // Add command to add tags
+        cmdlist.add_command(
+            new Command({
+                command: 'page_tags.toggle_add',
+                scope: 'local',
+                group: 'Tags',
+                title: 'Toggle add',
+                method: this.add,
+                show: true,
+                keybinding: new KeyBinding(false, false, false, '='),
+            })
+        );
     },
     unmounted() {
         this.eventbus.off('get_tags_done', this.stop_refreshing);
         this.eventbus.off('remove_tag', this.action_remove);
         this.eventbus.off('tags_hide_add_row', this.add);
+        cmdlist.remove_command_scope('local');
     },
     data() {
         return {
