@@ -27,6 +27,7 @@
                 icon="fa-trash"
                 v-bind:action="action_remove_selected"
                 confirm_first
+                v-bind:command="cmd_delete"
             ></CardListAction>
         </template>
         <template v-slot:actions>
@@ -48,6 +49,8 @@ import UserSessionsLoading from './UserSessionsLoading.vue';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import EditableText from '../../components/EditableText';
+import Command from '../../my/command';
+import KeyBinding from '../../my/keybinding';
 import cmdlist from '../../my/command_list';
 import UserSession from './UserSession.vue';
 
@@ -105,6 +108,14 @@ export default {
     data() {
         return {
             refreshing: true,
+            cmd_delete: new Command({
+                command: 'page_settings_usersessions.remove',
+                scope: 'local',
+                group: 'User sessions',
+                title: 'Remove selected user sessions',
+                show: true,
+                keybinding: new KeyBinding(false, false, false, 'DELETE'),
+            }),
         };
     },
     methods: {

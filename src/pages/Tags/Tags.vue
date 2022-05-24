@@ -30,6 +30,7 @@
                         icon="fa-trash"
                         v-bind:action="action_remove_selected"
                         confirm_first
+                        v-bind:command="cmd_delete"
                     ></CardListAction>
                 </template>
                 <template v-slot:actions>
@@ -110,6 +111,14 @@ export default {
         return {
             refreshing: false,
             show_add_row: false,
+            cmd_delete: new Command({
+                command: 'page_tags.remove',
+                scope: 'local',
+                group: 'Tags',
+                title: 'Remove selected tags',
+                show: true,
+                keybinding: new KeyBinding(false, false, false, 'DELETE'),
+            }),
         };
     },
     computed: {

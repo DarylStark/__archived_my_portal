@@ -15,6 +15,8 @@
 
 <script>
 import Button from '../components/Button.vue';
+import Command from '../my/command';
+import cmdlist from '../my/command_list';
 
 export default {
     name: 'CardListAction',
@@ -42,6 +44,11 @@ export default {
             type: Boolean,
             default: false,
         },
+        command: {
+            type: Command,
+            required: false,
+            default: null,
+        },
     },
     data() {
         return {
@@ -59,8 +66,13 @@ export default {
     },
     created() {
         this.eventbus.on('keydown', this.keypress);
+        if (this.command) {
+            this.command.method = this.run_action;
+            cmdlist.add_command(this.command);
+        }
     },
     unmounted() {
+        if (this.command) cmdlist.remove_command(this.command.command);
         this.eventbus.off('keydown', this.keypress);
     },
     methods: {
