@@ -97,6 +97,7 @@ export default {
                 title: 'Toggle add',
                 method: this.add,
                 show: true,
+                icon: 'fa-circle-plus',
                 keybinding: new KeyBinding(false, false, false, '='),
             })
         );
@@ -116,6 +117,7 @@ export default {
                 scope: 'local',
                 group: 'Tags',
                 title: 'Remove selected tags',
+                icon: 'fa-trash',
                 show: true,
                 keybinding: new KeyBinding(false, false, false, 'DELETE'),
             }),

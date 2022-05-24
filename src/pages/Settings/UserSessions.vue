@@ -114,6 +114,7 @@ export default {
                 group: 'User sessions',
                 title: 'Remove selected user sessions',
                 show: true,
+                icon: 'fa-trash',
                 keybinding: new KeyBinding(false, false, false, 'DELETE'),
             }),
         };
