@@ -88,8 +88,10 @@ export default {
                     vue_this.reset();
                 },
                 error(error) {
-                    // TODO: Error
-                    console.log(error);
+                    // TODO: Error toast
+                    vue_this.error_color = true;
+                    vue_this.error_title = true;
+                    vue_this.$refs.input_title.focus();
                 },
             });
         },

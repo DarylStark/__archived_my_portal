@@ -28,6 +28,7 @@
                 v-bind:disabled="disabled"
                 v-bind:validate_re="validate_re"
                 v-bind:id="id"
+                v-bind:error="error"
             ></Input>
         </template>
     </div>
@@ -46,6 +47,7 @@ export default {
             edit_mode: false,
             v: null,
             cancel: false,
+            error: false,
         };
     },
     props: {
@@ -91,8 +93,11 @@ export default {
         edit() {
             this.v = this.value;
             this.edit_mode = true;
+            this.focus(true);
+        },
+        focus(select = false) {
             this.$nextTick(() => {
-                this.$refs.input.focus(true);
+                this.$refs.input.focus(select);
             });
         },
         keydown(event) {

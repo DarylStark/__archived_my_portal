@@ -71,6 +71,8 @@ export default {
     },
     methods: {
         save_title(new_title) {
+            let vue_this = this;
+
             this.$store.commit('set_tag', {
                 id: this.tag.id,
                 title: new_title,
@@ -78,8 +80,15 @@ export default {
                     this.$refs.editabletext_title.stop_input();
                 },
                 error: (error) => {
-                    console.log('ERROR');
-                    console.log(error);
+                    this.eventbus.emit('toast_show', {
+                        title: 'Tag already exists',
+                        text: 'The chosen name for this tag already exists.',
+                        type: 'error',
+                        icon: 'fa-tag',
+                    });
+
+                    this.$refs.editabletext_title.error = true;
+                    this.$refs.editabletext_title.focus(true);
                 },
             });
         },
@@ -91,8 +100,15 @@ export default {
                     this.$refs.editabletext_color.stop_input();
                 },
                 error: (error) => {
-                    console.log('ERROR');
-                    console.log(error);
+                    this.eventbus.emit('toast_show', {
+                        title: 'Tag already exists',
+                        text: 'The chosen name for this tag already exists.',
+                        type: 'error',
+                        icon: 'fa-tag',
+                    });
+
+                    this.$refs.editabletext_color.error = true;
+                    this.$refs.editabletext_color.focus(true);
                 },
             });
         },
