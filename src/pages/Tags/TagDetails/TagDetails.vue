@@ -1,13 +1,34 @@
 <template>
-    <p>TAG DETAILS: {{ tag_slug }}</p>
+    <Grid>
+        <Cell cols="12">
+            <SectionTitle>{{ tag.title }}</SectionTitle>
+        </Cell>
+        <Cell cols="12">
+            <p>Resources for this tag should come here</p>
+        </Cell>
+    </Grid>
 </template>
 
 <script>
+import Grid from '../../../layout/Grid/Grid';
+import Cell from '../../../layout/Grid/Cell';
+import SectionTitle from '../../../layout/Titles/SectionTitle.vue';
+
 export default {
     name: 'TagDetails',
+    components: {
+        Grid,
+        Cell,
+        SectionTitle,
+    },
     computed: {
         tag_slug() {
             return this.$route.params.tag_slug;
+        },
+        tag() {
+            return this.$store.state.api_data.tags.filter(
+                (tag) => tag.slug == this.tag_slug
+            )[0];
         },
     },
     created() {
