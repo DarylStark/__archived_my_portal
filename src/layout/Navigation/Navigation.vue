@@ -17,6 +17,7 @@
             title="Tags"
             url="/tags"
             id="nav_tags"
+            :active_at="['tagdetails']"
         ></NavigationSection>
         <NavigationSection
             icon="fa-book-open"

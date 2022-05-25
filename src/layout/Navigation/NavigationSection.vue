@@ -7,7 +7,7 @@
         >
             <li
                 v-on:click="click_title"
-                v-bind:class="{ active: isActive }"
+                v-bind:class="{ active: isActive || should_be_active }"
                 v-bind:id="id"
             >
                 <div class="icon">
@@ -68,6 +68,14 @@ export default {
         has_subitems() {
             return !(this.$slots.default == undefined);
         },
+        should_be_active() {
+            if (this.active_at != null) {
+                if (this.active_at.indexOf(this.$route.name) != -1) {
+                    return true;
+                }
+            }
+            return false;
+        },
     },
     props: {
         id: {
@@ -92,6 +100,10 @@ export default {
             type: Boolean,
             mandatory: false,
             default: false,
+        },
+        active_at: {
+            tyope: Array,
+            required: false,
         },
     },
 };
