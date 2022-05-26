@@ -32,6 +32,8 @@ export default {
         },
     },
     created() {
+        this.$store.commit('sidebar_available_set', false);
+
         // We have to watch the tag_slug because VueJS will not restart the
         // component when the user navigates to a different tag. By watching it,
         // we can respond when it changes
