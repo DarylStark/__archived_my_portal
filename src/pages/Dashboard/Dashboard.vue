@@ -62,7 +62,7 @@ export default {
     },
     methods: {
         update_date() {
-            let regex_date = new RegExp('^([0-9]{4}-[0-9]{2}-[0-9]{2})$');
+            let regex_date = new RegExp('^([0-9]{4}-[01][0-9]-[0-3][0-9])$');
 
             if (
                 this.date == '' ||
