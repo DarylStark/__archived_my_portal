@@ -1,0 +1,85 @@
+<template>
+    <Grid>
+        <Cell cols="12">
+            <SectionTitle>Dashboard</SectionTitle>
+        </Cell>
+        <Cell cols="12">
+            <b>{{ actual_date }}</b>
+            <p>
+                <router-link to="/dashboard/2022-09-16">2022-09-16</router-link>
+                <br />
+                <router-link to="/dashboard/2022-10-26">2022-10-26</router-link>
+                <br />
+                <router-link to="/dashboard/2022-01-20">2023-01-20</router-link>
+                <br />
+                <router-link to="/dashboard/202-01-20"
+                    >202-01-20 (invalid)</router-link
+                >
+            </p>
+        </Cell>
+    </Grid>
+</template>
+
+<script>
+import Grid from '../../layout/Grid/Grid';
+import Cell from '../../layout/Grid/Cell';
+import SectionTitle from '../../layout/Titles/SectionTitle.vue';
+
+export default {
+    name: 'Dashboard',
+    components: {
+        Grid,
+        Cell,
+        SectionTitle,
+    },
+    data() {
+        return {
+            actual_date: null,
+        };
+    },
+    computed: {
+        date() {
+            return this.$route.params.date;
+        },
+    },
+    created() {
+        this.$store.commit('sidebar_available_set', true);
+
+        // We have to watch the params because VueJS will not restart the
+        // component when the user navigates to a different date. By watching
+        // it, we can respond when it changes
+        this.$watch(
+            () => this.$route.params,
+            (to_params, previous_params) => {
+                if (Object.keys(to_params).length > 0) {
+                    this.update_date();
+                }
+            }
+        );
+
+        // Update the date
+        this.update_date();
+    },
+    methods: {
+        update_date() {
+            let regex_date = new RegExp('^([0-9]{4}-[0-9]{2}-[0-9]{2})$');
+
+            if (
+                this.date == '' ||
+                this.date == null ||
+                !regex_date.test(this.date)
+            ) {
+                // No (valid) date is set, get the date of today
+                let today = new Date();
+                let year = today.getFullYear();
+                let month = String(today.getUTCMonth() + 1).padStart(2, '0');
+                let day = String(today.getUTCDate()).padStart(2, '0');
+                this.actual_date = `${year}-${month}-${day}`;
+                return;
+            }
+
+            this.actual_date = this.date;
+        },
+    },
+};
+</script>

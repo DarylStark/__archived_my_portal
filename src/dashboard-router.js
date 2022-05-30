@@ -2,7 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Import the pages
-import Dashboard from './pages/Dashboard'
+import Dashboard from './pages/Dashboard/Dashboard'
 import Tags from './pages/Tags/Tags'
 import TagDetails from './pages/Tags/TagDetails/TagDetails';
 import Notes from './pages/Notes'
@@ -22,7 +22,7 @@ export default createRouter({
             redirect: '/dashboard',
         },
         {
-            path: '/dashboard',
+            path: '/dashboard/:date?',
             name: 'dashboard',
             component: Dashboard
         },
