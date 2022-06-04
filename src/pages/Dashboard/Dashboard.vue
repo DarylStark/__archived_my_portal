@@ -10,6 +10,7 @@
                         v-for="tag in $store.state.api_data.tags"
                         v-bind:tag="tag"
                         v-bind:key="tag"
+                        v-bind:delete_method="delete_tag"
                     ></TagButton>
                 </div>
             </Cell>
@@ -78,6 +79,10 @@ export default {
             }
 
             this.actual_date = this.date;
+        },
+        delete_tag(tag) {
+            // Method to delete a tag from this specific day
+            console.log(tag);
         },
     },
 };

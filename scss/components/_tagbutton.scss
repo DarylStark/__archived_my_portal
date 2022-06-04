@@ -3,13 +3,27 @@ div.tagbutton {
     border-style: solid;
     border-width: 1px;
     color: var(--tag-default-color);
-    padding: 4px 12px 4px 12px;
     text-align: center;
     flex-grow: 0;
     flex-shrink: 0;
     cursor: pointer;
+    display: flex;
 
-    &:hover {
-        color: var(--tag-hover-color);
+    >div {
+        padding: 4px 12px 4px 12px;
+
+        &:hover {
+            color: var(--tag-hover-color);
+        }
+    }
+
+    >.text {
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
+    >.delete {
+        flex-grow: 0;
+        flex-shrink: 0;
     }
 }

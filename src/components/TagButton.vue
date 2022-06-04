@@ -1,6 +1,13 @@
 <template>
-    <div class="tagbutton" v-bind:style="style" v-on:click="go_to_tag">
-        {{ tag.title }}
+    <div class="tagbutton" v-bind:style="style">
+        <div class="text" v-on:click="go_to_tag">{{ tag.title }}</div>
+        <div
+            class="delete"
+            v-if="delete_method"
+            v-on:click="delete_method(tag)"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </div>
     </div>
 </template>
 
@@ -10,6 +17,9 @@ export default {
     props: {
         tag: {
             required: true,
+        },
+        delete_method: {
+            required: false,
         },
     },
     computed: {
