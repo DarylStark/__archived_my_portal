@@ -116,7 +116,6 @@ export default {
             this.eventbus.emit('remove_tag', this.tag.id);
         },
         detail_page() {
-            // TODO: Implement
             this.$router.push(`/tags/${this.tag.slug}`);
         },
     },
