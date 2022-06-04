@@ -106,8 +106,10 @@ a:hover {
 @import 'components/dropdown';
 @import 'components/checkbox';
 @import 'components/editabletext';
+@import 'components/tagbutton';
 
 // Import pages
+@import 'pages/dashboard';
 @import 'pages/settings';
 @import 'pages/tags';
 

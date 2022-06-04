@@ -1,29 +1,27 @@
 <template>
-    <Grid>
-        <Cell cols="12">
-            <SectionTitle>Dashboard</SectionTitle>
-        </Cell>
-        <Cell cols="12">
-            <b>{{ actual_date }}</b>
-            <p>
-                <router-link to="/dashboard/2022-09-16">2022-09-16</router-link>
-                <br />
-                <router-link to="/dashboard/2022-10-26">2022-10-26</router-link>
-                <br />
-                <router-link to="/dashboard/2022-01-20">2023-01-20</router-link>
-                <br />
-                <router-link to="/dashboard/202-01-20"
-                    >202-01-20 (invalid)</router-link
-                >
-            </p>
-        </Cell>
-    </Grid>
+    <div class="page_dashboard">
+        <Grid>
+            <Cell cols="12">
+                <SectionTitle>Dashboard for {{ actual_date }}</SectionTitle>
+            </Cell>
+            <Cell cols="12">
+                <div class="tags">
+                    <TagButton
+                        v-for="tag in $store.state.api_data.tags"
+                        v-bind:tag="tag"
+                        v-bind:key="tag"
+                    ></TagButton>
+                </div>
+            </Cell>
+        </Grid>
+    </div>
 </template>
 
 <script>
 import Grid from '../../layout/Grid/Grid';
 import Cell from '../../layout/Grid/Cell';
 import SectionTitle from '../../layout/Titles/SectionTitle.vue';
+import TagButton from '../../components/TagButton.vue';
 
 export default {
     name: 'Dashboard',
@@ -31,6 +29,7 @@ export default {
         Grid,
         Cell,
         SectionTitle,
+        TagButton,
     },
     data() {
         return {
