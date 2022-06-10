@@ -12,6 +12,7 @@ export default {
             web_ui_settings: null,
             web_ui_settings_error: null,
             user_sessions: null,
+            dashboard: new Map(),
             tags: null
         }
     },
@@ -440,5 +441,79 @@ export default {
                 )
             );
         },
+        tag_date(state, object) {
+            // Method to tag a specific day
+
+            // Create a object to send to the backend
+            let obj = {
+                date: object.date,
+                tag_id: object.tag_id
+            }
+
+            api.execute(
+                new APICommand(
+                    'dashboard',
+                    'tag',
+                    'POST',
+                    obj,
+                    (data) => {
+                        // Update local cache
+                        if (!(object.date in state.dashboard)) {
+                            state.dashboard[object.date] = new Map();
+                        }
+                        if (!('tags' in state.dash[object.date])) {
+                            state.dashboard[object.date]['tags'] = new Array();
+                        }
+                        state.dash[object.date]['tags'].push(obj.tag_id);
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        },
+        update_tags_for_date(state, object) {
+            // Method to tag a specific day
+
+            if (!(object.date in state.dashboard)) {
+                state.dashboard[object.date] = new Map();
+            }
+
+            // Check if the tags are already in
+            if ('tags' in state.dashboard[object.date]) {
+                if ('done' in object) object['done'](state.dashboard[object.date]['tags']);
+                return;
+            }
+
+            console.log('retrieving from backend');
+
+            // Get from the backend
+            api.execute(
+                new APICommand(
+                    'dashboard',
+                    'tags/' + object.date,
+                    'GET',
+                    null,
+                    (data) => {
+                        // Update local cache
+                        if (!(object.date in state.dashboard)) {
+                            state.dashboard[object.date] = new Map();
+                        }
+                        state.dashboard[object.date]['tags'] = data.data.map((resource) => resource.tag_id);
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        }
     }
 };
