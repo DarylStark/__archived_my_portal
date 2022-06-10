@@ -46,7 +46,9 @@ export default {
             return this.$route.params.date;
         },
         tags() {
-            // TODO: SORT
+            // Make sure this gets recomputed when the counter changes
+            this.$store.state.api_data.dashboard_counter;
+
             if (this.tags_loaded && this.$store.state.api_data.tags) {
                 let tags = this.$store.state.api_data.tags.filter(
                     (tag) =>
@@ -54,6 +56,7 @@ export default {
                             this.actual_date
                         ].tags.indexOf(tag.id) > -1
                 );
+                // TODO: SORT
                 return tags;
             }
             return null;
@@ -108,6 +111,10 @@ export default {
         delete_tag(tag) {
             // Method to delete a tag from this specific day
             console.log(tag);
+            this.$store.commit('untag_date', {
+                date: this.actual_date,
+                tag_id: tag.id,
+            });
         },
         add_tag() {
             // Method to add a tag to this specific day

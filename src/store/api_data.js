@@ -13,6 +13,7 @@ export default {
             web_ui_settings_error: null,
             user_sessions: null,
             dashboard: new Map(),
+            dashboard_counter: 0,
             tags: null
         }
     },
@@ -461,10 +462,45 @@ export default {
                         if (!(object.date in state.dashboard)) {
                             state.dashboard[object.date] = new Map();
                         }
-                        if (!('tags' in state.dash[object.date])) {
+                        if (!('tags' in state.dashboard[object.date])) {
                             state.dashboard[object.date]['tags'] = new Array();
                         }
-                        state.dash[object.date]['tags'].push(obj.tag_id);
+                        state.dashboard[object.date]['tags'].push(obj.tag_id);
+
+                        // Update the dashboard counter
+                        state.dashboard_counter++;
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        },
+        untag_date(state, object) {
+            // Method to tag a specific day
+
+            // Create a object to send to the backend
+            let obj = {
+                date: object.date,
+                tag_id: object.tag_id
+            }
+
+            api.execute(
+                new APICommand(
+                    'dashboard',
+                    'tag',
+                    'DELETE',
+                    obj,
+                    (data) => {
+                        // Update local cache
+                        state.dashboard[object.date]['tags'] = state.dashboard[object.date]['tags'].filter((tag) => tag != obj.tag_id);
+
+                        // Update the dashboard counter
+                        state.dashboard_counter++;
 
                         // Run the given callback
                         if ('done' in object) object['done'](data);
@@ -504,6 +540,9 @@ export default {
                             state.dashboard[object.date] = new Map();
                         }
                         state.dashboard[object.date]['tags'] = data.data.map((resource) => resource.tag_id);
+
+                        // Update the dashboard counter
+                        state.dashboard_counter++;
 
                         // Run the given callback
                         if ('done' in object) object['done'](data);
