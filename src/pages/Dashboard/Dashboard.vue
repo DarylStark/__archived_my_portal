@@ -5,24 +5,7 @@
                 <SectionTitle>Dashboard for {{ actual_date }}</SectionTitle>
             </Cell>
             <Cell cols="12">
-                <Card>
-                    <div v-if="!tags" class="loading_tags">
-                        <div><i class="fas fa-spinner spin"></i></div>
-                        <div>Loading tags for this day</div>
-                    </div>
-                    <div class="tags" v-if="tags && tags.length > 0">
-                        <TagButton
-                            v-for="tag in tags"
-                            v-bind:tag="tag"
-                            v-bind:key="tag"
-                            v-bind:delete_method="delete_tag"
-                        ></TagButton>
-                    </div>
-                    <div class="empty_tags" v-if="tags && tags.length == 0">
-                        This day has no tags yet
-                    </div>
-                    <button v-on:click="add_tag" v-if="tags">add tag</button>
-                </Card>
+                <Tags v-bind:tags="tags" v-bind:date="actual_date"></Tags>
             </Cell>
         </Grid>
     </div>
@@ -32,8 +15,7 @@
 import Grid from '../../layout/Grid/Grid';
 import Cell from '../../layout/Grid/Cell';
 import SectionTitle from '../../layout/Titles/SectionTitle.vue';
-import TagButton from '../../components/TagButton.vue';
-import Card from '../../cards/Card.vue';
+import Tags from './Tags.vue';
 
 export default {
     name: 'Dashboard',
@@ -41,8 +23,7 @@ export default {
         Grid,
         Cell,
         SectionTitle,
-        TagButton,
-        Card,
+        Tags,
     },
     data() {
         return {
@@ -115,21 +96,6 @@ export default {
                 done: () => {
                     vue_this.tags_loaded = true;
                 },
-            });
-        },
-        delete_tag(tag) {
-            // Method to delete a tag from this specific day
-            console.log(tag);
-            this.$store.commit('untag_date', {
-                date: this.actual_date,
-                tag_id: tag.id,
-            });
-        },
-        add_tag() {
-            // Method to add a tag to this specific day
-            this.$store.commit('tag_date', {
-                date: this.actual_date,
-                tag_id: 1,
             });
         },
     },

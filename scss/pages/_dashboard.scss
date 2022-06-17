@@ -4,6 +4,7 @@ div.page_dashboard {
         align-items: center;
         justify-content: center;
         gap: 12px;
+        padding: 12px 24px 12px 14px;
     }
 
     div.empty_tags {
@@ -11,6 +12,7 @@ div.page_dashboard {
         border-style: solid;
         border-color: var(--dashboard-borders);
         text-align: center;
+        padding: 12px 24px 12px 14px;
     }
 
     div.tags {
@@ -21,5 +23,6 @@ div.page_dashboard {
         border-width: 0 0 1px 0;
         border-style: solid;
         border-color: var(--dashboard-borders);
+        padding: 12px 24px 12px 14px;
     }
 }
