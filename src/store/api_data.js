@@ -535,6 +535,9 @@ export default {
                     'GET',
                     null,
                     (data) => {
+                        // No data; empty list
+                        if (data.data === null) data.data = new Array();
+
                         // Update local cache
                         if (!(object.date in state.dashboard)) {
                             state.dashboard[object.date] = new Map();
