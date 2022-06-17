@@ -1,11 +1,23 @@
 div.page_dashboard {
+    div.loading_tags {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    div.empty_tags {
+        border-width: 0 0 1px 0;
+        border-style: solid;
+        border-color: var(--dashboard-borders);
+        text-align: center;
+    }
+
     div.tags {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-start;
         gap: 8px;
-        margin: 24px 0 0 0;
-        padding: 0 0 24px 0;
         border-width: 0 0 1px 0;
         border-style: solid;
         border-color: var(--dashboard-borders);

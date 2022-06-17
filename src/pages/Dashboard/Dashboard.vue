@@ -5,17 +5,24 @@
                 <SectionTitle>Dashboard for {{ actual_date }}</SectionTitle>
             </Cell>
             <Cell cols="12">
-                <div v-if="!tags">Tags still loading</div>
-                <div class="tags" v-if="tags && tags.length > 0">
-                    <TagButton
-                        v-for="tag in tags"
-                        v-bind:tag="tag"
-                        v-bind:key="tag"
-                        v-bind:delete_method="delete_tag"
-                    ></TagButton>
-                </div>
-                <div v-if="tags && tags.length == 0">no tags, mate</div>
-                <button v-on:click="add_tag">add tag</button>
+                <Card>
+                    <div v-if="!tags" class="loading_tags">
+                        <div><i class="fas fa-spinner spin"></i></div>
+                        <div>Loading tags for this day</div>
+                    </div>
+                    <div class="tags" v-if="tags && tags.length > 0">
+                        <TagButton
+                            v-for="tag in tags"
+                            v-bind:tag="tag"
+                            v-bind:key="tag"
+                            v-bind:delete_method="delete_tag"
+                        ></TagButton>
+                    </div>
+                    <div class="empty_tags" v-if="tags && tags.length == 0">
+                        This day has no tags yet
+                    </div>
+                    <button v-on:click="add_tag" v-if="tags">add tag</button>
+                </Card>
             </Cell>
         </Grid>
     </div>
@@ -26,6 +33,7 @@ import Grid from '../../layout/Grid/Grid';
 import Cell from '../../layout/Grid/Cell';
 import SectionTitle from '../../layout/Titles/SectionTitle.vue';
 import TagButton from '../../components/TagButton.vue';
+import Card from '../../cards/Card.vue';
 
 export default {
     name: 'Dashboard',
@@ -34,6 +42,7 @@ export default {
         Cell,
         SectionTitle,
         TagButton,
+        Card,
     },
     data() {
         return {
