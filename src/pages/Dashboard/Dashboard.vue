@@ -5,9 +5,18 @@
                 <SectionTitle>Dashboard for {{ actual_date }}</SectionTitle>
             </Cell>
             <Cell cols="12">
-                <Tags v-bind:tags="tags" v-bind:date="actual_date"></Tags>
+                <Tags v-bind:date="actual_date"></Tags>
             </Cell>
         </Grid>
+        <p>
+            <router-link to="/dashboard/">No milk, <b>today</b></router-link>
+        </p>
+        <p>
+            <router-link to="/dashboard/2022-10-26">Oct 26, 2022</router-link>
+        </p>
+        <p>
+            <router-link to="/dashboard/2023-01-20">Jan 20, 2023</router-link>
+        </p>
     </div>
 </template>
 
@@ -28,28 +37,11 @@ export default {
     data() {
         return {
             actual_date: null,
-            tags_loaded: false,
         };
     },
     computed: {
         date() {
             return this.$route.params.date;
-        },
-        tags() {
-            // Make sure this gets recomputed when the counter changes
-            this.$store.state.api_data.dashboard_counter;
-
-            if (this.tags_loaded && this.$store.state.api_data.tags) {
-                let tags = this.$store.state.api_data.tags.filter(
-                    (tag) =>
-                        this.$store.state.api_data.dashboard[
-                            this.actual_date
-                        ].tags.indexOf(tag.id) > -1
-                );
-                // TODO: SORT
-                return tags;
-            }
-            return null;
         },
     },
     created() {
@@ -88,15 +80,6 @@ export default {
             } else {
                 this.actual_date = this.date;
             }
-
-            // Update the data for this dashboard view
-            let vue_this = this;
-            this.$store.commit('update_tags_for_date', {
-                date: this.actual_date,
-                done: () => {
-                    vue_this.tags_loaded = true;
-                },
-            });
         },
     },
 };

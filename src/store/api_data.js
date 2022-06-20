@@ -12,8 +12,7 @@ export default {
             web_ui_settings: null,
             web_ui_settings_error: null,
             user_sessions: null,
-            dashboard: new Map(),
-            dashboard_counter: 0,
+            dashboard_tags: new Map(),
             tags: null
         }
     },
@@ -513,19 +512,13 @@ export default {
             );
         },
         update_tags_for_date(state, object) {
-            // Method to tag a specific day
+            // Method to get the tags for a specific day
 
-            if (!(object.date in state.dashboard)) {
-                state.dashboard[object.date] = new Map();
+            // First, we make sure the key for this date exists in the correct
+            // map
+            if (!state.dashboard_tags.has(object.date)) {
+                state.dashboard_tags.set(object.date, new Array());
             }
-
-            // Check if the tags are already in
-            if ('tags' in state.dashboard[object.date]) {
-                if ('done' in object) object['done'](state.dashboard[object.date]['tags']);
-                return;
-            }
-
-            console.log('retrieving from backend');
 
             // Get from the backend
             api.execute(
@@ -535,22 +528,15 @@ export default {
                     'GET',
                     null,
                     (data) => {
-                        // No data; empty list
+                        // We have the data
                         if (data.data === null) data.data = new Array();
-
-                        // Update local cache
-                        if (!(object.date in state.dashboard)) {
-                            state.dashboard[object.date] = new Map();
-                        }
-                        state.dashboard[object.date]['tags'] = data.data.map((resource) => resource.tag_id);
-
-                        // Update the dashboard counter
-                        state.dashboard_counter++;
+                        state.dashboard_tags[object.date] = data.data;
 
                         // Run the given callback
                         if ('done' in object) object['done'](data);
                     },
                     (error) => {
+                        console.log(error);
                         // Run the given callback
                         if ('error' in object) object['error'](error);
                     }
