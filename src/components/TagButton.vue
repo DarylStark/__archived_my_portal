@@ -6,7 +6,7 @@
             v-if="delete_method"
             v-on:click="delete_method(tag)"
         >
-            <i class="fa-solid fa-xmark"></i>
+            <i v-bind:class="tag_class"></i>
         </div>
     </div>
 </template>
@@ -28,6 +28,15 @@ export default {
                 'border-color': `#${this.tag.color}`,
                 background: `#${this.tag.color}90`,
             };
+        },
+        tag_class() {
+            return [
+                'fa-solid',
+                'fa-xmark',
+                {
+                    spin: this.tag.loading,
+                },
+            ];
         },
     },
     methods: {

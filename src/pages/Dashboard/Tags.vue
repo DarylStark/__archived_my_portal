@@ -83,10 +83,19 @@ export default {
             });
         },
         delete_tag(tag) {
+            tag.loading = true;
             // Method to delete a tag from this specific day
             this.$store.commit('untag_date', {
                 date: this.date,
                 tag_id: tag.id,
+                done: () => {
+                    tag.loading = false;
+                    this.update_tags();
+                },
+                error: () => {
+                    // TODO: give error
+                    tag.loading = false;
+                },
             });
         },
         add_tag() {

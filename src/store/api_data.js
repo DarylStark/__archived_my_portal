@@ -496,7 +496,7 @@ export default {
                     obj,
                     (data) => {
                         // Update local cache
-                        state.dashboard[object.date]['tags'] = state.dashboard[object.date]['tags'].filter((tag) => tag != obj.tag_id);
+                        state.dashboard_tags[object.date] = state.dashboard_tags[object.date].filter((tag) => tag.id != obj.tag_id);
 
                         // Update the dashboard counter
                         state.dashboard_counter++;
