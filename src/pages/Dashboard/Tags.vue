@@ -38,6 +38,7 @@ export default {
     data() {
         return {
             tags_loaded: false,
+            refresh_key: true,
         };
     },
     watch: {
@@ -47,10 +48,11 @@ export default {
     },
     computed: {
         tags() {
+            // Property to force the tags to refresh
+            this.refresh_key;
+
             if (this.$store.state.api_data.tags) {
                 if (this.tags_loaded) {
-                    console.log(this.$store.state.api_data.dashboard_tags);
-
                     // Extract all tag IDs from the source
                     const tag_ids = this.$store.state.api_data.dashboard_tags[
                         this.date
@@ -89,8 +91,8 @@ export default {
                 date: this.date,
                 tag_id: tag.id,
                 done: () => {
+                    this.refresh_key = !this.refresh_key;
                     tag.loading = false;
-                    this.update_tags();
                 },
                 error: () => {
                     // TODO: give error

@@ -496,7 +496,7 @@ export default {
                     obj,
                     (data) => {
                         // Update local cache
-                        state.dashboard_tags[object.date] = state.dashboard_tags[object.date].filter((tag) => tag.id != obj.tag_id);
+                        state.dashboard_tags[object.date] = state.dashboard_tags[object.date].filter((tag) => tag.tag_id != obj.tag_id);
 
                         // Update the dashboard counter
                         state.dashboard_counter++;
@@ -518,6 +518,16 @@ export default {
             // map
             if (!state.dashboard_tags.has(object.date)) {
                 state.dashboard_tags.set(object.date, new Array());
+            } else if ('force' in object) {
+                // If we already have tags and the 'force' option is not set in the
+                // given object, we are done
+                if (!object.force) {
+                    if ('done' in object) object['done']();
+                    return;
+                }
+            } else {
+                if ('done' in object) object['done']();
+                return;
             }
 
             // Get from the backend
