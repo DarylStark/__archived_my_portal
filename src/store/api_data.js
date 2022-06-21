@@ -340,6 +340,8 @@ export default {
                             return true;
                         })
 
+                        // TODO: remove the tag from the dashboard lists
+
                         // Run the given callback
                         if ('done' in object) object['done'](data);
                     },
