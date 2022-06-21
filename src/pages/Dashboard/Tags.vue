@@ -66,7 +66,9 @@ export default {
                     );
 
                     // Return the created array
-                    return tag_list;
+                    return tag_list.sort((tag_a, tag_b) =>
+                        tag_a.title > tag_b.title ? 1 : -1
+                    );
                 }
             }
             return new Array();
