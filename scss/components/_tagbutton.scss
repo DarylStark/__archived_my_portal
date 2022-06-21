@@ -25,5 +25,9 @@ div.tagbutton {
     >.delete {
         flex-grow: 0;
         flex-shrink: 0;
+
+        i {
+            min-width: 15px;
+        }
     }
 }
