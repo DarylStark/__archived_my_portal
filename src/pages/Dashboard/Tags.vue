@@ -22,6 +22,8 @@
 <script>
 import Card from '../../cards/Card.vue';
 import TagButton from '../../components/TagButton.vue';
+import cmdlist from '../../my/command_list';
+import Command from '../../my/command';
 
 export default {
     name: 'Tags',
@@ -71,14 +73,32 @@ export default {
         },
     },
     created() {
+        // Add command to update tags for this specific date
+        cmdlist.add_command(
+            new Command({
+                command: 'dashboard.update.tags',
+                scope: 'local',
+                group: 'Dashboard',
+                title: 'Update tags',
+                method: this.update_tags,
+                args: true,
+                show: true,
+                icon: 'fa-arrows-rotate',
+            })
+        );
+
         this.update_tags();
     },
+    unmounted() {
+        cmdlist.remove_command_scope('local');
+    },
     methods: {
-        update_tags() {
+        update_tags(force = false) {
             let vue_this = this;
             this.tags_loaded = false;
             this.$store.commit('update_tags_for_date', {
                 date: this.date,
+                force: force,
                 done: (data) => {
                     vue_this.tags_loaded = true;
                 },
