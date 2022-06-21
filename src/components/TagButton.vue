@@ -1,7 +1,11 @@
 <template>
     <div class="tagbutton" v-bind:style="style">
         <div class="text" v-on:click="go_to_tag">{{ tag.title }}</div>
-        <div class="delete" v-if="!tag.loading" v-on:click="delete_method(tag)">
+        <div
+            class="delete"
+            v-if="!tag.loading && delete_method"
+            v-on:click="delete_method(tag)"
+        >
             <i class="fa-solid fa-xmark"></i>
         </div>
         <div v-if="tag.loading" class="delete">
