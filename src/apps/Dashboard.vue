@@ -10,6 +10,7 @@
         <CommandPalette
             v-if="cmd_palette_visible"
             v-bind:prefix="$store.state.ui.cmd_palette_prefix"
+            v-bind:execute_command="$store.state.ui.cmd_palette_function"
         ></CommandPalette>
         <Toasts></Toasts>
         <Dimmer v-if="dimmed"></Dimmer>

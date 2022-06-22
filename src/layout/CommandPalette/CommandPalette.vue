@@ -48,6 +48,9 @@ export default {
             required: false,
             default: '>',
         },
+        execute_command: {
+            required: false,
+        },
     },
     data() {
         return {
@@ -67,6 +70,7 @@ export default {
     },
     methods: {
         close() {
+            this.$store.commit('set_command_palette_command');
             cmdlist.execute('command', 'command_palette.hide');
         },
         increase_active_index(increase) {
@@ -94,7 +98,8 @@ export default {
         execute(index = -1) {
             if (index < 0) index = this.active_index;
             let cmd = this.commands[index];
-            cmdlist.execute(cmd.type, cmd.command);
+            if (!this.execute_command) cmdlist.execute(cmd.type, cmd.command);
+            else this.execute_command(cmd);
             this.close();
         },
         keydown(event) {

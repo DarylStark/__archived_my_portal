@@ -21,6 +21,7 @@ export default {
             device_type: null,
             cmd_palette_visible: false,
             cmd_palette_prefix: '#',
+            cmd_palette_function: null,
             dimmed: false
         }
     },
@@ -227,6 +228,9 @@ export default {
         dimmer_visible_set(state, value) {
             // Method to enable or disable the dimmer
             state.dimmed = value;
+        },
+        set_command_palette_command(state, command = null) {
+            state.cmd_palette_function = command;
         }
     },
 };

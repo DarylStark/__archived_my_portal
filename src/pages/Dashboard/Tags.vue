@@ -122,12 +122,25 @@ export default {
                 },
             });
         },
-        add_tag() {
-            // Method to add a tag to this specific day
+        add_selected_tags(tag) {
             this.$store.commit('tag_date', {
                 date: this.date,
-                tag_id: 1,
+                tag_id: tag.id,
+                done: () => {
+                    this.refresh_key = !this.refresh_key;
+                },
             });
+        },
+        add_tag() {
+            // Method to add a tag to this specific day
+
+            // TODO: Make sure the user can only select tags in the command palette
+            // TODO: Make a animation untill the tag is added so the user knows what is happening
+            this.$store.commit(
+                'set_command_palette_command',
+                this.add_selected_tags
+            );
+            cmdlist.execute('command', 'command_palette.show_tags');
         },
     },
 };

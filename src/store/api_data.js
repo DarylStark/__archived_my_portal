@@ -459,16 +459,10 @@ export default {
                     'POST',
                     obj,
                     (data) => {
-                        // Update local cache
-                        if (!(object.date in state.dashboard)) {
-                            state.dashboard[object.date] = new Map();
-                        }
-                        if (!('tags' in state.dashboard[object.date])) {
-                            state.dashboard[object.date]['tags'] = new Array();
-                        }
-                        state.dashboard[object.date]['tags'].push(obj.tag_id);
+                        state.dashboard_tags[object.date].push(data.data);
 
                         // Update the dashboard counter
+                        // TODO: Is this still used? Is it?
                         state.dashboard_counter++;
 
                         // Run the given callback
