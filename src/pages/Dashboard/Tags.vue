@@ -5,6 +5,13 @@
             <div>Loading tags</div>
         </div>
         <div class="tags" v-if="tags_loaded && tags.length > 0">
+            <div
+                v-bind:class="['add_tag_icon', { spin: adding }]"
+                v-on:click="add_tag"
+                v-if="tags"
+            >
+                <i class="fas fa-add"></i>
+            </div>
             <TagButton
                 v-for="tag in tags"
                 v-bind:tag="tag"
@@ -13,9 +20,17 @@
             ></TagButton>
         </div>
         <div class="empty_tags" v-if="tags_loaded && tags.length == 0">
-            This day has no tags yet
+            <p>This day has no tags yet</p>
+            <div class="add_tag_icon" v-on:click="add_tag" v-if="tags">
+                <template v-if="!adding">
+                    <i class="fas fa-add"></i>
+                    Add tag
+                </template>
+                <template v-if="adding">
+                    <i class="fas fa-spinner spin"></i> Adding tag
+                </template>
+            </div>
         </div>
-        <button v-on:click="add_tag" v-if="tags">add tag</button>
     </Card>
 </template>
 
@@ -25,6 +40,7 @@ import TagButton from '../../components/TagButton.vue';
 import cmdlist from '../../my/command_list';
 import Command from '../../my/command';
 import eventbus from '../../dashboard-eventbus';
+import KeyBinding from '../../my/keybinding';
 
 export default {
     name: 'Tags',
@@ -80,7 +96,7 @@ export default {
         // Add command to update tags for this specific date
         cmdlist.add_command(
             new Command({
-                command: 'dashboard.update.tags',
+                command: 'dashboard.tags.update',
                 scope: 'local',
                 group: 'Dashboard',
                 title: 'Update tags',
@@ -88,6 +104,18 @@ export default {
                 args: true,
                 show: true,
                 icon: 'fa-arrows-rotate',
+            })
+        );
+        cmdlist.add_command(
+            new Command({
+                command: 'dashboard.tags.add',
+                scope: 'local',
+                group: 'Dashboard',
+                title: 'Add tag',
+                method: this.add_tag,
+                show: false,
+                icon: 'fa-add',
+                keybinding: new KeyBinding(false, true, false, '#'),
             })
         );
 
@@ -146,16 +174,17 @@ export default {
             });
         },
         add_tag() {
-            // Method to add a tag to this specific day
+            if (!this.adding) {
+                // Method to add a tag to this specific day
 
-            // TODO: Make sure the user can only select tags in the command palette
-            // TODO: Make a animation untill the tag is added so the user knows what is happening
-            this.$store.commit(
-                'set_command_palette_command',
-                this.add_selected_tags
-            );
-            this.set_adding();
-            cmdlist.execute('command', 'command_palette.show_tags');
+                // TODO: Make sure the user can only select tags in the command palette
+                this.$store.commit(
+                    'set_command_palette_command',
+                    this.add_selected_tags
+                );
+                this.set_adding();
+                cmdlist.execute('command', 'command_palette.show_tags');
+            }
         },
     },
 };

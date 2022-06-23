@@ -13,6 +13,14 @@ div.page_dashboard {
         border-color: var(--dashboard-borders);
         text-align: center;
         padding: 12px 24px 12px 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        div.add_tag_icon {
+            padding: 4px 20px 0 20px;
+        }
     }
 
     div.tags {
@@ -24,5 +32,37 @@ div.page_dashboard {
         border-style: solid;
         border-color: var(--dashboard-borders);
         padding: 12px 24px 12px 14px;
+    }
+
+    div.add_tag_icon {
+        background: var(--card-list-actions-action-bg);
+        color: var(--card-list-actions-action-text);
+        height: 30px;
+        min-width: 30px;
+        max-width: fit-content;
+        border-radius: 15px;
+        overflow: hidden;
+        padding: 4px 0 0 0;
+        margin: 0;
+        text-align: center;
+        align-content: center;
+        box-sizing: border-box;
+        flex-grow: 0;
+        flex-shrink: 0;
+        cursor: pointer;
+
+        &:hover {
+            background: var(--card-list-actions-action-hover-bg);
+            color: var(--card-list-actions-action-hover-text);
+        }
+
+        &.confirm {
+            border: 3px solid var(--text);
+            padding-top: 2px;
+
+            &:hover {
+                border-color: var(--card-list-actions-action-hover-text);
+            }
+        }
     }
 }
