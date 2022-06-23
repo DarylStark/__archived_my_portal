@@ -24,6 +24,7 @@ import Card from '../../cards/Card.vue';
 import TagButton from '../../components/TagButton.vue';
 import cmdlist from '../../my/command_list';
 import Command from '../../my/command';
+import eventbus from '../../dashboard-eventbus';
 
 export default {
     name: 'Tags',
@@ -41,6 +42,7 @@ export default {
         return {
             tags_loaded: false,
             refresh_key: true,
+            adding: false,
         };
     },
     watch: {
@@ -122,12 +124,24 @@ export default {
                 },
             });
         },
+        set_adding() {
+            this.adding = true;
+            eventbus.on('command_palette_closed_no_save', this.set_not_adding);
+        },
+        set_not_adding() {
+            this.adding = false;
+            eventbus.off('command_palette_closed_no_save', this.set_not_adding);
+        },
         add_selected_tags(tag) {
             this.$store.commit('tag_date', {
                 date: this.date,
                 tag_id: tag.id,
                 done: () => {
                     this.refresh_key = !this.refresh_key;
+                    this.set_not_adding();
+                },
+                error: () => {
+                    this.set_not_adding();
                 },
             });
         },
@@ -140,6 +154,7 @@ export default {
                 'set_command_palette_command',
                 this.add_selected_tags
             );
+            this.set_adding();
             cmdlist.execute('command', 'command_palette.show_tags');
         },
     },

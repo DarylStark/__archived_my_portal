@@ -27,6 +27,7 @@
 import Input from '../../components/Input.vue';
 import Command from './Command.vue';
 import cmdlist from '../../my/command_list';
+import eventbus from '../../dashboard-eventbus';
 
 export default {
     name: 'CommandPalette',
@@ -128,6 +129,7 @@ export default {
             if (event.keyCode == 27) {
                 // Escape
                 this.close();
+                eventbus.emit('command_palette_closed_no_save');
                 event.preventDefault();
             }
         },
