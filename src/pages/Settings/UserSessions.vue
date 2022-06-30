@@ -135,7 +135,7 @@ export default {
         },
         refresh() {
             this.refreshing = true;
-            cmdlist.execute('command', 'user_sessions.update');
+            cmdlist.execute('user_sessions.update');
         },
         remove_sessions(sessions) {
             // Delete the user sessions

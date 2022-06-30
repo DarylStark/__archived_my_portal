@@ -58,18 +58,18 @@ export default {
     },
     methods: {
         show_settings() {
-            cmdlist.execute('command', 'user.open_settings');
+            cmdlist.execute('user.open_settings');
             this.active = false;
         },
         next_theme(theme) {
             this.$store.commit('next_theme');
         },
         show_cmd_palette() {
-            cmdlist.execute('command', 'command_palette.show');
+            cmdlist.execute('command_palette.show');
             this.active = false;
         },
         logout() {
-            cmdlist.execute('command', 'user.logout');
+            cmdlist.execute('user.logout');
             this.active = false;
         },
     },

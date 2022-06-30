@@ -115,7 +115,7 @@ export default {
                 method: this.add_tag,
                 show: false,
                 icon: 'fa-add',
-                keybinding: new KeyBinding(false, true, false, '#'),
+                keybinding: new KeyBinding(true, true, false, '#'),
             })
         );
 
@@ -183,7 +183,7 @@ export default {
                     this.add_selected_tags
                 );
                 this.set_adding();
-                cmdlist.execute('command', 'command_palette.show_tags');
+                cmdlist.execute('command_palette.show_tag_picker');
             }
         },
     },

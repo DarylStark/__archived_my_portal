@@ -9,12 +9,6 @@ class CommandList {
         this.commands = [];
         this.command_methods = new Map();
         this.command_keybindings = new Map();
-
-        // Create the map with possible prefixes
-        this.search_prefixes = new Map([
-            ['#', 'tags'],
-            ['>', 'commands']
-        ]);
     }
 
     add_command(command_object) {
@@ -49,13 +43,6 @@ class CommandList {
         });
     }
 
-    sort_method(first, second) {
-        if (first.fullname.toLowerCase() > second.fullname.toLowerCase()) {
-            return 1;
-        }
-        return -1;
-    }
-
     set_visibility_command(commands, visibility) {
         // Method to set the visibility of a specific command
         let cmd = this.commands.filter((c) => {
@@ -67,66 +54,15 @@ class CommandList {
         });
     }
 
-    get_list(filter) {
-        // Default list is empty. Can be set to anything
-        let lst = [];
-
-        // Check if a prefix is given
-        let list = '';
-        let prefix = this.search_prefixes.get(filter[0]);
-        if (prefix) {
-            list = prefix;
-            filter = filter.substring(1);
-        }
-
-        if (list == 'commands') {
-            lst = this.commands.filter(function (item) {
-                return item.show;
-            });
-        }
-
-        if (list == 'tags') {
-            lst = store.state.api_data.tags;
-
-            // Enrich the object with needed fields
-            lst.forEach((tag) => {
-                tag.fullname = tag.title;
-                tag.show = true;
-                tag.type = 'tag';
-                tag.command = tag.slug;
-                tag.icon = 'fa-hashtag';
-            })
-        }
-
-        // Empty filter; return the complete list
-        if (filter == '') {
-            return lst.sort(this.sort_method).filter(function (item) {
-                return item.show;
-            });
-        }
-
-        // Returns the command list filtered on text
-        filter = filter.toLowerCase();
-        return lst.filter(function (cmd) {
-            if (!cmd.show) { return false; }
-            return cmd.fullname.toLowerCase().includes(filter);
-        }).sort(this.sort_method);
-    }
-
-    execute(type, command) {
+    execute(command) {
         // Method to execute a command
-        if (type == 'command') {
-            // Execute the command
-            let cmd = this.command_methods.get(command);
-            if (cmd) {
-                if (typeof cmd[1] === 'object' && cmd[1] !== null) {
-                    cmd[0](...cmd[1]);
-                    return;
-                }
-                cmd[0](cmd[1]);
+        let cmd = this.command_methods.get(command);
+        if (cmd) {
+            if (typeof cmd[1] === 'object' && cmd[1] !== null) {
+                cmd[0](...cmd[1]);
+                return;
             }
-        } else if (type == 'tag') {
-            router.push(`/tags/${command}`)
+            cmd[0](cmd[1]);
         }
     }
 
@@ -136,7 +72,7 @@ class CommandList {
         let keybinding_string = keybinding.get_string();
         let cmd = this.command_keybindings.get(keybinding_string);
         if (cmd) {
-            this.execute('command', cmd);
+            this.execute(cmd);
             return true;
         }
         return false;

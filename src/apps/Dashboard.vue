@@ -7,10 +7,16 @@
             <Sidebar></Sidebar>
         </div>
         <Feeter></Feeter>
-        <CommandPalette
+        <!-- <CommandPalette
             v-if="cmd_palette_visible"
             v-bind:prefix="$store.state.ui.cmd_palette_prefix"
             v-bind:execute_command="$store.state.ui.cmd_palette_function"
+        ></CommandPalette> -->
+        <CommandPalette
+            v-if="cmd_palette_visible"
+            v-bind:mode="$store.state.ui.cmd_palette_mode"
+            v-bind:execute_command="$store.state.ui.cmd_palette_function"
+            v-bind:prompt="$store.state.ui.cmd_palette_prompt"
         ></CommandPalette>
         <Toasts></Toasts>
         <Dimmer v-if="dimmed"></Dimmer>
@@ -173,10 +179,7 @@ export default {
                                     text: 'This usersession has no name set. Setting a name for this session will increase security and gives you the ability to identify the session. Click here to go to the settings to set a name.',
                                     icon: 'fa-user-circle',
                                     click: () => {
-                                        cmdlist.execute(
-                                            'command',
-                                            'user.open_settings'
-                                        );
+                                        cmdlist.execute('user.open_settings');
                                         return true;
                                     },
                                 });
@@ -210,10 +213,10 @@ export default {
                     {
                         done: () => {
                             // Update the user session
-                            cmdlist.execute('command', 'user_session.refresh');
+                            cmdlist.execute('user_session.refresh');
 
                             // Update the tags
-                            cmdlist.execute('command', 'tags.update');
+                            cmdlist.execute('tags.update');
 
                             // Send a event that the settings are reloaded
                             this.eventbus.emit('settings_reloaded');
@@ -233,7 +236,10 @@ export default {
                 group: 'Command Palette',
                 title: 'Show',
                 method: this.$store.commit,
-                args: ['cmd_palette_available_set', { value: true }],
+                args: [
+                    'cmd_palette_available_set',
+                    { value: true, prompt: '>' },
+                ],
                 show: false,
                 keybinding: new KeyBinding(true, true, false, 'P'),
             })
@@ -256,10 +262,23 @@ export default {
                 method: this.$store.commit,
                 args: [
                     'cmd_palette_available_set',
-                    { value: true, prefix: '#' },
+                    { value: true, mode: 'mixed', prompt: '#' },
                 ],
                 show: false,
                 keybinding: new KeyBinding(true, true, false, 'O'),
+            })
+        );
+        cmdlist.add_command(
+            new Command({
+                command: 'command_palette.show_tag_picker',
+                group: 'Command Palette',
+                title: 'Show (tag picker)',
+                method: this.$store.commit,
+                args: [
+                    'cmd_palette_available_set',
+                    { value: true, mode: 'tags', prompt: '' },
+                ],
+                show: false,
             })
         );
 
@@ -336,7 +355,7 @@ export default {
         );
 
         // Initialize the application
-        cmdlist.execute('command', 'user.reload_settings');
+        cmdlist.execute('user.reload_settings');
 
         // Set the device type
         this.$store.commit('set_device_type');
