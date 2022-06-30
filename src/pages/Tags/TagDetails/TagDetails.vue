@@ -51,7 +51,7 @@ export default {
     },
     methods: {
         update_tag() {
-            console.log(`Updating to slug: "${this.tag_slug}"`);
+            // TODO: Retrieve tag details
         },
     },
 };
