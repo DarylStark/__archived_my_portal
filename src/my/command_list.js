@@ -31,22 +31,46 @@ class CommandList {
 
     remove_command_scope(scope) {
         // Remove commands with a specific scope
-        this.commands = this.commands.filter((cmd) => {
-            if (cmd.scope == scope) {
+        let commands = new Array();
+        this.commands.forEach((cmd) => {
+            if (cmd.scope === scope)
+                commands.push(cmd);
+        });
+
+        this.remove_command(commands);
+    }
+
+    remove_command(cmdlist) {
+        let to_remove = cmdlist;
+        if (typeof (cmdlist) === "string")
+            to_remove = [cmdlist];
+
+        // Remove from the 'methods' list and from the 'keybindings' list and
+        // create a array with the commands
+        let to_remove_cmdlist = new Array();
+        to_remove.forEach((cmd) => {
+            // Remove from the 'methods' list
+            if (this.command_methods.has(cmd.command) != -1) {
                 this.command_methods.delete(cmd.command);
-                if (cmd.keybinding) {
+            }
+
+            // Remove from the 'keybindings' list
+            if (cmd.keybinding) {
+                if (this.command_keybindings.has(cmd.keybinding.get_string())) {
                     this.command_keybindings.delete(cmd.keybinding.get_string());
                 }
             }
-            return cmd.scope != scope;
-        });
-    }
 
-    remove_command(command) {
-        // Remove commands with a specific scope
-        this.commands = this.commands.filter((cmd) => {
-            return cmd.command != command;
+            // Add to the array to remove it from the normal list
+            to_remove_cmdlist.push(cmd.command)
         });
+
+        // Remove commands from the command list
+        this.commands = this.commands.filter((cmd) => {
+            return to_remove_cmdlist.indexOf(cmd.command) === -1;
+        });
+
+        // Remove commands from the 
     }
 
     set_visibility_command(commands, visibility) {
