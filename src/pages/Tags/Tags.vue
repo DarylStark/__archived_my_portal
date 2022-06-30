@@ -98,7 +98,7 @@ export default {
                 method: this.add,
                 show: true,
                 icon: 'fa-circle-plus',
-                keybinding: new KeyBinding(false, false, false, '='),
+                keybinding: new KeyBinding(false, true, false, '+'),
             })
         );
     },
