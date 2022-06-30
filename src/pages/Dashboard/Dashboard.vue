@@ -2,7 +2,21 @@
     <div class="page_dashboard">
         <Grid>
             <Cell cols="12">
-                <SectionTitle>Dashboard for {{ actual_date }}</SectionTitle>
+                <div class="title">
+                    <div class="previous">
+                        <i
+                            class="fa-solid fa-arrow-left"
+                            v-on:click="change_date(-1)"
+                        ></i>
+                    </div>
+                    <SectionTitle>Dashboard for {{ actual_date }}</SectionTitle>
+                    <div class="next">
+                        <i
+                            class="fa-solid fa-arrow-right"
+                            v-on:click="change_date(1)"
+                        ></i>
+                    </div>
+                </div>
             </Cell>
             <Cell cols="12">
                 <Tags v-bind:date="actual_date"></Tags>
@@ -80,6 +94,17 @@ export default {
             } else {
                 this.actual_date = this.date;
             }
+        },
+        change_date(difference) {
+            let date_obj = new Date(this.actual_date);
+            date_obj.setDate(date_obj.getDate() + difference);
+
+            let year = date_obj.getFullYear();
+            let month = String(date_obj.getUTCMonth() + 1).padStart(2, '0');
+            let day = String(date_obj.getUTCDate()).padStart(2, '0');
+
+            let date_string = `${year}-${month}-${day}`;
+            this.$router.push(`/dashboard/${date_string}`);
         },
     },
 };
