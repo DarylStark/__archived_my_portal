@@ -159,6 +159,7 @@ export default {
                 group: 'User session',
                 title: 'Refresh',
                 method: this.$store.commit,
+                icon: 'fa-arrows-rotate',
                 args: [
                     'get_user_session',
                     {
@@ -199,6 +200,7 @@ export default {
                 method: this.$store.commit,
                 args: ['get_tags', { force: true }],
                 show: true,
+                icon: 'fa-arrows-rotate',
             })
         );
 
@@ -208,6 +210,7 @@ export default {
                 group: 'User',
                 title: 'Reload settings',
                 method: this.$store.commit,
+                icon: 'fa-arrows-rotate',
                 args: [
                     'get_settings',
                     {
@@ -349,6 +352,7 @@ export default {
                 command: 'user_sessions.update',
                 group: 'User sessions',
                 title: 'Update',
+                icon: 'fa-arrows-rotate',
                 method: () =>
                     this.$store.commit('get_user_sessions', { force: true }),
             })
