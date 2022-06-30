@@ -97,7 +97,7 @@ export default {
         cmdlist.add_command(
             new Command({
                 command: 'dashboard.tags.update',
-                scope: 'local',
+                scope: 'local-dashboard-tags',
                 group: 'Dashboard',
                 title: 'Update tags',
                 method: this.update_tags,
@@ -109,7 +109,7 @@ export default {
         cmdlist.add_command(
             new Command({
                 command: 'dashboard.tags.add',
-                scope: 'local',
+                scope: 'local-dashboard-tags',
                 group: 'Dashboard',
                 title: 'Add tag',
                 method: this.add_tag,
@@ -122,7 +122,7 @@ export default {
         this.update_tags();
     },
     unmounted() {
-        cmdlist.remove_command_scope('local');
+        cmdlist.remove_command_scope('local-dashboard-tags');
     },
     methods: {
         update_tags(force = false) {

@@ -110,7 +110,7 @@ export default {
             refreshing: true,
             cmd_delete: new Command({
                 command: 'page_settings_usersessions.remove',
-                scope: 'local',
+                scope: 'local-usersssions',
                 group: 'User sessions',
                 title: 'Remove selected user sessions',
                 show: true,

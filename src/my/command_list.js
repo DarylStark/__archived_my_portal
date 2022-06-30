@@ -32,6 +32,12 @@ class CommandList {
     remove_command_scope(scope) {
         // Remove commands with a specific scope
         this.commands = this.commands.filter((cmd) => {
+            if (cmd.scope == scope) {
+                this.command_methods.delete(cmd.command);
+                if (cmd.keybinding) {
+                    this.command_keybindings.delete(cmd.keybinding.get_string());
+                }
+            }
             return cmd.scope != scope;
         });
     }

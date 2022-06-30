@@ -92,7 +92,7 @@ export default {
         cmdlist.add_command(
             new Command({
                 command: 'page_tags.toggle_add',
-                scope: 'local',
+                scope: 'local-tags',
                 group: 'Tags',
                 title: 'Toggle add',
                 method: this.add,
@@ -106,7 +106,7 @@ export default {
         this.eventbus.off('get_tags_done', this.stop_refreshing);
         this.eventbus.off('remove_tag', this.action_remove);
         this.eventbus.off('tags_hide_add_row', this.add);
-        cmdlist.remove_command_scope('local');
+        cmdlist.remove_command_scope('local-tags');
     },
     data() {
         return {
@@ -114,7 +114,7 @@ export default {
             show_add_row: false,
             cmd_delete: new Command({
                 command: 'page_tags.remove',
-                scope: 'local',
+                scope: 'local-tags',
                 group: 'Tags',
                 title: 'Remove selected tags',
                 icon: 'fa-trash',
