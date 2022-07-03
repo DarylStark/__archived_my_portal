@@ -1,0 +1,15 @@
+div.monthcalendar {
+    display: flex;
+    width: 413px;
+    flex-wrap: wrap;
+    border: 1px solid black;
+
+    div.day {
+        width: 59px;
+        text-align: center;
+        flex-grow: 0;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        height: 59px;
+    }
+}

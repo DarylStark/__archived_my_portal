@@ -6,14 +6,14 @@
                     <div class="previous">
                         <i
                             class="fa-solid fa-arrow-left"
-                            v-on:click="change_date(-1)"
+                            v-on:click="move_date(-1)"
                         ></i>
                     </div>
                     <SectionTitle>Dashboard for {{ actual_date }}</SectionTitle>
                     <div class="next">
                         <i
                             class="fa-solid fa-arrow-right"
-                            v-on:click="change_date(1)"
+                            v-on:click="move_date(1)"
                         ></i>
                     </div>
                 </div>
@@ -31,6 +31,12 @@
         <p>
             <router-link to="/dashboard/2023-01-20">Jan 20, 2023</router-link>
         </p>
+        <MonthCalendar
+            year="2022"
+            month="10"
+            :first_day_sunday="false"
+            v-bind:select="navigate_to_date"
+        ></MonthCalendar>
     </div>
 </template>
 
@@ -39,6 +45,7 @@ import Grid from '../../layout/Grid/Grid';
 import Cell from '../../layout/Grid/Cell';
 import SectionTitle from '../../layout/Titles/SectionTitle.vue';
 import Tags from './Tags.vue';
+import MonthCalendar from '../../components/MonthCalendar.vue';
 
 export default {
     name: 'Dashboard',
@@ -47,6 +54,7 @@ export default {
         Cell,
         SectionTitle,
         Tags,
+        MonthCalendar,
     },
     data() {
         return {
@@ -95,16 +103,18 @@ export default {
                 this.actual_date = this.date;
             }
         },
-        change_date(difference) {
-            let date_obj = new Date(this.actual_date);
-            date_obj.setDate(date_obj.getDate() + difference);
-
+        navigate_to_date(date_obj) {
             let year = date_obj.getFullYear();
             let month = String(date_obj.getUTCMonth() + 1).padStart(2, '0');
             let day = String(date_obj.getUTCDate()).padStart(2, '0');
 
             let date_string = `${year}-${month}-${day}`;
             this.$router.push(`/dashboard/${date_string}`);
+        },
+        move_date(difference) {
+            let date_obj = new Date(this.actual_date);
+            date_obj.setDate(date_obj.getDate() + difference);
+            this.navigate_to_date(date_obj);
         },
     },
 };
