@@ -25,7 +25,7 @@
         <MonthCalendar
             year="2023"
             month="1"
-            :first_day_sunday="true"
+            :first_day_sunday="false"
             v-bind:select="navigate_to_date"
         ></MonthCalendar>
     </div>
