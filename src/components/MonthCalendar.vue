@@ -98,7 +98,10 @@ export default {
         },
         days() {
             let days = ['S', 'M', 'T', 'W', 'T', 'F', 'S', 'S'];
-            return days.slice(this.first_day_sunday ? 0 : 1, 7);
+            return days.slice(
+                this.first_day_sunday ? 0 : 1,
+                7 + (this.first_day_sunday ? 0 : 1)
+            );
         },
         dates() {
             // Calculate the month to display
