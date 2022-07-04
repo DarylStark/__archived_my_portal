@@ -22,19 +22,10 @@
                 <Tags v-bind:date="actual_date"></Tags>
             </Cell>
         </Grid>
-        <p>
-            <router-link to="/dashboard/">No milk, <b>today</b></router-link>
-        </p>
-        <p>
-            <router-link to="/dashboard/2022-10-26">Oct 26, 2022</router-link>
-        </p>
-        <p>
-            <router-link to="/dashboard/2023-01-20">Jan 20, 2023</router-link>
-        </p>
         <MonthCalendar
-            year="2022"
-            month="10"
-            :first_day_sunday="false"
+            year="2023"
+            month="1"
+            :first_day_sunday="true"
             v-bind:select="navigate_to_date"
         ></MonthCalendar>
     </div>

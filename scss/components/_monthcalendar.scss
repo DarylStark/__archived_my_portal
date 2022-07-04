@@ -4,12 +4,47 @@ div.monthcalendar {
     flex-wrap: wrap;
     border: 1px solid black;
 
+    div.weekday {
+        width: 59px;
+        text-align: center;
+        flex-grow: 0;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        padding: 12px 0 12px 0;
+    }
+
     div.day {
         width: 59px;
         text-align: center;
         flex-grow: 0;
         flex-shrink: 0;
         box-sizing: border-box;
-        height: 59px;
+        cursor: pointer;
+        padding: 12px 0 12px 0;
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
+    }
+
+    div.cal_title {
+        width: 413px;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+
+        div.nav {
+            flex-grow: 0;
+            flex-shrink: 0;
+            cursor: pointer;
+            padding: 12px 20px 12px 20px;
+        }
+
+        div.text {
+            flex-grow: 1;
+            flex-shrink: 1;
+            text-align: center;
+            padding: 12px 0 12px 0;
+        }
     }
 }
