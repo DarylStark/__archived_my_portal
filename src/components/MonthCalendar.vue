@@ -2,30 +2,29 @@
     <div class="monthcalendar">
         <div class="cal_title">
             <div class="nav" v-on:click="prev_month">
-                <i
-                    class="fa-solid fa-angle-left"
-                    v-on:click="move_date(-1)"
-                ></i>
+                <i class="fa-solid fa-angle-left"></i>
             </div>
             <div class="text">{{ title }}</div>
             <div class="nav" v-on:click="next_month">
-                <i
-                    class="fa-solid fa-angle-right"
-                    v-on:click="move_date(-1)"
-                ></i>
+                <i class="fa-solid fa-angle-right"></i>
             </div>
         </div>
+        <div class="weekday"></div>
         <div class="weekday" v-for="day in days" v-bind:key="day">
             {{ day }}
         </div>
-        <div
-            class="day"
-            v-for="date in dates"
-            v-bind:key="date"
-            v-on:click="select(date)"
-        >
-            {{ date.getDate() }}
-        </div>
+        <template v-for="date in dates" v-bind:key="date">
+            <div
+                class="day"
+                v-on:click="select(date.date)"
+                v-if="date.type == 'date'"
+            >
+                {{ date.date.getDate() }}
+            </div>
+            <div class="weeknumber" v-if="date.type == 'weeknumber'">
+                {{ date.weeknumber }}
+            </div>
+        </template>
     </div>
 </template>
 
@@ -77,6 +76,28 @@ export default {
                 this.cal_year++;
             }
         },
+        weeknumber(date_object) {
+            let date = new Date(date_object.getTime());
+            if (date.getDay() == 0) date.setDate(date.getDate() + 1);
+            date.setHours(0, 0, 0, 0);
+
+            // Thursday in current week decides the year.
+            date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+
+            // January 4 is always in week 1.
+            var week1 = new Date(date.getFullYear(), 0, 4);
+
+            // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+            return (
+                1 +
+                Math.round(
+                    ((date.getTime() - week1.getTime()) / 86400000 -
+                        3 +
+                        ((week1.getDay() + 6) % 7)) /
+                        7
+                )
+            );
+        },
     },
     computed: {
         title() {
@@ -125,7 +146,20 @@ export default {
             // Create a array with all the dates to display)
             const dates = new Array();
             for (let i = 0; i < 42; i++) {
-                dates.push(new Date(first_of_the_month));
+                let date_obj = new Date(first_of_the_month);
+                if (
+                    (date_obj.getDay() == 0 && this.first_day_sunday) ||
+                    (date_obj.getDay() == 1 && !this.first_day_sunday)
+                )
+                    dates.push({
+                        type: 'weeknumber',
+                        weeknumber: this.weeknumber(date_obj),
+                    });
+
+                dates.push({
+                    type: 'date',
+                    date: date_obj,
+                });
                 first_of_the_month.setDate(first_of_the_month.getDate() + 1);
             }
 

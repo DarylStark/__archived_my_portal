@@ -5,7 +5,7 @@ div.monthcalendar {
     border: 1px solid black;
 
     div.weekday {
-        width: 59px;
+        width: 12.5%;
         text-align: center;
         flex-grow: 0;
         flex-shrink: 0;
@@ -13,8 +13,18 @@ div.monthcalendar {
         padding: 12px 0 12px 0;
     }
 
+    div.weeknumber {
+        width: 12.5%;
+        text-align: center;
+        flex-grow: 0;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        padding: 12px 0 12px 0;
+        font-style: italic;
+    }
+
     div.day {
-        width: 59px;
+        width: 12.5%;
         text-align: center;
         flex-grow: 0;
         flex-shrink: 0;
