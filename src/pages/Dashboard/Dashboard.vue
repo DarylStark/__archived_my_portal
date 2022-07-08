@@ -23,8 +23,6 @@
             </Cell>
         </Grid>
         <MonthCalendar
-            year="2022"
-            month="7"
             :first_day_sunday="false"
             v-bind:select="navigate_to_date"
         ></MonthCalendar>

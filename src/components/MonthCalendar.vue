@@ -58,8 +58,9 @@ export default {
         };
     },
     created() {
-        this.cal_year = this.year;
-        this.cal_month = this.month;
+        let today = new Date();
+        this.cal_year = this.year ? this.year : today.getFullYear();
+        this.cal_month = this.month ? this.month : today.getMonth();
     },
     methods: {
         prev_month() {
