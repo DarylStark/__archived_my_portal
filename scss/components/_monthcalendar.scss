@@ -1,8 +1,13 @@
 div.monthcalendar {
     display: flex;
     width: 413px;
+    max-width: 100%;
     flex-wrap: wrap;
-    border: 1px solid black;
+    box-sizing: border-box;
+
+    &.border {
+        border: 1px solid var(--monthcalendar-border);
+    }
 
     div.weekday {
         width: 12.5%;
@@ -21,6 +26,7 @@ div.monthcalendar {
         box-sizing: border-box;
         padding: 12px 0 12px 0;
         font-style: italic;
+        background: var(--monthcalendar-week-bg);
     }
 
     div.day {
@@ -33,15 +39,19 @@ div.monthcalendar {
         padding: 12px 0 12px 0;
 
         &:hover {
-            background-color: #f0f0f0;
+            background: var(--monthcalendar-day-hover-bg);
+            color: var(--monthcalendar-day-hover-text);
         }
     }
 
     div.cal_title {
-        width: 413px;
+        width: 100%;
         display: flex;
         flex-wrap: nowrap;
         justify-content: space-between;
+        background: var(--monthcalendar-title-bg);
+        color: var(--monthcalendar-title-text);
+        font-weight: 600;
 
         div.nav {
             flex-grow: 0;

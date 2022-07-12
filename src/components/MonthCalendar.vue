@@ -1,5 +1,5 @@
 <template>
-    <div class="monthcalendar">
+    <div v-bind:class="['monthcalendar', { border: border }]">
         <div class="cal_title">
             <div class="nav" v-on:click="prev_month">
                 <i class="fa-solid fa-angle-left"></i>
@@ -49,6 +49,11 @@ export default {
         },
         select: {
             required: true,
+        },
+        border: {
+            type: Boolean,
+            required: false,
+            default: false,
         },
     },
     data() {

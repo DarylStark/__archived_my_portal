@@ -22,10 +22,6 @@
                 <Tags v-bind:date="actual_date"></Tags>
             </Cell>
         </Grid>
-        <MonthCalendar
-            :first_day_sunday="false"
-            v-bind:select="navigate_to_date"
-        ></MonthCalendar>
     </div>
 </template>
 
@@ -34,7 +30,6 @@ import Grid from '../../layout/Grid/Grid';
 import Cell from '../../layout/Grid/Cell';
 import SectionTitle from '../../layout/Titles/SectionTitle.vue';
 import Tags from './Tags.vue';
-import MonthCalendar from '../../components/MonthCalendar.vue';
 
 export default {
     name: 'Dashboard',
@@ -43,7 +38,6 @@ export default {
         Cell,
         SectionTitle,
         Tags,
-        MonthCalendar,
     },
     data() {
         return {
@@ -91,14 +85,6 @@ export default {
             } else {
                 this.actual_date = this.date;
             }
-        },
-        navigate_to_date(date_obj) {
-            let year = date_obj.getFullYear();
-            let month = String(date_obj.getUTCMonth() + 1).padStart(2, '0');
-            let day = String(date_obj.getUTCDate()).padStart(2, '0');
-
-            let date_string = `${year}-${month}-${day}`;
-            this.$router.push(`/dashboard/${date_string}`);
         },
         move_date(difference) {
             let date_obj = new Date(this.actual_date);

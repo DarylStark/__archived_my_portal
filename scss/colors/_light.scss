@@ -133,6 +133,14 @@ body.theme-light {
     --tag-default-color: #000000;
     --tag-hover-color: #323232;
 
+    // Components: Month Calendar
+    --monthcalendar-title-bg: #E0610E;
+    --monthcalendar-title-text: #ffffff;
+    --monthcalendar-border: #000000;
+    --monthcalendar-day-hover-bg: #988172;
+    --monthcalendar-day-hover-text: #ffffff;
+    --monthcalendar-week-bg: transparent;
+
     // Pages: Settings
     --settings-setting-text-hover: #000;
     --settings-setting-text-error: #f00;
