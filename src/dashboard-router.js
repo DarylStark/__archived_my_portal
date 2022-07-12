@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 // Import the pages
 import Dashboard from './pages/Dashboard/Dashboard'
+import DashboardSidebar from './pages/Dashboard/DashboardSidebar'
+
 import Tags from './pages/Tags/Tags'
 import TagDetails from './pages/Tags/TagDetails/TagDetails';
 import Notes from './pages/Notes'
@@ -24,7 +26,10 @@ export default createRouter({
         {
             path: '/dashboard/:date?',
             name: 'dashboard',
-            component: Dashboard
+            components: {
+                default: Dashboard,
+                sidebar: DashboardSidebar
+            },
         },
         {
             path: '/tags',
