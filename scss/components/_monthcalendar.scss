@@ -1,6 +1,7 @@
 div.monthcalendar {
     display: flex;
     width: 413px;
+    min-width: 300px;
     max-width: 100%;
     flex-wrap: wrap;
     box-sizing: border-box;
