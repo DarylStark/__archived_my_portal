@@ -15,7 +15,12 @@
         </div>
         <template v-for="date in dates" v-bind:key="date">
             <div
-                class="day"
+                v-bind:class="[
+                    'day',
+                    {
+                        selected: is_date_highlighted(date.date),
+                    },
+                ]"
                 v-on:click="select(date.date)"
                 v-if="date.type == 'date'"
             >
@@ -54,6 +59,10 @@ export default {
             type: Boolean,
             required: false,
             default: false,
+        },
+        highlight: {
+            type: Array,
+            default: new Array(),
         },
     },
     data() {
@@ -103,6 +112,11 @@ export default {
                         7
                 )
             );
+        },
+        is_date_highlighted(date_object) {
+            console.log(this.dates_to_highlight);
+            console.log(date_object.toDateString());
+            return this.dates_to_highlight.includes(date_object.toDateString());
         },
     },
     computed: {
@@ -171,6 +185,13 @@ export default {
 
             // Return the array
             return dates;
+        },
+        dates_to_highlight() {
+            let highlighted = this.highlight;
+            highlighted.forEach((element, index, arr) => {
+                arr[index] = new Date(element).toDateString();
+            });
+            return highlighted;
         },
     },
 };

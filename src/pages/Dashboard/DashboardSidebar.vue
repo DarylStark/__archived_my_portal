@@ -3,6 +3,7 @@
         <MonthCalendar
             :first_day_sunday="false"
             v-bind:select="navigate_to_date"
+            v-bind:highlight="highlight_days"
         ></MonthCalendar>
     </div>
 </template>
@@ -14,6 +15,12 @@ export default {
     name: 'DashboardSidebar',
     components: {
         MonthCalendar,
+    },
+    data() {
+        return {
+            // TODO: Make sure this is the selected date
+            highlight_days: ['2023-01-01', '2023-01-05', '2023-02-01'],
+        };
     },
     methods: {
         navigate_to_date(date_obj) {

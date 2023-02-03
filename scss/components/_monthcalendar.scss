@@ -39,7 +39,8 @@ div.monthcalendar {
         cursor: pointer;
         padding: 12px 0 12px 0;
 
-        &:hover {
+        &:hover,
+        &.selected {
             background: var(--monthcalendar-day-hover-bg);
             color: var(--monthcalendar-day-hover-text);
         }
