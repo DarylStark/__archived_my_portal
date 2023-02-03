@@ -114,8 +114,6 @@ export default {
             );
         },
         is_date_highlighted(date_object) {
-            console.log(this.dates_to_highlight);
-            console.log(date_object.toDateString());
             return this.dates_to_highlight.includes(date_object.toDateString());
         },
     },
