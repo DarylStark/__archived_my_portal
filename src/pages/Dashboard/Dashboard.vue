@@ -86,6 +86,14 @@ export default {
                 this.actual_date = this.date;
             }
         },
+        navigate_to_date(date_obj) {
+            let year = date_obj.getFullYear();
+            let month = String(date_obj.getUTCMonth() + 1).padStart(2, '0');
+            let day = String(date_obj.getUTCDate()).padStart(2, '0');
+
+            let date_string = `${year}-${month}-${day}`;
+            this.$router.push(`/dashboard/${date_string}`);
+        },
         move_date(difference) {
             let date_obj = new Date(this.actual_date);
             date_obj.setDate(date_obj.getDate() + difference);
