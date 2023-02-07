@@ -30,6 +30,9 @@ import Grid from '../../layout/Grid/Grid';
 import Cell from '../../layout/Grid/Cell';
 import SectionTitle from '../../layout/Titles/SectionTitle.vue';
 import Tags from './Tags.vue';
+import Command from '../../my/command';
+import cmdlist from '../../my/command_list';
+import KeyBinding from '../../my/keybinding';
 
 export default {
     name: 'Dashboard',
@@ -64,8 +67,38 @@ export default {
             }
         );
 
+        cmdlist.add_command(
+            new Command({
+                command: 'dashboard.next_day',
+                scope: 'local-tags',
+                group: 'Dashboard',
+                title: 'Next day',
+                method: this.move_date,
+                args: [1],
+                show: true,
+                icon: 'fa-arrow-right',
+                keybinding: new KeyBinding(true, false, false, '.'),
+            })
+        );
+        cmdlist.add_command(
+            new Command({
+                command: 'dashboard.previous_day',
+                scope: 'local-tags',
+                group: 'Dashboard',
+                title: 'Previous day',
+                method: this.move_date,
+                args: [-1],
+                show: true,
+                icon: 'fa-arrow-right',
+                keybinding: new KeyBinding(true, false, false, ','),
+            })
+        );
+
         // Update the date
         this.update_date();
+    },
+    unmounted() {
+        cmdlist.remove_command_scope('local-tags');
     },
     methods: {
         update_date() {
