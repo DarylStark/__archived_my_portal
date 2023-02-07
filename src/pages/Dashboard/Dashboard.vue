@@ -93,6 +93,18 @@ export default {
                 keybinding: new KeyBinding(true, false, false, ','),
             })
         );
+        cmdlist.add_command(
+            new Command({
+                command: 'dashboard.today',
+                scope: 'local-tags',
+                group: 'Dashboard',
+                title: 'Today',
+                method: this.today,
+                show: true,
+                icon: 'fa-arrow-right',
+                keybinding: new KeyBinding(true, false, false, '='),
+            })
+        );
 
         // Update the date
         this.update_date();
@@ -131,6 +143,9 @@ export default {
             let date_obj = new Date(this.actual_date);
             date_obj.setDate(date_obj.getDate() + difference);
             this.navigate_to_date(date_obj);
+        },
+        today() {
+            this.navigate_to_date(new Date());
         },
     },
 };
