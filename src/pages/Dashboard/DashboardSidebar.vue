@@ -35,20 +35,22 @@ export default {
         return {
             current_month: null,
             current_year: null,
-            highlight_days: ['2023-01-01', '2023-01-05', '2023-02-01'],
+            highlight_days: null,
         };
     },
     methods: {
         update_date() {
             let selected_date = this.$route.params.date;
-            if (selected_date == '') {
-                this.current_month = null;
-                this.current_year = null;
-            } else {
-                let date = new Date(selected_date);
-                this.current_month = date.getUTCMonth() + 1;
-                this.current_year = date.getFullYear();
-            }
+            let date = new Date();
+            if (selected_date != '') date = new Date(selected_date);
+
+            this.current_month = date.getUTCMonth() + 1;
+            this.current_year = date.getFullYear();
+            this.highlight_days = [
+                `${date.getFullYear()}-${
+                    date.getMonth() + 1
+                }-${date.getDate()}`,
+            ];
         },
         navigate_to_date(date_obj) {
             let year = date_obj.getFullYear();
