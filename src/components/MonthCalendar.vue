@@ -72,11 +72,22 @@ export default {
         };
     },
     created() {
-        let today = new Date();
-        this.cal_year = this.year ? this.year : today.getFullYear();
-        this.cal_month = this.month ? this.month : today.getMonth();
+        this.set_correct_values();
+    },
+    watch: {
+        month(val) {
+            this.set_correct_values();
+        },
+        year(val) {
+            this.set_correct_values();
+        },
     },
     methods: {
+        set_correct_values() {
+            let today = new Date();
+            this.cal_year = this.year ? this.year : today.getFullYear();
+            this.cal_month = this.month ? this.month : today.getMonth() + 1;
+        },
         prev_month() {
             this.cal_month--;
             if (this.cal_month < 1) {
