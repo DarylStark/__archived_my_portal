@@ -44,7 +44,7 @@ export default {
             let date = new Date();
             if (selected_date != '') date = new Date(selected_date);
 
-            this.current_month = date.getUTCMonth() + 1;
+            this.current_month = date.getMonth() + 1;
             this.current_year = date.getFullYear();
             this.highlight_days = [
                 `${date.getFullYear()}-${
@@ -54,8 +54,8 @@ export default {
         },
         navigate_to_date(date_obj) {
             let year = date_obj.getFullYear();
-            let month = String(date_obj.getUTCMonth() + 1).padStart(2, '0');
-            let day = String(date_obj.getUTCDate()).padStart(2, '0');
+            let month = String(date_obj.getMonth() + 1).padStart(2, '0');
+            let day = String(date_obj.getDate()).padStart(2, '0');
 
             let date_string = `${year}-${month}-${day}`;
             this.$router.push(`/dashboard/${date_string}`);

@@ -79,8 +79,8 @@ export default {
                 // No (valid) date is set, get the date of today
                 let today = new Date();
                 let year = today.getFullYear();
-                let month = String(today.getUTCMonth() + 1).padStart(2, '0');
-                let day = String(today.getUTCDate()).padStart(2, '0');
+                let month = String(today.getMonth() + 1).padStart(2, '0');
+                let day = String(today.getDate()).padStart(2, '0');
                 this.actual_date = `${year}-${month}-${day}`;
             } else {
                 this.actual_date = this.date;
@@ -88,8 +88,8 @@ export default {
         },
         navigate_to_date(date_obj) {
             let year = date_obj.getFullYear();
-            let month = String(date_obj.getUTCMonth() + 1).padStart(2, '0');
-            let day = String(date_obj.getUTCDate()).padStart(2, '0');
+            let month = String(date_obj.getMonth() + 1).padStart(2, '0');
+            let day = String(date_obj.getDate()).padStart(2, '0');
 
             let date_string = `${year}-${month}-${day}`;
             this.$router.push(`/dashboard/${date_string}`);
