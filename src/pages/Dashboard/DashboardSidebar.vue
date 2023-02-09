@@ -1,5 +1,8 @@
 <template>
-    <div>
+    <div id="dashboard_sidebar">
+        <div id="today_button">
+            <Button icon="fas fa-calendar-day" v-on:click="today">Today</Button>
+        </div>
         <MonthCalendar
             :first_day_sunday="false"
             v-bind:select="navigate_to_date"
@@ -13,11 +16,13 @@
 
 <script>
 import MonthCalendar from '../../components/MonthCalendar.vue';
+import Button from '../../components/Button.vue';
 
 export default {
     name: 'DashboardSidebar',
     components: {
         MonthCalendar,
+        Button,
     },
     created() {
         this.$watch(
@@ -59,6 +64,9 @@ export default {
 
             let date_string = `${year}-${month}-${day}`;
             this.$router.push(`/dashboard/${date_string}`);
+        },
+        today() {
+            this.navigate_to_date(new Date());
         },
     },
 };
