@@ -73,7 +73,6 @@ export default {
 
             if (this.$store.state.api_data.tags) {
                 if (this.tags_loaded) {
-                    console.log('HERE');
                     let all_tags =
                         this.$store.state.api_data.dashboard_tags[this.date];
                     if (!all_tags) return [];
@@ -131,7 +130,6 @@ export default {
     },
     methods: {
         update_tags(force = false) {
-            console.log('Begin update tags');
             let vue_this = this;
             this.tags_loaded = false;
             this.$store.commit('update_tags_for_date', {
@@ -139,7 +137,6 @@ export default {
                 force: force,
                 done: (data) => {
                     vue_this.tags_loaded = true;
-                    console.log('Done updating tags');
                 },
             });
         },
