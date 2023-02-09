@@ -100,7 +100,7 @@ export default {
         cmdlist.add_command(
             new Command({
                 command: 'dashboard.next_day',
-                scope: 'local-tags',
+                scope: 'local-dashboard',
                 group: 'Dashboard',
                 title: 'Next day',
                 method: this.move_date,
@@ -113,7 +113,7 @@ export default {
         cmdlist.add_command(
             new Command({
                 command: 'dashboard.previous_day',
-                scope: 'local-tags',
+                scope: 'local-dashboard',
                 group: 'Dashboard',
                 title: 'Previous day',
                 method: this.move_date,
@@ -126,7 +126,7 @@ export default {
         cmdlist.add_command(
             new Command({
                 command: 'dashboard.today',
-                scope: 'local-tags',
+                scope: 'local-dashboard',
                 group: 'Dashboard',
                 title: 'Today',
                 method: this.today,
@@ -140,7 +140,7 @@ export default {
         this.update_date();
     },
     unmounted() {
-        cmdlist.remove_command_scope('local-tags');
+        cmdlist.remove_command_scope('local-dashboard');
     },
     methods: {
         update_date() {
