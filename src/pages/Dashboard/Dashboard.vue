@@ -9,7 +9,7 @@
                             v-on:click="move_date(-1)"
                         ></i>
                     </div>
-                    <SectionTitle>Dashboard for {{ actual_date }}</SectionTitle>
+                    <SectionTitle>{{ full_date }}</SectionTitle>
                     <div class="next">
                         <i
                             class="fa-solid fa-arrow-right"
@@ -50,6 +50,36 @@ export default {
     computed: {
         date() {
             return this.$route.params.date;
+        },
+        full_date() {
+            let date_obj = new Date(this.actual_date);
+            const day_names = [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+            ];
+            const month_names = [
+                'january',
+                'february',
+                'march',
+                'april',
+                'may',
+                'june',
+                'july',
+                'august',
+                'september',
+                'october',
+                'november',
+                'december',
+            ];
+
+            return `${day_names[date_obj.getDay()]} ${date_obj.getDate()}
+            ${month_names[date_obj.getMonth()]}
+            ${date_obj.getFullYear()}`;
         },
     },
     created() {
