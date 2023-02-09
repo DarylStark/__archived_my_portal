@@ -25,6 +25,11 @@ class CommandList {
 
         // Add the keybinding to the map
         if (command_object.keybinding) {
+            let keybinding_string = command_object.keybinding.get_string();
+            if (this.command_keybindings.has(keybinding_string)) {
+                let existing_object = this.command_keybindings.get(keybinding_string);
+                console.warn(`While registering keybinding for "${command_object.command}" - Keybinding "${keybinding_string}" already exists for command "${existing_object}"`);
+            }
             this.command_keybindings.set(command_object.keybinding.get_string(), command_object.command);
         }
     }

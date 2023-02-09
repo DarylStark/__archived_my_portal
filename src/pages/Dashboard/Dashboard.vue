@@ -107,7 +107,7 @@ export default {
                 args: [1],
                 show: true,
                 icon: 'fa-arrow-right',
-                keybinding: new KeyBinding(true, false, false, '.'),
+                keybinding: new KeyBinding(true, false, false, 'ArrowRight'),
             })
         );
         cmdlist.add_command(
@@ -120,7 +120,7 @@ export default {
                 args: [-1],
                 show: true,
                 icon: 'fa-arrow-right',
-                keybinding: new KeyBinding(true, false, false, ','),
+                keybinding: new KeyBinding(true, false, false, 'ArrowLeft'),
             })
         );
         cmdlist.add_command(
@@ -132,7 +132,7 @@ export default {
                 method: this.today,
                 show: true,
                 icon: 'fa-arrow-right',
-                keybinding: new KeyBinding(true, false, false, '='),
+                keybinding: new KeyBinding(true, false, false, 'ArrowDown'),
             })
         );
 
