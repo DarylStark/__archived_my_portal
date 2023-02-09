@@ -2,6 +2,7 @@
     background: var(--sidebar-bg);
     width: 300px;
     flex-grow: 0;
+    flex-shrink: 0;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0;
