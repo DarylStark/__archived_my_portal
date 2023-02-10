@@ -1,10 +1,11 @@
 class DateTime {
     constructor(date_string, interpret_as_utc = true) {
-        if (interpret_as_utc) {
-            date_string += ' UTC';
-        }
-
         this.datetime = new Date(date_string);
+        if (interpret_as_utc)
+            this.datetime = new Date(
+                this.datetime.getFullYear(), this.datetime.getMonth(), this.datetime.getDate(),
+                this.datetime.getHours(), this.datetime.getMinutes(), this.datetime.getSeconds()
+            );
     }
 
     days_ago() {
