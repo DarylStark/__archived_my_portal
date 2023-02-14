@@ -19,6 +19,12 @@ module.exports = {
             template: 'public/login.html',
             filename: 'login.html',
             title: 'Login'
+        },
+        oauth: {
+            entry: 'src/oauthconsent.js',
+            template: 'public/oauthconsent.html',
+            filename: 'oauthconsent.html',
+            title: 'OAuth authentication'
         }
     },
     filenameHashing: false,
