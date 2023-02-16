@@ -1,10 +1,13 @@
 <template>
     <div>
         <Card>
-            <template v-slot:title> {{ application.app_name }} </template>
+            <template v-slot:title>
+                {{ application.app_name }} requests your authorization
+            </template>
             The application <b>{{ application.app_name }}</b> by
             <b>{{ application.app_publisher }}</b> would like to access your
-            account and requests your permissions for the following scopes:
+            account and requests your permission to do so. It requests
+            permissions to following scopes:
         </Card>
         <CardList id="permissions">
             <CardListItem
@@ -22,9 +25,14 @@
             </CardListItem>
         </CardList>
         <Card>
-            Note: you can choose which permissions to grant. If you chose to not
-            grant a specific permission, the functionality of the application
-            may be impacted.
+            If you want to grant <b>{{ application.app_name }}</b> access to
+            your account, check the scopes that you want to give it permissions
+            to and click on <b>Save</b>. If you don't want to give
+            <b>{{ application.app_name }}</b> your permissions, you can just
+            close this page without saving.
+            <template v-slot:actions>
+                <Button icon="fa fa-key" critical>Save</Button>
+            </template>
         </Card>
     </div>
 </template>
@@ -33,6 +41,7 @@
 import Card from '../cards/Card';
 import CardList from '../cards/CardList';
 import CardListItem from '../cards/CardListItem';
+import Button from '../components/Button';
 
 const scope_names = {
     'api.auth': { group: 'API', scope: 'Get API token information' },
@@ -80,6 +89,7 @@ export default {
         Card,
         CardList,
         CardListItem,
+        Button,
     },
     props: {
         application: {
