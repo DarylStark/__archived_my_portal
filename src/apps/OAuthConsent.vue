@@ -7,11 +7,14 @@
         <Authorize
             v-if="action == 'authorize'"
             v-bind:application="application"
+            v-bind:scopes="scopes"
         ></Authorize>
     </div>
 </template>
 
 <script>
+import api from '../my/api.js';
+import APICommand from '../my/api_command.js';
 import Card from '../cards/Card';
 import CardList from '../cards/CardList';
 import CardListItem from '../cards/CardListItem';
@@ -26,6 +29,7 @@ export default {
         return {
             action: 'loading',
             application: null,
+            scopes: null,
         };
     },
     mounted() {
@@ -44,17 +48,48 @@ export default {
         }
 
         // TODO: Get the application details from backend
-        const app_id = url.searchParams.get('app_id');
-        const scopes = url.searchParams.get('scopes');
+        const app_token = url.searchParams.get('token');
+        const scopes = url.searchParams.get('scopes').split(',');
 
-        // Set the application details
-        this.application = {
-            name: 'RESTbook',
-            publisher: 'Tanha Kabir',
-        };
+        if (
+            app_token == null ||
+            app_token == '' ||
+            scopes == null ||
+            scopes == ''
+        ) {
+            this.action = 'error';
+            return;
+        }
+
+        // Set a new 'this' to use in the callbacks
+        let vue_this = this;
+
+        // Get the application details
+        api.execute(
+            new APICommand(
+                'api_clients',
+                'all/' + app_token,
+                'GET',
+                null,
+                function (data) {
+                    // We got the details! Save them
+                    if (data.data.length == 0) {
+                        // No data, not a valid token
+                        vue_this.action = 'error';
+                        return;
+                    }
+                    vue_this.application = data.data;
+                    vue_this.scopes = scopes;
+                    vue_this.action = action;
+                },
+                function (error) {
+                    // TODO: ERROR
+                    vue_this.action = 'error';
+                }
+            )
+        );
 
         // Set the correct action
-        this.action = action;
     },
 };
 </script>
