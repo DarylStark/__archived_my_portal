@@ -76,6 +76,7 @@ a:hover {
 // Import apps
 @import 'apps/dashboard';
 @import 'apps/loginform';
+@import 'apps/oauth';
 
 // Import compontents for the main layout
 @import 'layout/content/content';
