@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <form>
         <Card>
             <template v-slot:title>
                 {{ application.app_name }} requests your authorization
@@ -14,9 +14,10 @@
                 v-for="scope in scopes"
                 v-bind:key="scope"
                 v-bind:id="scope"
-                v-bind:list_id="scope"
+                list_id="permissions"
                 v-bind:checkbox="true"
                 v-bind:checked="true"
+                v-bind:content_as_label="true"
             >
                 <div>
                     <b>{{ get_scope_name(scope).group }}: </b>
@@ -34,7 +35,7 @@
                 <Button icon="fa fa-key" critical>Save</Button>
             </template>
         </Card>
-    </div>
+    </form>
 </template>
 
 <script>

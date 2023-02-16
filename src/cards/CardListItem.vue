@@ -7,11 +7,19 @@
                 v-model="value"
                 v-show="!loading"
                 v-bind:class="{ hide: hide_checkbox }"
+                v-bind:id="id"
             />
             <i class="fas fa-spinner spin" v-show="loading"></i>
         </div>
         <div class="columns">
-            <slot></slot>
+            <template v-if="content_as_label">
+                <label v-bind:for="id">
+                    <slot></slot>
+                </label>
+            </template>
+            <template v-if="!content_as_label">
+                <slot></slot>
+            </template>
         </div>
         <div class="actions">
             <slot name="actions"></slot>
@@ -47,6 +55,11 @@ export default {
             default: false,
         },
         hide_checkbox: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        content_as_label: {
             type: Boolean,
             required: false,
             default: false,

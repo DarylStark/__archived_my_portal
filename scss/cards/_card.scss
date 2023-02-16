@@ -192,9 +192,10 @@ div.card {
                         flex-wrap: nowrap;
                         justify-content: stretch;
 
-                        >div {
+                        >div,
+                        >label {
                             padding: 10px 12px 12px 12px;
-                            flex-grow: 0;
+                            flex-grow: 1;
                             flex-shrink: 0;
                             white-space: nowrap;
                             overflow: hidden;
