@@ -8,6 +8,7 @@
             v-if="action == 'authorize'"
             v-bind:application="application"
             v-bind:scopes="scopes"
+            v-bind:app_identifier="app_identifier"
         ></Authorize>
     </div>
 </template>
@@ -27,6 +28,7 @@ export default {
             action: 'loading',
             application: null,
             scopes: null,
+            app_identifier: null,
         };
     },
     mounted() {
@@ -36,6 +38,8 @@ export default {
         // Get the action from the URL parameters
         let url = new URL(location.href);
         let action = url.searchParams.get('action');
+        this.app_identifier = url.searchParams.get('reference');
+
         if (possible_actions.indexOf(action) == -1) {
             // If the action is something that we cannot explain, we stop the
             // script here; nothing more to do

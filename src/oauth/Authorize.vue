@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import api from '../my/api';
+import APICommand from '../my/api_command';
 import Card from '../cards/Card';
 import CardList from '../cards/CardList';
 import CardListItem from '../cards/CardListItem';
@@ -85,6 +87,10 @@ export default {
         scopes: {
             type: Array,
             required: true,
+        },
+        app_identifier: {
+            type: String,
+            required: false,
         },
     },
     data() {
@@ -128,7 +134,46 @@ export default {
             return get_scope_name(scope_name);
         },
         save() {
+            // Set a new 'this' to use in the callbacks
+            let vue_this = this;
+
+            // Make sure everything is disabled
             this.saving = true;
+
+            // Create the API token
+            api.execute(
+                new APICommand(
+                    'api_tokens',
+                    'create',
+                    'POST',
+                    {
+                        title: this.title,
+                        app_token: this.application.token,
+                        scopes: this.$refs.list.selected,
+                    },
+                    (data) => {
+                        // Done! We have the data
+                        if (this.application.redirect_url) {
+                            let url = this.application.redirect_url;
+                            url = url.replace('{{ token }}', data.data.token);
+                            url = url.replace(
+                                '{{ reference }}',
+                                this.app_identifier
+                            );
+                            url = url.replace('{{ action }}', 'authorize');
+                            location.href = url;
+                        } else {
+                            // TODO: display token
+                            vue_this.saving = false;
+                        }
+                    },
+                    (error) => {
+                        console.log(error);
+                        // TODO: Give error
+                        vue_this.saving = false;
+                    }
+                )
+            );
         },
     },
 };
