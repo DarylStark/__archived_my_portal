@@ -165,7 +165,7 @@ export default {
                     'create',
                     'POST',
                     {
-                        title: this.title,
+                        title: this.title == null ? '' : this.title,
                         app_token: this.application.token,
                         scopes: this.$refs.list.selected,
                     },
