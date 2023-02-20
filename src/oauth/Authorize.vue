@@ -9,7 +9,7 @@
             account and requests your permission to do so. It requests
             permissions to following scopes:
         </Card>
-        <CardList id="permissions">
+        <CardList id="permissions" ref="list">
             <CardListItem
                 v-for="scope in scopes"
                 v-bind:key="scope"
@@ -35,7 +35,13 @@
             </p>
             <p>Keep in mind that you can revoke scopes after allowing them.</p>
             <template v-slot:actions>
-                <Button icon="fa fa-key" critical>Save</Button>
+                <Button
+                    icon="fa fa-key"
+                    v-bind:loading="save_loading"
+                    v-bind:disabled="save_disabled"
+                    v-on:click="save"
+                    >Save</Button
+                >
             </template>
         </Card>
     </form>
@@ -66,6 +72,34 @@ export default {
             required: true,
         },
     },
+    data() {
+        return {
+            saving: false,
+            selection: 1,
+        };
+    },
+    created() {
+        this.eventbus.on('card_list_changed_permissions', (event) => {
+            this.$nextTick(() => {
+                if (this.$refs.list) {
+                    if (this.$refs.list.selected.length == 0)
+                        this.selection = null;
+                    else this.selection = this.$refs.list.selected.length;
+                }
+            });
+        });
+    },
+    computed: {
+        save_disabled() {
+            if (this.saving) return true;
+            if (this.selection == null) return true;
+            return false;
+        },
+        save_loading() {
+            if (this.saving) return true;
+            return false;
+        },
+    },
     methods: {
         get_scope_name(scope_name) {
             // This function is defined in `../my/oauth_scopes`, but VueJS
@@ -73,6 +107,9 @@ export default {
             // methods key of the VueJS object. That's why we use this as a
             // project object
             return get_scope_name(scope_name);
+        },
+        save() {
+            this.saving = true;
         },
     },
 };

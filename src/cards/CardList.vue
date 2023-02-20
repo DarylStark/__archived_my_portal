@@ -111,7 +111,8 @@ export default {
                 } else {
                     this.eventbus.emit(`${this.event}_empty`, true);
                     this.$nextTick(() => {
-                        this.$refs.checkall_2.checked = false;
+                        if (this.$refs.checkall_2)
+                            this.$refs.checkall_2.checked = false;
                     });
                 }
             }

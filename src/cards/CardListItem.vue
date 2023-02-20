@@ -71,6 +71,7 @@ export default {
 
         // Set the value
         this.value = this.checked;
+        this.check();
 
         // Subscribe to events for this list
         this.eventbus.on(this.event, this.check_all);
