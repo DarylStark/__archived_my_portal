@@ -1,63 +1,78 @@
 <template>
-    <form v-on:submit="save">
-        <Card>
-            <template v-slot:title>
-                {{ application.app_name }} requests your authorization
-            </template>
-            The application <b>{{ application.app_name }}</b> by
-            <b>{{ application.app_publisher }}</b> would like to access your
-            account and requests your permission to do so. It requests
-            permissions to following scopes:
-        </Card>
-        <CardList id="permissions" ref="list">
-            <CardListItem
-                v-for="scope in scopes"
-                v-bind:key="scope"
-                v-bind:id="scope"
-                list_id="permissions"
-                v-bind:checkbox="true"
-                v-bind:checked="true"
-                v-bind:content_as_label="true"
-                v-bind:checkbox_disabled="saving"
-            >
-                <div>
-                    <b>{{ get_scope_name(scope).group }}: </b>
-                    {{ get_scope_name(scope).scope }}
-                </div>
-            </CardListItem>
-        </CardList>
-        <Card>
-            <p>
-                If you want to grant <b>{{ application.app_name }}</b> access to
-                your account, check the scopes that you want to give it
-                permissions to and click on <b>Save</b>. If you don't want to
-                give <b>{{ application.app_name }}</b> your permissions, you can
-                just close this page without saving.
-            </p>
-            <p>Keep in mind that you can revoke scopes after allowing them.</p>
-        </Card>
-        <Card>
-            <Input
-                id="title"
-                ref="title"
-                icon="fas fa-user"
-                placeholder="Title for this token (optional)"
-                v-model="title"
-                v-bind:disabled="saving"
-            >
-            </Input>
-            <template v-slot:actions>
-                <Button
-                    type="submit"
-                    icon="fa fa-key"
-                    v-bind:loading="save_loading"
-                    v-bind:disabled="save_disabled"
-                    v-on:click="save"
-                    >Save</Button
+    <div>
+        <form v-on:submit="save" v-if="token == null">
+            <Card>
+                <template v-slot:title>
+                    {{ application.app_name }} requests your authorization
+                </template>
+                The application <b>{{ application.app_name }}</b> by
+                <b>{{ application.app_publisher }}</b> would like to access your
+                account and requests your permission to do so. It requests
+                permissions to following scopes:
+            </Card>
+            <CardList id="permissions" ref="list">
+                <CardListItem
+                    v-for="scope in scopes"
+                    v-bind:key="scope"
+                    v-bind:id="scope"
+                    list_id="permissions"
+                    v-bind:checkbox="true"
+                    v-bind:checked="true"
+                    v-bind:content_as_label="true"
+                    v-bind:checkbox_disabled="saving"
                 >
-            </template>
+                    <div>
+                        <b>{{ get_scope_name(scope).group }}: </b>
+                        {{ get_scope_name(scope).scope }}
+                    </div>
+                </CardListItem>
+            </CardList>
+            <Card>
+                <p>
+                    If you want to grant
+                    <b>{{ application.app_name }}</b> access to your account,
+                    check the scopes that you want to give it permissions to and
+                    click on <b>Save</b>. If you don't want to give
+                    <b>{{ application.app_name }}</b> your permissions, you can
+                    just close this page without saving.
+                </p>
+                <p>
+                    Keep in mind that you can revoke scopes after allowing them.
+                </p>
+            </Card>
+            <Card>
+                <Input
+                    id="title"
+                    ref="title"
+                    icon="fas fa-user"
+                    placeholder="Title for this token (optional)"
+                    v-model="title"
+                    v-bind:disabled="saving"
+                >
+                </Input>
+                <template v-slot:actions>
+                    <Button
+                        type="submit"
+                        icon="fa fa-key"
+                        v-bind:loading="save_loading"
+                        v-bind:disabled="save_disabled"
+                        v-on:click="save"
+                        >Save</Button
+                    >
+                </template>
+            </Card>
+        </form>
+        <Card v-if="token != null">
+            <p>
+                The authorization is given to <b>{{ application.app_name }}</b
+                >! To use the authorization, the application needs a unique
+                token. This token is displayed below. Warning: do not give this
+                token to untrusted sources! The token is only displayed once, so
+                save it.
+            </p>
+            <pre> {{ token }} </pre>
         </Card>
-    </form>
+    </div>
 </template>
 
 <script>
@@ -98,6 +113,7 @@ export default {
             saving: false,
             selection: 1,
             title: null,
+            token: null,
         };
     },
     created() {
@@ -165,6 +181,7 @@ export default {
                         } else {
                             // TODO: display token
                             vue_this.saving = false;
+                            vue_this.token = data.data.token;
                         }
                     },
                     (error) => {
