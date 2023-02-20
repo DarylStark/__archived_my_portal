@@ -5,10 +5,12 @@
 
         <!-- Authorization form -->
         <Authorize
-            v-if="action == 'authorize'"
+            v-if="action == 'authorize' || action == 'add_permissions'"
             v-bind:application="application"
             v-bind:scopes="scopes"
             v-bind:app_identifier="app_identifier"
+            v-bind:api_token="api_token"
+            v-bind:action="action"
         ></Authorize>
     </div>
 </template>
@@ -29,16 +31,18 @@ export default {
             application: null,
             scopes: null,
             app_identifier: null,
+            api_token: null,
         };
     },
     mounted() {
         // List of possible actions
-        const possible_actions = ['authorize'];
+        const possible_actions = ['authorize', 'add_permissions'];
 
         // Get the action from the URL parameters
         let url = new URL(location.href);
         let action = url.searchParams.get('action');
         this.app_identifier = url.searchParams.get('reference');
+        this.api_token = url.searchParams.get('api_token');
 
         if (possible_actions.indexOf(action) == -1) {
             // If the action is something that we cannot explain, we stop the
@@ -48,7 +52,7 @@ export default {
             return;
         }
 
-        // TODO: Get the application details from backend
+        // Get the application details from backend
         const app_token = url.searchParams.get('token');
         const scopes = url.searchParams.get('scopes').split(',');
 

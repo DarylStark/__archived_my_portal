@@ -1,7 +1,7 @@
 <template>
     <div>
-        <form v-on:submit="save" v-if="token == null">
-            <Card>
+        <form v-on:submit.prevent="save" v-if="token == null">
+            <Card v-if="action == 'authorize'">
                 <template v-slot:title>
                     {{ application.app_name }} requests your authorization
                 </template>
@@ -10,6 +10,15 @@
                 account and requests your permission to do so. It requests
                 permissions to following scopes:
             </Card>
+            <Card v-if="action == 'add_permissions'">
+                <template v-slot:title>
+                    {{ application.app_name }} requests extra permissions
+                </template>
+                The application <b>{{ application.app_name }}</b> by
+                <b>{{ application.app_publisher }}</b> would like to access
+                extra scopes on your behalf:
+            </Card>
+
             <CardList id="permissions" ref="list">
                 <CardListItem
                     v-for="scope in scopes"
@@ -27,7 +36,7 @@
                     </div>
                 </CardListItem>
             </CardList>
-            <Card>
+            <Card v-if="action == 'authorize'">
                 <p>
                     If you want to grant
                     <b>{{ application.app_name }}</b> access to your account,
@@ -48,21 +57,24 @@
                     placeholder="Title for this token (optional)"
                     v-model="title"
                     v-bind:disabled="saving"
+                    v-if="action == 'authorize'"
                 >
                 </Input>
+                <p v-if="action == 'add_permissions'">
+                    Keep in mind that you can revoke scopes after allowing them.
+                </p>
                 <template v-slot:actions>
                     <Button
                         type="submit"
                         icon="fa fa-key"
                         v-bind:loading="save_loading"
                         v-bind:disabled="save_disabled"
-                        v-on:click="save"
                         >Save</Button
                     >
                 </template>
             </Card>
         </form>
-        <Card v-if="token != null">
+        <Card v-if="token != null && action == 'authorize'">
             <p>
                 The authorization is given to <b>{{ application.app_name }}</b
                 >! To use the authorization, the application needs a unique
@@ -71,6 +83,13 @@
                 save it.
             </p>
             <Code>{{ token }}</Code>
+        </Card>
+        <Card v-if="token != null && action == 'add_permissions'">
+            <p>
+                The new scopes are added to this API token! The application
+                doesn't have to do anything. The new permissions are now
+                available.
+            </p>
         </Card>
     </div>
 </template>
@@ -99,13 +118,21 @@ export default {
     props: {
         application: {
             type: Object,
-            required: true,
+            required: false,
         },
         scopes: {
             type: Array,
             required: true,
         },
         app_identifier: {
+            type: String,
+            required: false,
+        },
+        action: {
+            type: String,
+            required: true,
+        },
+        api_token: {
             type: String,
             required: false,
         },
@@ -130,7 +157,7 @@ export default {
         });
     },
     mounted() {
-        this.$refs.title.focus();
+        if (this.action == 'authorize') this.$refs.title.focus();
     },
     computed: {
         save_disabled() {
@@ -151,7 +178,11 @@ export default {
             // project object
             return get_scope_name(scope_name);
         },
-        save() {
+        save(event) {
+            if (this.action == 'authorize') this.save_authorize();
+            if (this.action == 'add_permissions') this.save_add_permissions();
+        },
+        save_authorize() {
             // Set a new 'this' to use in the callbacks
             let vue_this = this;
 
@@ -181,9 +212,53 @@ export default {
                             url = url.replace('{{ action }}', 'authorize');
                             location.href = url;
                         } else {
-                            // TODO: display token
                             vue_this.saving = false;
                             vue_this.token = data.data.token;
+                        }
+                    },
+                    (error) => {
+                        console.log(error);
+                        // TODO: Give error
+                        vue_this.saving = false;
+                    }
+                )
+            );
+        },
+        save_add_permissions() {
+            // Set a new 'this' to use in the callbacks
+            let vue_this = this;
+
+            // Make sure everything is disabled
+            this.saving = true;
+
+            // Create the API token
+            api.execute(
+                new APICommand(
+                    'api_tokens',
+                    'add_permissions',
+                    'PATCH',
+                    {
+                        api_token: this.api_token,
+                        scopes: this.$refs.list.selected,
+                    },
+                    (data) => {
+                        // Done! We have the data
+                        if (this.application.redirect_url) {
+                            let url = this.application.redirect_url;
+                            url = url.replace('{{ token }}', this.api_token);
+                            url = url.replace(
+                                '{{ reference }}',
+                                this.app_identifier
+                            );
+                            url = url.replace(
+                                '{{ action }}',
+                                'add_permissions'
+                            );
+                            location.href = url;
+                        } else {
+                            // Display a message that it's done
+                            vue_this.saving = false;
+                            vue_this.token = '<>';
                         }
                     },
                     (error) => {
