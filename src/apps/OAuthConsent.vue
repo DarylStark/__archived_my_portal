@@ -15,9 +15,6 @@
 <script>
 import api from '../my/api.js';
 import APICommand from '../my/api_command.js';
-import Card from '../cards/Card';
-import CardList from '../cards/CardList';
-import CardListItem from '../cards/CardListItem';
 import Authorize from '../oauth/Authorize';
 
 export default {
