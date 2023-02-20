@@ -8,6 +8,7 @@
                 v-show="!loading"
                 v-bind:class="{ hide: hide_checkbox }"
                 v-bind:id="id"
+                v-bind:disabled="checkbox_disabled"
             />
             <i class="fas fa-spinner spin" v-show="loading"></i>
         </div>
@@ -43,6 +44,11 @@ export default {
             type: Boolean,
             required: false,
             default: true,
+        },
+        checkbox_disabled: {
+            type: Boolean,
+            required: false,
+            default: false,
         },
         checked: {
             type: Boolean,

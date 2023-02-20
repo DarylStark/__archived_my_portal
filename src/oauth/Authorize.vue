@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form v-on:submit="save">
         <Card>
             <template v-slot:title>
                 {{ application.app_name }} requests your authorization
@@ -18,6 +18,7 @@
                 v-bind:checkbox="true"
                 v-bind:checked="true"
                 v-bind:content_as_label="true"
+                v-bind:checkbox_disabled="saving"
             >
                 <div>
                     <b>{{ get_scope_name(scope).group }}: </b>
@@ -34,8 +35,20 @@
                 just close this page without saving.
             </p>
             <p>Keep in mind that you can revoke scopes after allowing them.</p>
+        </Card>
+        <Card>
+            <Input
+                id="title"
+                ref="title"
+                icon="fas fa-user"
+                placeholder="Title for this token (optional)"
+                v-model="title"
+                v-bind:disabled="saving"
+            >
+            </Input>
             <template v-slot:actions>
                 <Button
+                    type="submit"
                     icon="fa fa-key"
                     v-bind:loading="save_loading"
                     v-bind:disabled="save_disabled"
@@ -52,6 +65,7 @@ import Card from '../cards/Card';
 import CardList from '../cards/CardList';
 import CardListItem from '../cards/CardListItem';
 import Button from '../components/Button';
+import Input from '../components/Input';
 import { get_scope_name } from '../my/oauth_scopes';
 
 export default {
@@ -61,6 +75,7 @@ export default {
         CardList,
         CardListItem,
         Button,
+        Input,
     },
     props: {
         application: {
@@ -76,6 +91,7 @@ export default {
         return {
             saving: false,
             selection: 1,
+            title: null,
         };
     },
     created() {
@@ -88,6 +104,9 @@ export default {
                 }
             });
         });
+    },
+    mounted() {
+        this.$refs.title.focus();
     },
     computed: {
         save_disabled() {
