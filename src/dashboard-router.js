@@ -10,6 +10,7 @@ import TagDetails from './pages/Tags/TagDetails/TagDetails';
 import Notes from './pages/Notes'
 import RSS from './pages/RSS'
 import Settings from './pages/Settings/Settings'
+import APISettings from './pages/APISettings/APISettings'
 
 // Error page
 import Error404 from './pages/errors/Error-404'
@@ -55,6 +56,11 @@ export default createRouter({
             path: '/settings',
             name: 'settings',
             component: Settings
+        },
+        {
+            path: '/api_settings',
+            name: 'api_settings',
+            component: APISettings
         },
         {
             // Error page

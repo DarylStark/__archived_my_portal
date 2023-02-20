@@ -21,6 +21,9 @@
             <UserMenuItem icon="fa-sliders" v-on:click="show_settings"
                 >Settings</UserMenuItem
             >
+            <UserMenuItem icon="fa-sliders" v-on:click="show_api_settings"
+                >API Settings</UserMenuItem
+            >
             <UserMenuItem icon="fa-adjust" v-on:click="next_theme">
                 Next theme
             </UserMenuItem>
@@ -59,6 +62,10 @@ export default {
     methods: {
         show_settings() {
             cmdlist.execute('user.open_settings');
+            this.active = false;
+        },
+        show_api_settings() {
+            cmdlist.execute('user.open_api_settings');
             this.active = false;
         },
         next_theme(theme) {

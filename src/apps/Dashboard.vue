@@ -299,6 +299,18 @@ export default {
 
         cmdlist.add_command(
             new Command({
+                command: 'user.open_api_settings',
+                group: 'User',
+                title: 'API Settings',
+                method: this.$router.push,
+                args: '/api_settings',
+                keybinding: null,
+                icon: 'fa-sliders',
+            })
+        );
+
+        cmdlist.add_command(
+            new Command({
                 command: 'ui.reload',
                 group: 'UI',
                 title: 'Restart',
