@@ -70,7 +70,7 @@
                 token to untrusted sources! The token is only displayed once, so
                 save it.
             </p>
-            <pre> {{ token }} </pre>
+            <Code>{{ token }}</Code>
         </Card>
     </div>
 </template>
@@ -83,6 +83,7 @@ import CardList from '../cards/CardList';
 import CardListItem from '../cards/CardListItem';
 import Button from '../components/Button';
 import Input from '../components/Input';
+import Code from '../components/Code';
 import { get_scope_name } from '../my/oauth_scopes';
 
 export default {
@@ -93,6 +94,7 @@ export default {
         CardListItem,
         Button,
         Input,
+        Code,
     },
     props: {
         application: {
