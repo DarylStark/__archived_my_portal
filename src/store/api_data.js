@@ -13,7 +13,8 @@ export default {
             web_ui_settings_error: null,
             user_sessions: null,
             dashboard_tags: new Map(),
-            tags: null
+            tags: null,
+            api_clients: null
         }
     },
     mutations: {
@@ -548,6 +549,65 @@ export default {
                     }
                 )
             );
-        }
+        },
+        get_api_clients(state, object = null) {
+            // Set the object
+            if (object == null) {
+                object = {
+                    callbacks: {}
+                }
+            }
+
+            // Set the callbacks
+            if (!('callbacks' in object)) {
+                object['callbacks'] = {}
+            }
+
+            // Get the force
+            let force = false;
+            if ('force' in object) {
+                force = object.force;
+            }
+            if (!force && state.api_clients == null) force = true;
+            if (!force) eventbus.emit('get_api_clients_done');
+
+            if (state.working.indexOf('get_api_clients') == -1 && force) {
+                state.working.push('get_api_clients');
+                // Retrieve the API clients from the database
+                api.execute(
+                    new APICommand(
+                        'api_clients',
+                        'all',
+                        'GET',
+                        null,
+                        (data) => {
+                            // Add the 'loading' element to all
+                            data.data.forEach((element) => {
+                                element.loading = false;
+                            });
+
+                            // Set the API clients
+                            state.api_clients = data.data;
+
+                            // Remove it from the 'working' list
+                            state.working = state.working.filter((element) => element != 'get_api_clients');
+
+                            // Emit an event
+                            eventbus.emit('get_api_clients_done');
+                        },
+                        (error) => {
+                            // Run the callback, if set
+                            if ('error' in object.callbacks) object.callbacks['error'](error);
+
+                            // Remove it from the 'working' list
+                            state.working = state.working.filter((element) => element != 'get_api_clients');
+
+                            // Emit an event
+                            eventbus.emit('get_api_clients_done');
+                        }
+                    )
+                );
+            }
+        },
     }
 };
