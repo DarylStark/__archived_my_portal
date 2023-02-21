@@ -1,7 +1,8 @@
 <template>
     <CardListItem
         list_id="api_applications"
-        id="{{ client.id }}"
+        v-bind:id="id"
+        v-bind:loading="client.loading"
         content_as_label
     >
         <div>
@@ -16,6 +17,7 @@
                 icon="fa-trash"
                 v-bind:action="action_remove"
                 confirm_first
+                v-bind:loading="client.loading"
             ></CardListAction>
         </template>
     </CardListItem>
@@ -36,9 +38,16 @@ export default {
             required: true,
         },
     },
+    computed: {
+        id() {
+            return `application_id_${this.client.id}`;
+        },
+    },
     methods: {
         action_info() {},
-        action_remove() {},
+        action_remove() {
+            this.eventbus.emit('remove_api_client', this.client.id);
+        },
     },
 };
 </script>

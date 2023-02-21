@@ -609,5 +609,45 @@ export default {
                 );
             }
         },
+        delete_api_clients(state, object) {
+            // Set loading for the affected elements
+            state.api_clients.forEach((e) => {
+                if (object.clients.indexOf(e.id.toString()) != -1 || object.clients.indexOf(e.id) != -1)
+                    e.loading = true;
+            })
+
+            // Execute the API
+            api.execute(
+                new APICommand(
+                    'api_clients',
+                    'delete',
+                    'DELETE',
+                    {
+                        api_client_ids: object.clients,
+                    },
+                    (data) => {
+                        // Remove all sessions from the state that are deleted
+                        state.api_clients = state.api_clients.filter((e) => {
+                            if (object.clients.indexOf(e.id.toString()) != -1 || object.clients.indexOf(e.id) != -1)
+                                return false;
+                            return true;
+                        });
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Remove the loading flag
+                        state.api_clients.forEach((e) => {
+                            if (object.clients.indexOf(e.id.toString()) != -1 || object.clients.indexOf(e.id) != -1)
+                                e.loading = false;
+                        })
+
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        },
     }
 };
