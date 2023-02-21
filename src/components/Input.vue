@@ -76,7 +76,7 @@ export default {
             return classes;
         },
     },
-    emits: ['update:modelValue', 'key', 'focusout', 'enter'],
+    emits: ['update:modelValue', 'key', 'focusout', 'enter', 'esc'],
     methods: {
         focus(select = false) {
             this.$refs.input.focus();
@@ -108,11 +108,13 @@ export default {
         enter(event) {
             this.$emit('enter', event);
         },
+        esc(event) {
+            this.$emit('esc', event);
+        },
         keydown(event) {
             this.$emit('key', event);
-            if (event.keyCode == 13) {
-                this.enter();
-            }
+            if (event.keyCode == 13) this.enter();
+            else if (event.keyCode == 27) this.esc();
         },
         focusout(event) {
             this.$emit('focusout', event);
