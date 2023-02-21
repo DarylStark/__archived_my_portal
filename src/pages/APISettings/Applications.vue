@@ -82,6 +82,10 @@ export default {
         };
     },
     created() {
+        // TODO: Add a command to the palette to delete items.
+        // Example: Tags-page. Same goes for refreshing the
+        // loaded applications.
+
         // Load the user sessions from the API
         if (this.api_clients == null)
             this.$store.commit('get_api_clients', { force: false });
