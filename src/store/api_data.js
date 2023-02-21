@@ -581,6 +581,8 @@ export default {
                         'GET',
                         null,
                         (data) => {
+                            if (data.data === null) data.data = [];
+
                             // Add the 'loading' element to all
                             data.data.forEach((element) => {
                                 element.loading = false;
