@@ -2,27 +2,29 @@
     <Card class="add_application_form">
         <template v-slot:title>Add application</template>
         <Input
-            v-bind:error="error"
+            v-bind:error="error_app_name"
             id="app_name"
             v-model="app_name"
             icon="fas fa-edit"
             ref="app_name"
             v-on:enter="focus_next(1)"
             v-bind:disabled="saving"
+            validate_re="^[a-zA-Z][a-zA-Z0-9\ \-]+$"
             >Application name</Input
         >
         <Input
-            v-bind:error="error"
+            v-bind:error="error_app_publisher"
             id="app_publisher"
             v-model="app_publisher"
             icon="fas fa-building"
             ref="app_publisher"
             v-on:enter="focus_next(2)"
             v-bind:disabled="saving"
+            validate_re="^[a-zA-Z][a-zA-Z0-9\ \-]+$"
             >Publisher</Input
         >
         <Input
-            v-bind:error="error"
+            v-bind:error="error_redirect_url"
             id="redirect_url"
             v-model="redirect_url"
             icon="fas fa-globe"
@@ -90,12 +92,50 @@ export default {
             app_publisher: null,
             redirect_url: null,
             saving: false,
-            error: null,
+            error_app_name: false,
+            error_app_publisher: false,
+            error_redirect_url: false,
         };
     },
     methods: {
         save() {
             this.saving = true;
+
+            // Validate input
+            this.error_app_name = !this.$refs.app_name.is_valid();
+            this.error_app_publisher = !this.$refs.app_publisher.is_valid();
+
+            if (
+                [this.error_app_name, this.error_app_publisher].indexOf(true) >
+                -1
+            ) {
+                // Something went wrong while saving
+                this.saving = false;
+                if (this.error_app_name) this.$refs.app_name.focus(true);
+                else if (this.error_app_publisher)
+                    this.$refs.app_publisher.focus(true);
+
+                return;
+            }
+
+            // Local Vue object
+            let vue_this = this;
+
+            // Add the API Client
+            this.$store.commit('add_api_client', {
+                app_name: this.app_name,
+                app_publisher: this.app_publisher,
+                redirect_url: this.redirect_url,
+                done(data) {
+                    vue_this.saving = false;
+                    vue_this.cancel();
+                },
+                error(error) {
+                    // TODO: Error toast
+                    vue_this.saving = false;
+                    console.log('error');
+                },
+            });
         },
         cancel() {
             if (!this.saving) this.eventbus.emit('add_application_cancelled');

@@ -651,5 +651,36 @@ export default {
                 )
             );
         },
+        add_api_client(state, object) {
+            // Create a object to send to the backend
+            let obj = {
+                app_name: object.app_name,
+                app_publisher: object.app_publisher,
+                redirect_url: object.redirect_url == null ? '' : object.redirect_url,
+            }
+            // Method to add a tag
+            api.execute(
+                new APICommand(
+                    'api_clients',
+                    'create',
+                    'POST',
+                    obj,
+                    (data) => {
+                        // Append the correct items to the tag
+                        data.data.loading = false;
+
+                        // Add it to the list
+                        state.api_clients.push(data.data)
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        },
     }
 };
