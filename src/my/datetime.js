@@ -35,11 +35,12 @@ class DateTime {
 
     format(format) {
         let date = format;
+        let month = this.datetime.getMonth() + 1;
 
         // Format the date
         date = date.replace('%Y', this.datetime.getFullYear());
-        date = date.replace('%m', this.datetime.getMonth() < 10 ? '0' + this.datetime.getMonth() : this.datetime.getMonth());
-        date = date.replace('%d', this.datetime.getDay() < 10 ? '0' + this.datetime.getDay() : this.datetime.getDay());
+        date = date.replace('%m', month < 10 ? '0' + month : month);
+        date = date.replace('%d', this.datetime.getDate() < 10 ? '0' + this.datetime.getDate() : this.datetime.getDate());
 
         // Format the time
         date = date.replace('%H', this.datetime.getHours() < 10 ? '0' + this.datetime.getHours() : this.datetime.getHours());

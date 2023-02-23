@@ -22,6 +22,20 @@
 
                 <template v-if="!loading">
                     <CardListItem
+                        id="creation_datetime"
+                        list_id="application_details"
+                        v-bind:checkbox="false"
+                        v-bind:loading="true"
+                    >
+                        <div class="details_left">Created on</div>
+                        <div class="details_right">
+                            <DateTimeView
+                                v-bind:datetime="application.created"
+                            ></DateTimeView>
+                        </div>
+                    </CardListItem>
+
+                    <CardListItem
                         id="app_name"
                         list_id="application_details"
                         v-bind:checkbox="false"
@@ -88,27 +102,6 @@
                     >
                         <div class="details_left">Status</div>
                         <div class="details_right">
-                            <!-- <div
-                                class="disabled"
-                                v-if="!application.enabled"
-                                v-on:click="enable"
-                            >
-                                <div class="icon" v-if="saving_enabled">
-                                    <i class="fas fa-spinner spin"></i>
-                                </div>
-                                Disabled - click to enable
-                            </div>
-
-                            <div
-                                class="enabled"
-                                v-if="application.enabled"
-                                v-on:click="disable"
-                            >
-                                <div class="icon" v-if="saving_enabled">
-                                    <i class="fas fa-spinner spin"></i>
-                                </div>
-                                Enable - click to disable
-                            </div> -->
                             <Label
                                 class="red"
                                 v-bind:click_action="enable"
@@ -158,6 +151,7 @@ import ApplicationsLoading from '../ApplicationsLoading';
 import Code from '../../../components/Code';
 import Label from '../../../components/Label';
 import { get_slug_for_name } from '../../../my/generic';
+import DateTimeView from '../../../components/DateTimeView.vue';
 
 export default {
     name: 'ApplicationDetails',
@@ -171,6 +165,7 @@ export default {
         ApplicationsLoading,
         Code,
         Label,
+        DateTimeView,
     },
     computed: {
         application_slug() {
