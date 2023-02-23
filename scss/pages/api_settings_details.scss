@@ -1,5 +1,21 @@
 .api_settings_details {
     .app_details {
+        .api_settings_loading {
+            padding: 24px;
+            display: flex;
+
+            >.icon {
+                flex-grow: 0;
+                flex-shrink: 0;
+                margin: 0 24px 0 0;
+            }
+
+            >.text {
+                flex-grow: 1;
+                flex-shrink: 1;
+            }
+        }
+
         .details_left {
             font-weight: bold;
             width: 40%;

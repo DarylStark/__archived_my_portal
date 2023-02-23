@@ -717,8 +717,8 @@ export default {
                         state.api_clients.forEach((application) => {
                             if (application.id == id) {
                                 if (app_name) {
-                                    application.app_name = app_name
-                                    // application.slug = get_slug_for_name(app_name)
+                                    application.app_name = app_name;
+                                    application.slug = get_slug_for_name(app_name);
                                 };
                                 if (app_publisher) application.app_publisher = app_publisher;
                                 if (redirect_url != null && redirect_url != undefined) application.redirect_url = redirect_url;

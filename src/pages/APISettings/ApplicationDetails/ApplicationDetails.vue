@@ -1,24 +1,26 @@
 <template>
     <Grid class="api_settings_details">
-        <template v-if="loading">
-            <!-- TODO: Loading window -->
-            <b>still loading</b>
-        </template>
+        <Cell cols="12">
+            <SectionTitle v-if="!loading">{{
+                application.app_name
+            }}</SectionTitle>
+            <SectionTitle v-if="loading">Loading</SectionTitle>
+        </Cell>
+        <Cell cols="12">
+            <CardList
+                id="application_details"
+                v-bind:checkbox="false"
+                class="app_details"
+            >
+                <template v-slot:headers>
+                    <div>Application details</div>
+                </template>
 
-        <template v-if="!loading">
-            <Cell cols="12">
-                <SectionTitle>{{ application.app_name }}</SectionTitle>
-            </Cell>
-            <Cell cols="12">
-                <CardList
-                    id="application_details"
-                    v-bind:checkbox="false"
-                    class="app_details"
-                >
-                    <template v-slot:headers>
-                        <div>Application details</div>
-                    </template>
+                <ApplicationsLoading v-if="loading">
+                    Loading the API application details
+                </ApplicationsLoading>
 
+                <template v-if="!loading">
                     <CardListItem
                         id="app_name"
                         list_id="application_details"
@@ -78,9 +80,9 @@
                             </EditableText>
                         </div>
                     </CardListItem>
-                </CardList>
-            </Cell>
-        </template>
+                </template>
+            </CardList>
+        </Cell>
     </Grid>
 </template>
 
@@ -91,6 +93,8 @@ import SectionTitle from '../../../layout/Titles/SectionTitle.vue';
 import CardList from '../../../cards/CardList';
 import CardListItem from '../../../cards/CardListItem';
 import EditableText from '../../../components/EditableText';
+import ApplicationsLoading from '../ApplicationsLoading';
+import { get_slug_for_name } from '../../../my/generic';
 
 export default {
     name: 'ApplicationDetails',
@@ -101,6 +105,7 @@ export default {
         CardList,
         CardListItem,
         EditableText,
+        ApplicationsLoading,
     },
     computed: {
         application_slug() {
@@ -134,6 +139,9 @@ export default {
                 app_name: new_name,
                 done: (data) => {
                     this.$refs.editabletext_app_name.stop_input();
+                    this.$router.replace(
+                        `/api_settings/${get_slug_for_name(new_name)}`
+                    );
                 },
                 error: (error) => {
                     this.eventbus.emit('toast_show', {
