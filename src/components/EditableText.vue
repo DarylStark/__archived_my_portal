@@ -11,7 +11,11 @@
                 {{ value }}
                 <span class="prepend" v-if="prepend">{{ prepend }}</span>
             </div>
-            <div v-if="value == null" class="empty_name" v-on:click="edit">
+            <div
+                v-if="value == null || value == ''"
+                class="empty_name"
+                v-on:click="edit"
+            >
                 {{ empty_text }}
                 <span class="prepend" v-if="prepend">{{ prepend }}</span>
             </div>

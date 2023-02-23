@@ -58,7 +58,9 @@ export default {
         },
     },
     methods: {
-        action_info() {},
+        action_info() {
+            this.$router.push(`/api_settings/${this.client.slug}`);
+        },
         action_remove() {
             this.eventbus.emit('remove_api_client', this.client.id);
         },

@@ -685,5 +685,62 @@ export default {
                 )
             );
         },
+        set_api_client(state, object) {
+            // Method to update a API client
+            let id = object.id;
+            let app_name = object.app_name;
+            let app_publisher = object.app_publisher;
+            let redirect_url = object.redirect_url;
+
+            // Set loading for the affected element
+            state.api_clients.forEach((e) => {
+                if (e.id == object.id)
+                    e.loading = true;
+            });
+
+            // Create object to send to the backend
+            let obj = {
+                client_id: id
+            }
+            if (app_name) obj['app_name'] = app_name;
+            if (app_publisher) obj['app_publisher'] = app_publisher;
+            if (redirect_url != null && redirect_url != undefined) obj['redirect_url'] = redirect_url;
+
+            api.execute(
+                new APICommand(
+                    'api_clients',
+                    'update',
+                    'PATCH',
+                    obj,
+                    (data) => {
+                        // Update the tag color
+                        state.api_clients.forEach((application) => {
+                            if (application.id == id) {
+                                if (app_name) {
+                                    application.app_name = app_name
+                                    // application.slug = get_slug_for_name(app_name)
+                                };
+                                if (app_publisher) application.app_publisher = app_publisher;
+                                if (redirect_url != null && redirect_url != undefined) application.redirect_url = redirect_url;
+                                application.loading = false;
+                            }
+                        });
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Update the tag color
+                        state.api_clients.forEach((application) => {
+                            if (application.id == id) {
+                                application.loading = false;
+                            }
+                        });
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        },
     }
 };

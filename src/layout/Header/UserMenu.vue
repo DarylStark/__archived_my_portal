@@ -21,7 +21,7 @@
             <UserMenuItem icon="fa-sliders" v-on:click="show_settings"
                 >Settings</UserMenuItem
             >
-            <UserMenuItem icon="fa-sliders" v-on:click="show_api_settings"
+            <UserMenuItem icon="fa-link" v-on:click="show_api_settings"
                 >API Settings</UserMenuItem
             >
             <UserMenuItem icon="fa-adjust" v-on:click="next_theme">

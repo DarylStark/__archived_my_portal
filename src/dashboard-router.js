@@ -11,6 +11,7 @@ import Notes from './pages/Notes'
 import RSS from './pages/RSS'
 import Settings from './pages/Settings/Settings'
 import APISettings from './pages/APISettings/APISettings'
+import ApplicationDetails from './pages/APISettings/ApplicationDetails/ApplicationDetails';
 
 // Error page
 import Error404 from './pages/errors/Error-404'
@@ -61,6 +62,11 @@ export default createRouter({
             path: '/api_settings',
             name: 'api_settings',
             component: APISettings
+        },
+        {
+            path: '/api_settings/:application_slug',
+            name: 'api_settings_details',
+            component: ApplicationDetails
         },
         {
             // Error page

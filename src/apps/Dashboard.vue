@@ -305,7 +305,7 @@ export default {
                 method: this.$router.push,
                 args: '/api_settings',
                 keybinding: null,
-                icon: 'fa-sliders',
+                icon: 'fa-link',
             })
         );
 
