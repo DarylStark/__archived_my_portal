@@ -47,7 +47,7 @@ class CommandList {
 
     remove_command(cmdlist) {
         let to_remove = cmdlist;
-        if (typeof (cmdlist) === "string")
+        if (!Array.isArray(to_remove))
             to_remove = [cmdlist];
 
         // Remove from the 'methods' list and from the 'keybindings' list and
@@ -74,8 +74,6 @@ class CommandList {
         this.commands = this.commands.filter((cmd) => {
             return to_remove_cmdlist.indexOf(cmd.command) === -1;
         });
-
-        // Remove commands from the 
     }
 
     set_visibility_command(commands, visibility) {

@@ -72,7 +72,7 @@ export default {
         }
     },
     unmounted() {
-        if (this.command) cmdlist.remove_command(this.command.command);
+        if (this.command) cmdlist.remove_command(this.command);
         this.eventbus.off('keydown', this.keypress);
     },
     methods: {
