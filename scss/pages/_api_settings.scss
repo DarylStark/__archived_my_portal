@@ -31,4 +31,34 @@
             text-align: center;
         }
     }
+
+    .application {
+        .title {
+            p.app_name {
+                margin: 0 0 4px 0;
+                font-weight: bold;
+            }
+
+            p.app_publisher,
+            p.features {
+                margin: 0;
+            }
+        }
+
+        .disabled,
+        .expired {
+            font-weight: bold;
+            font-size: 13px;
+            background-color: #cc0000;
+            display: inline-block;
+            padding: 2px 8px 2px 8px;
+            color: white;
+            border-radius: 7px;
+            margin: 12px 4px 0 0;
+        }
+
+        .expired {
+            background-color: #0000cc;
+        }
+    }
 }

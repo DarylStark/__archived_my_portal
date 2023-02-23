@@ -4,9 +4,15 @@
         v-bind:id="id"
         v-bind:loading="client.loading"
         content_as_label
+        class='application'
     >
-        <div>
-            <b>{{ client.app_name }}</b> by {{ client.app_publisher }}
+        <div class='title'>
+            <p class='app_name'>{{ client.app_name }}</p>
+            <p class='app_publisher'>By {{ client.app_publisher }}</p>
+            <p class='features'>
+                <div class="disabled" v-if='!client.enabled'>Disabled</div>
+                <div class="expired" v-if='expired'>Expired</div>
+            </p>
         </div>
         <template v-slot:actions>
             <CardListAction
@@ -26,6 +32,7 @@
 <script>
 import CardListItem from '../../cards/CardListItem';
 import CardListAction from '../../cards/CardListAction';
+import DateTime from '../../my/datetime.js';
 
 export default {
     name: 'Application',
@@ -41,6 +48,13 @@ export default {
     computed: {
         id() {
             return `application_id_${this.client.id}`;
+        },
+        expired() {
+            if (this.client.expires) {
+                let date_object = new DateTime(this.client.expires, true);
+                return date_object.datetime < new Date();
+            }
+            return false;
         },
     },
     methods: {
