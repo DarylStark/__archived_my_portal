@@ -1,10 +1,9 @@
 // Module with functions for tags
 
+import { get_slug_for_name } from './generic';
+
 function get_tag_slug(title) {
-    let slug = title;
-    slug = slug.replaceAll('-', '_');
-    slug = slug.replaceAll(' ', '-');
-    return slug;
+    return get_slug_for_name(title);
 }
 
 export { get_tag_slug };

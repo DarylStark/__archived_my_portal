@@ -4,6 +4,7 @@ import api from '../my/api';
 import APICommand from '../my/api_command';
 import eventbus from '../dashboard-eventbus';
 import { get_tag_slug } from '../my/tags';
+import { get_slug_for_name } from '../my/generic';
 
 export default {
     state() {
@@ -586,6 +587,7 @@ export default {
                             // Add the 'loading' element to all
                             data.data.forEach((element) => {
                                 element.loading = false;
+                                element.slug = get_slug_for_name(element.app_name);
                             });
 
                             // Set the API clients
@@ -668,6 +670,7 @@ export default {
                     (data) => {
                         // Append the correct items to the tag
                         data.data.loading = false;
+                        data.data.slug = get_slug_for_name(obj.app_name);
 
                         // Add it to the list
                         state.api_clients.push(data.data)
