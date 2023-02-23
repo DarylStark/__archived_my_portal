@@ -1,11 +1,16 @@
 <template>
     <Grid class="api_settings_details">
+        <!-- TODO: Make this pretty -->
+
         <Cell cols="12">
             <SectionTitle v-if="!loading">{{
                 application.app_name
             }}</SectionTitle>
             <SectionTitle v-if="loading">Loading</SectionTitle>
         </Cell>
+
+        <!-- TODO: Seperate component -->
+
         <Cell cols="12">
             <CardList
                 id="application_details"
@@ -114,7 +119,7 @@
                                 v-bind:click_action="disable"
                                 v-bind:loading="saving_enabled"
                                 v-if="application.enabled"
-                                >Enable - click to disable</Label
+                                >Enabled - click to disable</Label
                             >
                         </div>
                     </CardListItem>
@@ -136,6 +141,15 @@
                     </CardListItem>
                 </template>
             </CardList>
+
+            <!-- Tokens -->
+
+            <template v-if="!loading">
+                <Cell cols="12">
+                    <SectionTitle>Tokens for this app</SectionTitle>
+                </Cell>
+                <Tokens v-bind:app_id="application.id"></Tokens>
+            </template>
         </Cell>
     </Grid>
 </template>
@@ -152,6 +166,7 @@ import Code from '../../../components/Code';
 import Label from '../../../components/Label';
 import { get_slug_for_name } from '../../../my/generic';
 import DateTimeView from '../../../components/DateTimeView.vue';
+import Tokens from './Tokens';
 
 export default {
     name: 'ApplicationDetails',
@@ -166,6 +181,7 @@ export default {
         Code,
         Label,
         DateTimeView,
+        Tokens,
     },
     computed: {
         application_slug() {

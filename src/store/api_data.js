@@ -15,7 +15,8 @@ export default {
             user_sessions: null,
             dashboard_tags: new Map(),
             tags: null,
-            api_clients: null
+            api_clients: null,
+            api_tokens: null
         }
     },
     mutations: {
@@ -744,6 +745,80 @@ export default {
                     }
                 )
             );
+        },
+        get_api_tokens(state, object = null) {
+            // Set the object
+            if (object == null) {
+                object = {
+                    id: 0,
+                    callbacks: {}
+                }
+            }
+
+            // Set the id
+            const app_id = object.id;
+
+            // Set the callbacks
+            if (!('callbacks' in object)) {
+                object['callbacks'] = {}
+            }
+
+            // Set up the cache
+            if (state.api_tokens == null || state.api_tokens == undefined) {
+                state.api_tokens = new Map();
+            }
+
+            // Get the force
+            let force = false;
+            if ('force' in object) {
+                force = object.force;
+            }
+            if (!force && state.api_tokens[app_id] == null || state.api_tokens[app_id] == undefined) force = true;
+            if (!force) eventbus.emit('get_api_tokens_done');
+
+            if (state.working.indexOf('get_api_tokens') == -1 && force) {
+                state.working.push('get_api_tokens');
+                // Retrieve the API clients from the database
+                api.execute(
+                    new APICommand(
+                        'api_tokens',
+                        `all/${app_id}`,
+                        'GET',
+                        null,
+                        (data) => {
+                            if (data.data === null) data.data = [];
+
+                            // Add the 'loading' element to all
+                            data.data.forEach((element) => {
+                                element.loading = false;
+                            });
+
+                            // Set the API clients
+                            state.api_tokens[app_id] = data.data;
+
+                            // Remove it from the 'working' list
+                            state.working = state.working.filter((element) => element != 'get_api_tokens');
+
+                            // Emit an event
+                            eventbus.emit('get_api_tokens_done');
+                        },
+                        (error) => {
+                            console.error(error);
+                            // Run the callback, if set
+                            if ('error' in object.callbacks) object.callbacks['error'](error);
+
+                            // Remove it from the 'working' list
+                            state.working = state.working.filter((element) => element != 'get_api_tokens');
+
+                            // Emit an event
+                            eventbus.emit('get_api_tokens_done');
+                        }
+                    )
+                );
+            }
+        },
+        delete_api_tokens(state, object) {
+            // TODO: Implement
         },
     }
 };
