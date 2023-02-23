@@ -82,7 +82,7 @@
                 token to untrusted sources! The token is only displayed once, so
                 save it.
             </p>
-            <Code>{{ token }}</Code>
+            <Code block>{{ token }}</Code>
         </Card>
         <Card v-if="token != null && action == 'add_permissions'">
             <p>

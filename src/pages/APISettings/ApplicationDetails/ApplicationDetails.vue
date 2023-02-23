@@ -80,6 +80,22 @@
                             </EditableText>
                         </div>
                     </CardListItem>
+
+                    <CardListItem
+                        id="redirect_url"
+                        list_id="application_details"
+                        v-bind:checkbox="false"
+                    >
+                        <div class="details_left">Application token</div>
+                        <div class="details_right">
+                            <Code hidden>
+                                <template v-slot:hidden_text
+                                    >Click here to reveal the token</template
+                                >
+                                {{ application.token }}
+                            </Code>
+                        </div>
+                    </CardListItem>
                 </template>
             </CardList>
         </Cell>
@@ -94,6 +110,7 @@ import CardList from '../../../cards/CardList';
 import CardListItem from '../../../cards/CardListItem';
 import EditableText from '../../../components/EditableText';
 import ApplicationsLoading from '../ApplicationsLoading';
+import Code from '../../../components/Code';
 import { get_slug_for_name } from '../../../my/generic';
 
 export default {
@@ -106,6 +123,7 @@ export default {
         CardListItem,
         EditableText,
         ApplicationsLoading,
+        Code,
     },
     computed: {
         application_slug() {

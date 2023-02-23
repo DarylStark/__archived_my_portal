@@ -1,0 +1,20 @@
+.code {
+    .code {
+        background-color: transparent;
+        font-size: 14px;
+        font-weight: normal;
+        font-family: 'Fira Code', 'Courier New', Courier, monospace;
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+
+        &.block {
+            padding: 16px;
+            background-color: #000;
+        }
+    }
+
+    &.hidden {
+        cursor: pointer;
+    }
+}
