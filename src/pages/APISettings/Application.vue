@@ -4,14 +4,14 @@
         v-bind:id="id"
         v-bind:loading="client.loading"
         content_as_label
-        class='application'
+        class="application"
     >
-        <div class='title'>
-            <p class='app_name'>{{ client.app_name }}</p>
-            <p class='app_publisher'>By {{ client.app_publisher }}</p>
-            <p class='features'>
-                <div class="disabled" v-if='!client.enabled'>Disabled</div>
-                <div class="expired" v-if='expired'>Expired</div>
+        <div class="title">
+            <p class="app_name">{{ client.app_name }}</p>
+            <p class="app_publisher">By {{ client.app_publisher }}</p>
+            <p class="features">
+                <Label class="red" v-if="!client.enabled">Disabled</Label>
+                <Label class="blue" v-if="expired">Expired</Label>
             </p>
         </div>
         <template v-slot:actions>
@@ -33,12 +33,14 @@
 import CardListItem from '../../cards/CardListItem';
 import CardListAction from '../../cards/CardListAction';
 import DateTime from '../../my/datetime.js';
+import Label from '../../components/Label';
 
 export default {
     name: 'Application',
     components: {
         CardListItem,
         CardListAction,
+        Label,
     },
     props: {
         client: {

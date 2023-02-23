@@ -691,6 +691,7 @@ export default {
             let app_name = object.app_name;
             let app_publisher = object.app_publisher;
             let redirect_url = object.redirect_url;
+            let enabled = object.enabled;
 
             // Set loading for the affected element
             state.api_clients.forEach((e) => {
@@ -705,6 +706,7 @@ export default {
             if (app_name) obj['app_name'] = app_name;
             if (app_publisher) obj['app_publisher'] = app_publisher;
             if (redirect_url != null && redirect_url != undefined) obj['redirect_url'] = redirect_url;
+            if (enabled != null && enabled != undefined) obj['enabled'] = enabled;
 
             api.execute(
                 new APICommand(
@@ -722,6 +724,7 @@ export default {
                                 };
                                 if (app_publisher) application.app_publisher = app_publisher;
                                 if (redirect_url != null && redirect_url != undefined) application.redirect_url = redirect_url;
+                                if (enabled != null && enabled != undefined) application.enabled = enabled;
                                 application.loading = false;
                             }
                         });

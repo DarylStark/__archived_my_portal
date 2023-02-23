@@ -1,0 +1,42 @@
+.label {
+    font-weight: bold;
+    font-size: 13px;
+    border-radius: 7px;
+    margin: 0;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    &.red {
+        background-color: #cc0000;
+        color: white;
+    }
+
+    &.green {
+        background-color: #00cc00;
+        color: white;
+    }
+
+    &.blue {
+        background-color: #0000cc;
+        color: white;
+    }
+
+    &.clickable {
+        cursor: pointer;
+    }
+
+    .icon {
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: auto;
+        margin: 0 4px 0 4px;
+    }
+
+    .text {
+        width: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+        padding: 2px 8px 2px 8px;
+    }
+}

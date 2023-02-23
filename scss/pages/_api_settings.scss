@@ -45,20 +45,9 @@
             }
         }
 
-        .disabled,
-        .expired {
-            font-weight: bold;
-            font-size: 13px;
-            background-color: #cc0000;
-            display: inline-block;
-            padding: 2px 8px 2px 8px;
-            color: white;
+        .label {
             border-radius: 7px;
             margin: 12px 4px 0 0;
-        }
-
-        .expired {
-            background-color: #0000cc;
         }
     }
 }

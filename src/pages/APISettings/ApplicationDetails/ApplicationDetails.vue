@@ -82,7 +82,52 @@
                     </CardListItem>
 
                     <CardListItem
-                        id="redirect_url"
+                        id="enabled"
+                        list_id="application_details"
+                        v-bind:checkbox="false"
+                    >
+                        <div class="details_left">Status</div>
+                        <div class="details_right">
+                            <!-- <div
+                                class="disabled"
+                                v-if="!application.enabled"
+                                v-on:click="enable"
+                            >
+                                <div class="icon" v-if="saving_enabled">
+                                    <i class="fas fa-spinner spin"></i>
+                                </div>
+                                Disabled - click to enable
+                            </div>
+
+                            <div
+                                class="enabled"
+                                v-if="application.enabled"
+                                v-on:click="disable"
+                            >
+                                <div class="icon" v-if="saving_enabled">
+                                    <i class="fas fa-spinner spin"></i>
+                                </div>
+                                Enable - click to disable
+                            </div> -->
+                            <Label
+                                class="red"
+                                v-bind:click_action="enable"
+                                v-bind:loading="saving_enabled"
+                                v-if="!application.enabled"
+                                >Disabled - click to enable</Label
+                            >
+                            <Label
+                                class="green"
+                                v-bind:click_action="disable"
+                                v-bind:loading="saving_enabled"
+                                v-if="application.enabled"
+                                >Enable - click to disable</Label
+                            >
+                        </div>
+                    </CardListItem>
+
+                    <CardListItem
+                        id="token"
                         list_id="application_details"
                         v-bind:checkbox="false"
                     >
@@ -111,6 +156,7 @@ import CardListItem from '../../../cards/CardListItem';
 import EditableText from '../../../components/EditableText';
 import ApplicationsLoading from '../ApplicationsLoading';
 import Code from '../../../components/Code';
+import Label from '../../../components/Label';
 import { get_slug_for_name } from '../../../my/generic';
 
 export default {
@@ -124,6 +170,7 @@ export default {
         EditableText,
         ApplicationsLoading,
         Code,
+        Label,
     },
     computed: {
         application_slug() {
@@ -139,6 +186,11 @@ export default {
         loading() {
             return this.$store.state.api_data.api_clients == null;
         },
+    },
+    data() {
+        return {
+            saving_enabled: false,
+        };
     },
     created() {
         this.$store.commit('sidebar_available_set', false);
@@ -213,6 +265,30 @@ export default {
                     this.$refs.editabletext_redirect_url.focus(true);
                 },
             });
+        },
+        enable_or_disable(state) {
+            // Local this
+            let vue_this = this;
+
+            this.saving_enabled = true;
+            this.$store.commit('set_api_client', {
+                id: this.application.id,
+                enabled: state,
+                done() {
+                    vue_this.saving_enabled = false;
+                },
+                error: (error) => {
+                    // TODO: Error
+                    console.log(error);
+                    vue_this.saving_enabled = false;
+                },
+            });
+        },
+        enable() {
+            this.enable_or_disable(true);
+        },
+        disable() {
+            this.enable_or_disable(false);
         },
     },
 };
