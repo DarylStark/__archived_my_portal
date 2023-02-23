@@ -28,6 +28,7 @@
                 list_id="api_applications"
                 icon="fa-trash"
                 v-bind:action="action_remove_selected"
+                v-bind:command="cmd_delete"
                 confirm_first
             ></CardListAction>
         </template>
@@ -50,6 +51,7 @@ import CardListAction from '../../cards/CardListAction';
 import CardListEmpty from '../../cards/CardListEmpty';
 import cmdlist from '../../my/command_list';
 import Command from '../../my/command';
+import KeyBinding from '../../my/keybinding';
 
 export default {
     name: 'Applications',
@@ -79,6 +81,15 @@ export default {
     data() {
         return {
             refreshing: true,
+            cmd_delete: new Command({
+                command: 'api_clients.remove',
+                scope: 'local-api-clients',
+                group: 'API settings',
+                title: 'Remove selected applications',
+                icon: 'fa-trash',
+                show: true,
+                keybinding: new KeyBinding(false, false, false, 'DELETE'),
+            }),
         };
     },
     created() {
@@ -99,7 +110,7 @@ export default {
             new Command({
                 command: 'api_clients.update',
                 scope: 'local-api-clients',
-                group: 'API applications',
+                group: 'API settings',
                 title: 'Update',
                 icon: 'fa-arrows-rotate',
                 method: () => {
