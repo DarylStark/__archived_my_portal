@@ -6,7 +6,7 @@
 import Card from '../../../cards/Card';
 
 export default {
-    name: 'TokenScopes',
+    name: 'TokenInfo',
     components: {
         Card,
     },

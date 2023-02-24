@@ -4,7 +4,7 @@
             <div><slot></slot></div>
             <template v-slot:actions>
                 <CardListAction
-                    icon="fa-arrows-to-circle"
+                    icon="fa-circle-info"
                     v-bind:action="action_permissions"
                 ></CardListAction>
                 <CardListAction
@@ -15,7 +15,7 @@
                 ></CardListAction>
             </template>
         </CardListItem>
-        <TokenScopes v-if="show_permissions" token_id="1"></TokenScopes>
+        <TokenInfo v-if="show_permissions" token_id="1"></TokenInfo>
     </div>
 </template>
 
@@ -23,7 +23,7 @@
 import Card from '../../../cards/Card';
 import CardListItem from '../../../cards/CardListItem';
 import CardListAction from '../../../cards/CardListAction';
-import TokenScopes from './TokenScopes.vue';
+import TokenInfo from './TokenInfo.vue';
 
 export default {
     name: 'Token',
@@ -31,7 +31,7 @@ export default {
         CardListItem,
         CardListAction,
         Card,
-        TokenScopes,
+        TokenInfo,
     },
     props: {
         token_id: {
