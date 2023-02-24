@@ -55,7 +55,6 @@
                                 v-bind:done="save_name"
                                 validate_re="^[a-zA-Z][a-zA-Z0-9\ \-]+$"
                                 ref="editabletext_app_name"
-                                v-bind:disabled="application.loading"
                             >
                             </EditableText>
                         </div>
@@ -75,7 +74,6 @@
                                 v-bind:done="save_publisher"
                                 validate_re="^[a-zA-Z][a-zA-Z0-9\ \-]+$"
                                 ref="editabletext_app_publisher"
-                                v-bind:disabled="application.loading"
                             >
                             </EditableText>
                         </div>
@@ -94,7 +92,6 @@
                                 v-bind:id="get_id('redirect_url')"
                                 v-bind:done="save_redirect_url"
                                 ref="editabletext_redirect_url"
-                                v-bind:disabled="application.loading"
                             >
                             </EditableText>
                         </div>
