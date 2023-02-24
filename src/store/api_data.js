@@ -861,5 +861,54 @@ export default {
                 )
             );
         },
+        set_api_token(state, object) {
+            // Method to update a API client
+            let id = object.id;
+            let client_id = object.client_id;
+            let title = object.title;
+
+            // Set loading for the affected element
+            state.api_tokens[client_id].forEach((e) => {
+                if (e.id == object.id)
+                    e.loading = true;
+            });
+
+            // Create object to send to the backend
+            let obj = {
+                token_id: id
+            }
+            if (title) obj['title'] = title;
+
+            api.execute(
+                new APICommand(
+                    'api_tokens',
+                    'update',
+                    'PATCH',
+                    obj,
+                    (data) => {
+                        // Update the tag color
+                        state.api_tokens[client_id].forEach((token) => {
+                            if (token.id == id) {
+                                if (title) token.title = title;
+                                token.loading = false;
+                            }
+                        });
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        // Update the tag color
+                        state.api_tokens[client_id].forEach((token) => {
+                            if (token.id == id) {
+                                token.loading = false;
+                            }
+                        });
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        },
     }
 };
