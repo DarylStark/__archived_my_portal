@@ -1,6 +1,6 @@
 <template>
     <Cell cols="12" class="api_settings_tokens">
-        <CardList id="tokens" v-bind:checkbox="true" ref="list">
+        <CardList id="api_settings_tokens" v-bind:checkbox="true" ref="list">
             <template v-slot:headers><div>Title</div></template>
 
             <TokensLoading v-if="api_tokens == null">
@@ -33,13 +33,8 @@
                 <Token
                     v-for="token in api_tokens"
                     v-bind:key="token.id"
-                    v-bind:token_id="token.id"
+                    v-bind:token="token"
                 >
-                    <template v-if="token.title">
-                        {{ token.title }}
-                    </template>
-
-                    <template v-if="!token.title"> No title </template>
                 </Token>
             </template>
         </CardList>
@@ -152,17 +147,45 @@ export default {
             cmdlist.execute('api_tokens.update');
         },
         remove_tokens(tokens) {
+            // Local this
+            let vue_this = this;
+
+            this.api_tokens.forEach((e) => {
+                if (
+                    tokens.indexOf(e.id.toString()) != -1 ||
+                    tokens.indexOf(e.id) != -1
+                )
+                    this.eventbus.emit('api_tokens_set_loading', e.id);
+            });
+
             // Delete the user sessions
             this.$store.commit('delete_api_tokens', {
-                tokens: tokens,
+                api_token_ids: tokens,
+                client_id: this.app_id,
                 done: (data) => {
-                    tokens.forEach((client) => {
+                    vue_this.reloader = !this.reloader;
+                    tokens.forEach((token) => {
                         // Emit a event to remove it from the 'selected' list
-                        this.eventbus.emit('card_list_changed_api_tokens', {
-                            action: 'change_selection',
-                            id: `token_id_${client}`,
-                            type: 'remove',
-                        });
+                        vue_this.eventbus.emit(
+                            'card_list_changed_api_settings_tokens',
+                            {
+                                action: 'change_selection',
+                                id: `token_id_${token}`,
+                                type: 'remove',
+                            }
+                        );
+                    });
+                },
+                error: (error) => {
+                    vue_this.api_tokens.forEach((e) => {
+                        if (
+                            tokens.indexOf(e.id.toString()) != -1 ||
+                            tokens.indexOf(e.id) != -1
+                        )
+                            vue_this.eventbus.emit(
+                                'api_tokens_set_loading',
+                                e.id
+                            );
                     });
                 },
             });

@@ -1,7 +1,13 @@
 <template>
     <div>
-        <CardListItem v-bind:id="id" list_id="tokens">
-            <div><slot></slot></div>
+        <CardListItem v-bind:id="id" list_id="api_settings_tokens">
+            <div>
+                <template v-if="token.title">
+                    {{ token.title }}
+                </template>
+
+                <template v-if="!token.title">No title</template>
+            </div>
             <template v-slot:actions>
                 <CardListAction
                     icon="fa-circle-info"
@@ -15,7 +21,10 @@
                 ></CardListAction>
             </template>
         </CardListItem>
-        <TokenInfo v-if="show_permissions" token_id="1"></TokenInfo>
+        <TokenInfo
+            v-if="show_permissions"
+            v-bind:token_id="token.id"
+        ></TokenInfo>
     </div>
 </template>
 
@@ -34,28 +43,37 @@ export default {
         TokenInfo,
     },
     props: {
-        token_id: {
-            type: Number,
+        token: {
             requuired: true,
         },
     },
     data() {
         return {
-            loading: false,
             show_permissions: false,
+            loading: false,
         };
     },
     computed: {
         id() {
-            return `token_id_${this.token_id}`;
+            return `token_id_${this.token.id}`;
         },
+    },
+    created() {
+        this.eventbus.on('api_tokens_set_loading', this.event_set_loading);
+    },
+    unmounted() {
+        this.eventbus.off('api_tokens_set_loading', this.event_set_loading);
     },
     methods: {
         action_permissions() {
             this.show_permissions = !this.show_permissions;
         },
         action_remove() {
-            this.eventbus.emit('remove_api_token', this.token_id);
+            this.eventbus.emit('remove_api_token', this.token.id);
+        },
+        event_set_loading(token_id) {
+            console.log(token_id);
+            if (token_id == this.token.id) this.loading = true;
         },
     },
 };

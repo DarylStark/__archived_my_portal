@@ -818,7 +818,48 @@ export default {
             }
         },
         delete_api_tokens(state, object) {
-            // TODO: Implement
+            const client_id = object.client_id;
+
+            // Set loading for the affected elements
+            state.api_tokens[client_id].forEach((e) => {
+                if (object.api_token_ids.indexOf(e.id.toString()) != -1 || object.api_token_ids.indexOf(e.id) != -1)
+                    e.loading = true;
+            });
+
+
+            // Execute the API
+            api.execute(
+                new APICommand(
+                    'api_tokens',
+                    'delete',
+                    'DELETE',
+                    {
+                        api_token_ids: object.api_token_ids,
+                    },
+                    (data) => {
+                        // Remove all sessions from the state that are deleted
+                        state.api_tokens[client_id] = state.api_tokens[client_id].filter((e) => {
+                            if (object.api_token_ids.indexOf(e.id.toString()) != -1 || object.api_token_ids.indexOf(e.id) != -1)
+                                return false;
+                            return true;
+                        });
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        console.error(error);
+                        // Remove the loading flag
+                        state.api_clients.forEach((e) => {
+                            if (object.api_token_ids.indexOf(e.id.toString()) != -1 || object.api_token_ids.indexOf(e.id) != -1)
+                                e.loading = false;
+                        })
+
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
         },
     }
 };
