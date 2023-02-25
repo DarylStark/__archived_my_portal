@@ -1,5 +1,5 @@
 <template>
-    <div>{{ value }}</div>
+    <div class="datetimeview">{{ value }}</div>
 </template>
 
 <script>

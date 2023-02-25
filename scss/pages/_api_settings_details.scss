@@ -69,4 +69,36 @@
             flex-shrink: 1;
         }
     }
+
+    .token_info_text {
+        padding: 16px 24px 16px 24px;
+    }
+
+    .scopes {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+
+        .scope {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            padding: 10px 24px 16px 24px;
+            border-top: 1px solid var(--card-list-borders);
+
+            .name {
+                padding-top: 4px;
+                flex-grow: 1;
+                flex-shrink: 1;
+                text-align: left;
+            }
+
+            .actions {
+                flex-grow: 0;
+                flex-shrink: 0;
+                text-align: left;
+                padding-right: 8px;
+            }
+        }
+    }
 }

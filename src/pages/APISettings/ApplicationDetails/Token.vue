@@ -25,10 +25,7 @@
                 ></CardListAction>
             </template>
         </CardListItem>
-        <TokenInfo
-            v-if="show_permissions"
-            v-bind:token_id="token.id"
-        ></TokenInfo>
+        <TokenInfo v-if="show_permissions" v-bind:token="token"></TokenInfo>
     </div>
 </template>
 
