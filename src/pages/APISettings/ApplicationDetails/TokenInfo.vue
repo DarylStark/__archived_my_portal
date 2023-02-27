@@ -12,14 +12,11 @@
                 and is authorized for the following scopes:
             </div>
             <div class="scopes">
-                <TokenScope></TokenScope>
-                <TokenScope></TokenScope>
-                <TokenScope></TokenScope>
-                <TokenScope></TokenScope>
-                <TokenScope></TokenScope>
-                <TokenScope></TokenScope>
-                <TokenScope></TokenScope>
-                <TokenScope></TokenScope>
+                <TokenScope
+                    v-for="token_scope in token_scopes"
+                    v-bind:key="token_scope.id"
+                    v-bind:token_scope="token_scope"
+                ></TokenScope>
             </div>
         </template>
     </Card>
@@ -46,12 +43,26 @@ export default {
             required: true,
         },
     },
-    data() {
-        return {
-            loading: false,
-        };
+    computed: {
+        loading() {
+            return (
+                this.$store.state.api_data.api_token_scopes_token_ids.indexOf(
+                    this.token.id
+                ) == -1
+            );
+        },
+        token_scopes() {
+            if (!this.loading)
+                return this.$store.state.api_data.api_token_scopes.filter(
+                    (element) => element.token_id == this.token.id
+                );
+            return new Array();
+        },
     },
-    created() {},
+    created() {
+        // Retrieve tokens
+        this.$store.commit('get_api_token_scopes', { token_id: this.token.id });
+    },
     methods: {
         delete_scope() {},
     },

@@ -16,7 +16,9 @@ export default {
             dashboard_tags: new Map(),
             tags: null,
             api_clients: null,
-            api_tokens: null
+            api_tokens: null,
+            api_token_scopes_token_ids: new Array(),
+            api_token_scopes: new Array()
         }
     },
     mutations: {
@@ -909,6 +911,69 @@ export default {
                     }
                 )
             );
+        },
+        get_api_token_scopes(state, object = null) {
+            // Set the id
+            const token_id = object.token_id;
+
+            // Set the callbacks
+            if (!('callbacks' in object)) {
+                object['callbacks'] = {}
+            }
+
+            // Get the force
+            let force = state.api_token_scopes_token_ids.indexOf(token_id) == -1;
+            if ('force' in object) { force = object.force; }
+
+            // Do the actual API request
+            if (state.working.indexOf('get_api_token_scopes') == -1 && force) {
+                state.working.push('get_api_token_scopes');
+                // Remove it from the 'done' list and remove old information
+                state.api_token_scopes_token_ids = state.api_token_scopes_token_ids.filter((element) => element != token_id);
+
+                // Retrieve the TokenScopes from the database
+                api.execute(
+                    new APICommand(
+                        'api_tokens',
+                        `get_scopes/${token_id}`,
+                        'GET',
+                        null,
+                        (data) => {
+                            if (data.data === null) data.data = [];
+
+                            // Add the 'loading' element to all
+                            data.data.forEach((element) => {
+                                element.loading = false;
+                                element.token_id = token_id;
+                            });
+
+                            // Set the API clients
+                            state.api_token_scopes.push.apply(state.api_token_scopes, data.data);
+
+                            // Remove it from the 'working' list
+                            state.working = state.working.filter((element) => element != 'get_api_token_scopes');
+
+                            // Make sure we save this token_id as done
+                            state.api_token_scopes_token_ids.push(token_id);
+
+                            console.log(state.api_token_scopes_token_ids);
+                            console.log(state.api_token_scopes);
+
+                            // Run the callback, if set
+                            if ('done' in object.callbacks) object.callbacks['done'](error);
+                        },
+                        (error) => {
+                            console.error(error);
+
+                            // Run the callback, if set
+                            if ('error' in object.callbacks) object.callbacks['error'](error);
+
+                            // Remove it from the 'working' list
+                            state.working = state.working.filter((element) => element != 'get_api_token_scopes');
+                        }
+                    )
+                );
+            }
         },
     }
 };
