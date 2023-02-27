@@ -25,30 +25,6 @@
         .details_right {
             font-weight: italic;
             width: 60%;
-
-            .disabled {
-                font-weight: bold;
-                font-size: 13px;
-                background-color: #cc0000;
-                display: inline-block;
-                padding: 2px 8px 2px 8px;
-                color: white;
-                border-radius: 7px;
-                margin: 0;
-                cursor: pointer;
-            }
-
-            .enabled {
-                font-weight: bold;
-                font-size: 13px;
-                background-color: #00cc00;
-                display: inline-block;
-                padding: 2px 8px 2px 8px;
-                color: white;
-                border-radius: 7px;
-                margin: 0;
-                cursor: pointer;
-            }
         }
     }
 }
