@@ -5,12 +5,14 @@
                 icon="fa-trash"
                 v-bind:action="delete_scope"
                 confirm_first
-                v-bind:loading="loading"
+                v-bind:loading="token_scope.loading"
             ></CardListAction>
         </div>
         <div class="name">
-            <b>{{ scope_name.group }}</b
-            >: {{ scope_name.scope }}
+            <b>
+                {{ scope_name.group }}
+            </b>
+            : {{ scope_name.scope }}
         </div>
     </div>
 </template>
@@ -28,6 +30,10 @@ export default {
         token_scope: {
             required: true,
         },
+        removal_event: {
+            type: String,
+            required: true,
+        },
     },
     data() {
         return {
@@ -40,7 +46,9 @@ export default {
         },
     },
     methods: {
-        delete_scope() {},
+        delete_scope() {
+            this.eventbus.emit(this.removal_event, this.token_scope.id);
+        },
     },
 };
 </script>

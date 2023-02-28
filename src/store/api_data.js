@@ -972,5 +972,49 @@ export default {
                 );
             }
         },
+        delete_api_token_scope(state, object) {
+            const token_scope_ids = object.token_scope_ids;
+
+            // Set loading for the affected elements
+            state.api_token_scopes.forEach((e) => {
+                if (token_scope_ids.indexOf(e.id.toString()) != -1 || token_scope_ids.indexOf(e.id) != -1)
+                    e.loading = true;
+            });
+
+
+            // Execute the API
+            api.execute(
+                new APICommand(
+                    'api_tokens',
+                    'revoke_scope',
+                    'DELETE',
+                    {
+                        token_scope_ids: token_scope_ids,
+                    },
+                    (data) => {
+                        // Remove all sessions from the state that are deleted
+                        state.api_token_scopes = state.api_token_scopes.filter((e) => {
+                            if (token_scope_ids.indexOf(e.id.toString()) != -1 || token_scope_ids.indexOf(e.id) != -1)
+                                return false;
+                            return true;
+                        });
+
+                        // Run the given callback
+                        if ('done' in object) object['done'](data);
+                    },
+                    (error) => {
+                        console.error(error);
+                        // Remove the loading flag
+                        state.api_token_scopes.forEach((e) => {
+                            if (token_scope_ids.indexOf(e.id.toString()) != -1 || token_scope_ids.indexOf(e.id) != -1)
+                                e.loading = false;
+                        })
+
+                        // Run the given callback
+                        if ('error' in object) object['error'](error);
+                    }
+                )
+            );
+        },
     }
 };

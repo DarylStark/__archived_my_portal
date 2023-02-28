@@ -16,6 +16,7 @@
                     v-for="token_scope in token_scopes"
                     v-bind:key="token_scope.id"
                     v-bind:token_scope="token_scope"
+                    v-bind:removal_event="removal_event"
                 ></TokenScope>
             </div>
         </template>
@@ -58,13 +59,30 @@ export default {
                 );
             return new Array();
         },
+        removal_event() {
+            return `remove_token_scope_${this.token.id}`;
+        },
     },
     created() {
         // Retrieve tokens
         this.$store.commit('get_api_token_scopes', { token_id: this.token.id });
+
+        // Sign up for removal events
+        this.eventbus.on(this.removal_event, this.remove_token_scope);
+    },
+    unmounted() {
+        this.eventbus.off(this.removal_event, this.remove_token_scope);
     },
     methods: {
-        delete_scope() {},
+        remove_token_scope(id) {
+            this.remove_token_scopes([id]);
+        },
+        remove_token_scopes(token_scope_ids) {
+            // Delete the user sessions
+            this.$store.commit('delete_api_token_scope', {
+                token_scope_ids: token_scope_ids,
+            });
+        },
     },
 };
 </script>
