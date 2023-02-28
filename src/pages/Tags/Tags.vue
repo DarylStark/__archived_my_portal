@@ -142,7 +142,7 @@ export default {
     methods: {
         refresh() {
             this.refreshing = true;
-            cmdlist.execute('command', 'tags.update');
+            cmdlist.execute('tags.update');
         },
         stop_refreshing() {
             this.refreshing = false;
