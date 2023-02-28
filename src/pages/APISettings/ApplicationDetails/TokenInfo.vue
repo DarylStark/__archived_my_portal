@@ -11,7 +11,12 @@
                 ></b>
                 and is authorized for the following scopes:
             </div>
-            <div class="scopes">
+
+            <CardListEmpty v-if="token_scopes.length == 0">
+                There are no scopes for this token defined
+            </CardListEmpty>
+
+            <div class="scopes" v-if="token_scopes.length > 0">
                 <TokenScope
                     v-for="token_scope in token_scopes"
                     v-bind:key="token_scope.id"
@@ -25,6 +30,7 @@
 
 <script>
 import Card from '../../../cards/Card';
+import CardListEmpty from '../../../cards/CardListEmpty';
 import CardListAction from '../../../cards/CardListAction';
 import DateTimeView from '../../../components/DateTimeView';
 import TokensLoading from './TokensLoading.vue';
@@ -38,6 +44,7 @@ export default {
         TokensLoading,
         CardListAction,
         TokenScope,
+        CardListEmpty,
     },
     props: {
         token: {

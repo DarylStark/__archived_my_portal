@@ -50,6 +50,11 @@
         padding: 16px 24px 16px 24px;
     }
 
+    div.empty {
+        border-top: 1px solid var(--card-list-borders);
+        border-bottom: 0px !important;
+    }
+
     .scopes {
         display: flex;
         flex-wrap: nowrap;
