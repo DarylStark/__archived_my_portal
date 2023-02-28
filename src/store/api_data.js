@@ -956,9 +956,6 @@ export default {
                             // Make sure we save this token_id as done
                             state.api_token_scopes_token_ids.push(token_id);
 
-                            console.log(state.api_token_scopes_token_ids);
-                            console.log(state.api_token_scopes);
-
                             // Run the callback, if set
                             if ('done' in object.callbacks) object.callbacks['done'](error);
                         },
