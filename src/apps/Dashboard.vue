@@ -7,11 +7,6 @@
             <Sidebar></Sidebar>
         </div>
         <Feeter></Feeter>
-        <!-- <CommandPalette
-            v-if="cmd_palette_visible"
-            v-bind:prefix="$store.state.ui.cmd_palette_prefix"
-            v-bind:execute_command="$store.state.ui.cmd_palette_function"
-        ></CommandPalette> -->
         <CommandPalette
             v-if="cmd_palette_visible"
             v-bind:mode="$store.state.ui.cmd_palette_mode"
