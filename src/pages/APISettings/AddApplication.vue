@@ -83,7 +83,7 @@ export default {
     mounted() {
         this.$refs.app_name.focus();
     },
-    unmounted() {
+    beforeUnmount() {
         cmdlist.remove_command_scope('local-api-settings-adding');
     },
     data() {

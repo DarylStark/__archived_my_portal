@@ -132,7 +132,7 @@ export default {
             this.$store.commit('get_api_tokens', { id: this.app_id });
         else this.refreshing = false;
     },
-    unmounted() {
+    beforeUnmount() {
         this.eventbus.off('get_api_tokens_done', this.stop_refreshing);
         this.eventbus.off('remove_api_token', this.action_remove);
         cmdlist.remove_command_scope('local-api-tokens');

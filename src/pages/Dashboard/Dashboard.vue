@@ -139,7 +139,7 @@ export default {
         // Update the date
         this.update_date();
     },
-    unmounted() {
+    beforeUnmount() {
         cmdlist.remove_command_scope('local-dashboard');
     },
     methods: {

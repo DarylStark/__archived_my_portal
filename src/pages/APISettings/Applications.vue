@@ -126,7 +126,7 @@ export default {
         // Event handler for removing individual sessions
         this.eventbus.on('remove_api_client', this.action_remove);
     },
-    unmounted() {
+    beforeUnmount() {
         this.eventbus.off('get_api_clients_done', this.stop_refreshing);
         this.eventbus.off('remove_api_client', this.action_remove);
         cmdlist.remove_command_scope('local-api-clients');

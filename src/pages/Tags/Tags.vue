@@ -102,7 +102,7 @@ export default {
             })
         );
     },
-    unmounted() {
+    beforeUnmount() {
         this.eventbus.off('get_tags_done', this.stop_refreshing);
         this.eventbus.off('remove_tag', this.action_remove);
         this.eventbus.off('tags_hide_add_row', this.add);

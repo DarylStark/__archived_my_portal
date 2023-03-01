@@ -77,7 +77,7 @@ export default {
             })
         );
     },
-    unmounted() {
+    beforeUnmount() {
         this.eventbus.off('add_application_cancelled', this.toggle_adding);
         cmdlist.remove_command_scope('local-api-settings');
     },

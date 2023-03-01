@@ -125,7 +125,7 @@ export default {
 
         this.update_tags();
     },
-    unmounted() {
+    beforeUnmount() {
         cmdlist.remove_command_scope('local-dashboard-tags');
     },
     methods: {
