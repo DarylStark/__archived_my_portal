@@ -188,11 +188,16 @@ export default {
             return this.$route.params.application_slug;
         },
         application() {
+            let app_details = null;
             if (!this.loading)
-                return this.$store.state.api_data.api_clients.filter(
+                app_details = this.$store.state.api_data.api_clients.filter(
                     (client) => client.slug == this.application_slug
                 )[0];
-            return null;
+            if (app_details) {
+                this.cached_app = app_details;
+                return app_details;
+            }
+            return this.cached_app;
         },
         loading() {
             return this.$store.state.api_data.api_clients == null;
@@ -201,6 +206,7 @@ export default {
     data() {
         return {
             saving_enabled: false,
+            cached_app: null,
         };
     },
     created() {
