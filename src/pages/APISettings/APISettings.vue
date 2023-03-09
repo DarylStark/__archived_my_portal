@@ -57,6 +57,7 @@ export default {
     },
     created() {
         this.$store.commit('sidebar_available_set', false);
+        this.$store.commit('set_page_title', 'API settings');
         this.eventbus.on('add_application_cancelled', this.toggle_adding);
 
         // Local Vue object

@@ -33,6 +33,7 @@ export default {
     },
     created() {
         this.$store.commit('sidebar_available_set', false);
+        this.$store.commit('set_page_title', 'Tag');
 
         // We have to watch the tag_slug because VueJS will not restart the
         // component when the user navigates to a different tag. By watching it,

@@ -22,7 +22,8 @@ export default {
             cmd_palette_visible: false,
             cmd_palette_prompt: '',
             cmd_palette_function: null,
-            dimmed: false
+            dimmed: false,
+            page_title: 'Loading'
         }
     },
     mutations: {
@@ -229,6 +230,9 @@ export default {
         },
         set_command_palette_command(state, command = null) {
             state.cmd_palette_function = command;
+        },
+        set_page_title(state, page_title) {
+            state.page_title = page_title;
         }
     },
 };

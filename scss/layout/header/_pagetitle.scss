@@ -1,0 +1,12 @@
+div.pagetitle {
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: hidden;
+
+    h1 {
+        font-weight: bold;
+        font-size: 14pt;
+        padding-left: 24px;
+        white-space: nowrap;
+    }
+}

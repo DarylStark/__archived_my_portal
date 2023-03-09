@@ -1,6 +1,7 @@
 <template>
     <div class="header">
         <MenuToggle></MenuToggle>
+        <Pagetitle></Pagetitle>
         <Spacer></Spacer>
         <SidebarToggle v-if="sidebar_available"></SidebarToggle>
         <UserMenu></UserMenu>
@@ -12,6 +13,7 @@ import MenuToggle from './MenuToggle.vue';
 import Spacer from '../../components/Spacer.vue';
 import UserMenu from './UserMenu.vue';
 import SidebarToggle from './SidebarToggle.vue';
+import Pagetitle from './PageTitle.vue';
 
 export default {
     name: 'Header',
@@ -20,6 +22,12 @@ export default {
             return this.$store.state.ui.sidebar_available;
         },
     },
-    components: { MenuToggle, Spacer, UserMenu, SidebarToggle },
+    components: {
+        MenuToggle,
+        Spacer,
+        UserMenu,
+        SidebarToggle,
+        Pagetitle,
+    },
 };
 </script>

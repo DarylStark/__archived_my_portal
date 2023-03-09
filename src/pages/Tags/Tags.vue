@@ -78,6 +78,7 @@ export default {
     },
     created() {
         this.$store.commit('sidebar_available_set', false);
+        this.$store.commit('set_page_title', 'Tags');
 
         // Event handler for the loading of tags
         this.eventbus.on('get_tags_done', this.stop_refreshing);

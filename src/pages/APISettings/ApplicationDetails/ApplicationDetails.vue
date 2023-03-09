@@ -211,6 +211,7 @@ export default {
     },
     created() {
         this.$store.commit('sidebar_available_set', false);
+        this.$store.commit('set_page_title', 'API application');
 
         // Update applications
         if (this.api_clients == null)

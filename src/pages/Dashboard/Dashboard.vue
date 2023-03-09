@@ -84,6 +84,7 @@ export default {
     },
     created() {
         this.$store.commit('sidebar_available_set', true);
+        this.$store.commit('set_page_title', 'Dashboard');
 
         // We have to watch the params because VueJS will not restart the
         // component when the user navigates to a different date. By watching
