@@ -163,7 +163,9 @@ export default {
             // Scroll to the element
             if (active_element.length > 0) {
                 active_element = active_element[0];
-                active_element.scrollIntoViewIfNeeded(false);
+                if (active_element.scrollIntoViewIfNeeded)
+                    active_element.scrollIntoViewIfNeeded(false);
+                else active_element.scrollIntoView(false);
             }
         },
         execute(index = -1) {
