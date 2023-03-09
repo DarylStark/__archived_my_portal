@@ -29,3 +29,11 @@
   font-display: swap;
   src: url(/static/fonts/OpenSans-Bold.woff2) format('woff2');
 }
+
+@font-face {
+  font-family: 'Fira Code';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/static/fonts/FiraCode-400.woff2) format('woff2');
+}
