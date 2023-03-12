@@ -2,6 +2,7 @@ div#command_palette {
     background-color: lime;
     position: absolute;
     width: 650px;
+    max-width: 95%;
     height: 300px;
     max-height: 100%;
     left: 0;
@@ -9,7 +10,6 @@ div#command_palette {
     top: 0;
     bottom: 0;
     margin: auto;
-    max-width: 100%;
     background: var(--cmd-palette-bg);
     border: 1px solid var(--cmd-palette-borders);
     z-index: $zindex-modal;
