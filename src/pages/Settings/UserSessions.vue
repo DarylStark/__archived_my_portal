@@ -11,8 +11,7 @@
             There are no user sessions
         </CardListEmpty>
         <template v-slot:headers>
-            <div class="settings-usersessions-col-title">Session</div>
-            <div class="settings-usersessions-col-datetime">Created</div>
+            <div class="settings-usersessions-col-title">User sessions</div>
         </template>
         <template v-if="user_sessions != null">
             <UserSession
