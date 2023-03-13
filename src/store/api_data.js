@@ -18,7 +18,9 @@ export default {
             api_clients: null,
             api_tokens: null,
             api_token_scopes_token_ids: new Array(),
-            api_token_scopes: new Array()
+            api_token_scopes: new Array(),
+            tags_dates: null,
+            tags_dates_tag_ids: null
         }
     },
     mutations: {
@@ -470,6 +472,16 @@ export default {
                         // TODO: Is this still used? Is it?
                         state.dashboard_counter++;
 
+                        // If the dates for this tag were already loaded, add it to that list
+                        if (state.tags_dates_tag_ids && state.tags_dates) {
+                            if (state.tags_dates_tag_ids.indexOf(object.tag_id) != -1) {
+                                state.tags_dates.push({
+                                    tag_id: object.tag_id,
+                                    date: object.date
+                                })
+                            }
+                        }
+
                         // Run the given callback
                         if ('done' in object) object['done'](data);
                     },
@@ -501,6 +513,16 @@ export default {
 
                         // Update the dashboard counter
                         state.dashboard_counter++;
+
+                        // If the dates for this tag were already loaded, remove it from that list
+                        if (state.tags_dates_tag_ids && state.tags_dates) {
+                            if (state.tags_dates_tag_ids.indexOf(object.tag_id) != -1) {
+                                state.tags_dates = state.tags_dates.filter(
+                                    (date_tag) =>
+                                        !(date_tag.tag_id == object.tag_id && date_tag.date == object.date)
+                                )
+                            }
+                        }
 
                         // Run the given callback
                         if ('done' in object) object['done'](data);
@@ -547,7 +569,7 @@ export default {
                         if ('done' in object) object['done'](data);
                     },
                     (error) => {
-                        console.log(error);
+                        console.error(error);
                         // Run the given callback
                         if ('error' in object) object['error'](error);
                     }
@@ -1015,6 +1037,79 @@ export default {
                     }
                 )
             );
+        },
+        get_dates_for_tag(state, object = null) {
+            // Set the object
+            if (object == null) {
+                object = {
+                    callbacks: {}
+                }
+            }
+
+            // Set the callbacks
+            if (!('callbacks' in object)) {
+                object['callbacks'] = {}
+            }
+
+            // Get the force
+            let force = false;
+            if ('force' in object) {
+                force = object.force;
+            }
+
+            if (state.tags_dates == null) {
+                state.tags_dates = new Array();
+                force = true;
+            }
+            if (state.tags_dates_tag_ids == null) {
+                state.tags_dates_tag_ids = new Array();
+                force = true;
+            }
+
+            if (state.tags_dates_tag_ids.indexOf(object.tag_id) == -1) force = true;
+
+            if (force) {
+                // Remove all cached data
+                state.tags_dates_tag_ids = state.tags_dates_tag_ids.filter((id) => id != object.tag_id);
+                state.tags_dates = state.tags_dates.filter((tag_date) => tag_date.tag_id != object.tag_id)
+            }
+
+            if (state.working.indexOf('get_dates_for_tag') == -1 && force) {
+                state.working.push('get_dates_for_tag');
+                // Retrieve the tags from the database
+                api.execute(
+                    new APICommand(
+                        'tags',
+                        `dates/${object.tag_id}`,
+                        'GET',
+                        null,
+                        (data) => {
+                            // Done
+                            state.tags_dates_tag_ids.push(object.tag_id);
+                            data.data.forEach(
+                                (date) => {
+                                    state.tags_dates.push({
+                                        tag_id: object.tag_id,
+                                        date: date
+                                    })
+                                }
+                            )
+
+                            // Remove it from the 'working' list
+                            state.working = state.working.filter((element) => element != 'get_dates_for_tag');
+                        },
+                        (error) => {
+                            console.error(error);
+
+                            // Run the callback, if set
+                            if ('error' in object.callbacks) object.callbacks['error'](error);
+
+                            // Remove it from the 'working' list
+                            state.working = state.working.filter((element) => element != 'get_dates_for_tag');
+                        }
+                    )
+                );
+            }
         },
     }
 };
