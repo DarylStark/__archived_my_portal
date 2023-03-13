@@ -27,7 +27,6 @@
             <UserMenuItem icon="fa-adjust" v-on:click="next_theme">
                 Next theme
             </UserMenuItem>
-            <UserMenuItem icon="fa-edit">Rename session</UserMenuItem>
             <UserMenuItem icon="fa-sign-out-alt" v-on:click="logout"
                 >Logout</UserMenuItem
             >
