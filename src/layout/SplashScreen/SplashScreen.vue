@@ -20,7 +20,9 @@
         <div v-if="error" class="reload">
             <p>A error occured. Please reload the page.</p>
 
-            <Button v-on:click="reload">Reload</Button>
+            <Button v-on:click="reload" icon="fas fa-arrows-rotate"
+                >Reload</Button
+            >
         </div>
     </div>
 </template>
