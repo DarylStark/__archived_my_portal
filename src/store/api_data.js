@@ -459,6 +459,7 @@ export default {
                 tag_id: object.tag_id
             }
 
+
             api.execute(
                 new APICommand(
                     'dashboard',
@@ -466,11 +467,8 @@ export default {
                     'POST',
                     obj,
                     (data) => {
-                        state.dashboard_tags[object.date].push(data.data);
-
-                        // Update the dashboard counter
-                        // TODO: Is this still used? Is it?
-                        state.dashboard_counter++;
+                        if (state.dashboard_tags[object.date])
+                            state.dashboard_tags[object.date].push(data.data);
 
                         // If the dates for this tag were already loaded, add it to that list
                         if (state.tags_dates_tag_ids && state.tags_dates) {
@@ -509,10 +507,8 @@ export default {
                     obj,
                     (data) => {
                         // Update local cache
-                        state.dashboard_tags[object.date] = state.dashboard_tags[object.date].filter((tag) => tag.tag_id != obj.tag_id);
-
-                        // Update the dashboard counter
-                        state.dashboard_counter++;
+                        if (state.dashboard_tags[object.date])
+                            state.dashboard_tags[object.date] = state.dashboard_tags[object.date].filter((tag) => tag.tag_id != obj.tag_id);
 
                         // If the dates for this tag were already loaded, remove it from that list
                         if (state.tags_dates_tag_ids && state.tags_dates) {

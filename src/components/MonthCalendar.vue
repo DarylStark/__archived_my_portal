@@ -21,7 +21,7 @@
                         selected: is_date_highlighted(date.date),
                     },
                 ]"
-                v-on:click="select(date.date)"
+                v-on:click="click_on_date(date.date)"
                 v-if="date.type == 'date'"
             >
                 {{ date.date.getDate() }}
@@ -126,6 +126,9 @@ export default {
         },
         is_date_highlighted(date_object) {
             return this.dates_to_highlight.includes(date_object.toDateString());
+        },
+        click_on_date(date) {
+            this.select(date, this.is_date_highlighted(date));
         },
     },
     computed: {

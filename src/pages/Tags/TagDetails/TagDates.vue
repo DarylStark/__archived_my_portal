@@ -56,8 +56,37 @@ export default {
         });
     },
     methods: {
-        select_date(date) {
-            console.warn('Selected date');
+        select_date(date, selected) {
+            if (selected) this.remove_date_from_tag(date);
+            else this.add_date_to_tag(date);
+        },
+        remove_date_from_tag(date) {
+            let year = date.getFullYear();
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let day = String(date.getDate()).padStart(2, '0');
+            date = `${year}-${month}-${day}`;
+            console.log(date);
+
+            this.$store.commit('untag_date', {
+                date: date,
+                tag_id: this.tag.id,
+                done: () => {},
+                error: () => {},
+            });
+        },
+        add_date_to_tag(date) {
+            let year = date.getFullYear();
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let day = String(date.getDate()).padStart(2, '0');
+            date = `${year}-${month}-${day}`;
+            console.log(date);
+
+            this.$store.commit('tag_date', {
+                date: date,
+                tag_id: this.tag.id,
+                done: () => {},
+                error: () => {},
+            });
         },
     },
 };
