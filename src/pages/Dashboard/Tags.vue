@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="widget_tags">
         <div v-if="!tags_loaded" class="loading_tags">
             <div><i class="fas fa-spinner spin"></i></div>
             <div>Loading tags</div>
@@ -12,14 +12,14 @@
             >
                 <i class="fas fa-add"></i>
             </div>
-            <template v-if="tags">
+            <div v-if="tags.length > 0" class="tag_list">
                 <TagButton
                     v-for="tag in tags"
                     v-bind:tag="tag"
                     v-bind:key="tag"
                     v-bind:delete_method="delete_tag"
                 ></TagButton>
-            </template>
+            </div>
             <div v-if="tags.length == 0" class="empty_tags">No tags</div>
         </div>
     </div>
