@@ -19,6 +19,7 @@
                     'day',
                     {
                         selected: is_date_highlighted(date.date),
+                        loading: is_date_loading(date.date),
                     },
                 ]"
                 v-on:click="click_on_date(date.date)"
@@ -61,6 +62,10 @@ export default {
             default: false,
         },
         highlight: {
+            type: Array,
+            default: new Array(),
+        },
+        loading: {
             type: Array,
             default: new Array(),
         },
@@ -126,6 +131,9 @@ export default {
         },
         is_date_highlighted(date_object) {
             return this.dates_to_highlight.includes(date_object.toDateString());
+        },
+        is_date_loading(date_object) {
+            return this.loading.includes(date_object.toDateString());
         },
         click_on_date(date) {
             this.select(date, this.is_date_highlighted(date));

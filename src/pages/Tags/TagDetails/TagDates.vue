@@ -5,6 +5,7 @@
                 v-bind:select="select_date"
                 v-if="!loading"
                 v-bind:highlight="selected_dates"
+                v-bind:loading="loading_dates"
             ></MonthCalendar>
             <TagDatesLoading v-if="loading">
                 Loading the dates for this tag
@@ -55,36 +56,51 @@ export default {
             tag_id: this.tag.id,
         });
     },
+    data() {
+        return {
+            loading_dates: new Array(),
+        };
+    },
     methods: {
         select_date(date, selected) {
             if (selected) this.remove_date_from_tag(date);
             else this.add_date_to_tag(date);
         },
-        remove_date_from_tag(date) {
-            let year = date.getFullYear();
-            let month = String(date.getMonth() + 1).padStart(2, '0');
-            let day = String(date.getDate()).padStart(2, '0');
-            date = `${year}-${month}-${day}`;
-            console.log(date);
+        remove_date_from_tag(original_date) {
+            this.loading_dates.push(original_date.toDateString());
+            let year = original_date.getFullYear();
+            let month = String(original_date.getMonth() + 1).padStart(2, '0');
+            let day = String(original_date.getDate()).padStart(2, '0');
+            let date = `${year}-${month}-${day}`;
 
             this.$store.commit('untag_date', {
                 date: date,
                 tag_id: this.tag.id,
-                done: () => {},
+                done: () => {
+                    this.loading_dates = this.loading_dates.filter(
+                        (loading_date) =>
+                            loading_date != original_date.toDateString()
+                    );
+                },
                 error: () => {},
             });
         },
-        add_date_to_tag(date) {
-            let year = date.getFullYear();
-            let month = String(date.getMonth() + 1).padStart(2, '0');
-            let day = String(date.getDate()).padStart(2, '0');
-            date = `${year}-${month}-${day}`;
-            console.log(date);
+        add_date_to_tag(original_date) {
+            this.loading_dates.push(original_date.toDateString());
+            let year = original_date.getFullYear();
+            let month = String(original_date.getMonth() + 1).padStart(2, '0');
+            let day = String(original_date.getDate()).padStart(2, '0');
+            let date = `${year}-${month}-${day}`;
 
             this.$store.commit('tag_date', {
                 date: date,
                 tag_id: this.tag.id,
-                done: () => {},
+                done: () => {
+                    this.loading_dates = this.loading_dates.filter(
+                        (loading_date) =>
+                            loading_date != original_date.toDateString()
+                    );
+                },
                 error: () => {},
             });
         },

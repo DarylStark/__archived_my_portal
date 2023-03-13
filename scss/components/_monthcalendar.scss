@@ -40,9 +40,22 @@ div.monthcalendar {
         padding: 12px 0 12px 0;
 
         &:hover,
-        &.selected {
+        &.selected:hover {
             background: var(--monthcalendar-day-hover-bg);
             color: var(--monthcalendar-day-hover-text);
+        }
+
+        &.selected {
+            background: var(--monthcalendar-day-selected-bg);
+            color: var(--monthcalendar-day-selected-text);
+        }
+
+        &.loading {
+            opacity: 0.4;
+
+            &:hover {
+                background-color: transparent !important;
+            }
         }
     }
 
