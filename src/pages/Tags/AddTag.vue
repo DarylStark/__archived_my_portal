@@ -113,6 +113,8 @@ export default {
                 return;
             }
 
+            this.saving = true;
+
             this.$store.commit('add_tag', {
                 title: this.title,
                 color: this.color,
@@ -123,6 +125,13 @@ export default {
                 error(error) {
                     // TODO: Error toast
                     vue_this.saving = false;
+                    vue_this.error_title = true;
+                    vue_this.error_color = true;
+
+                    vue_this.$nextTick(() => {
+                        vue_this.$refs.input_title.focus(true);
+                    });
+
                     console.log('error');
                 },
             });
