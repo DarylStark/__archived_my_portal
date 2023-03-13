@@ -62,6 +62,9 @@ export default {
             if (this.has_subitems) {
                 this.active = !this.active;
             }
+
+            // Close the menu (if it is floating)
+            if (this.floating) cmdlist.execute('nav_bar.toggle');
         },
     },
     computed: {
@@ -75,6 +78,9 @@ export default {
                 }
             }
             return false;
+        },
+        floating() {
+            return this.$store.state.ui.device_type == 'phone';
         },
     },
     props: {
