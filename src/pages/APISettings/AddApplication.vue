@@ -1,6 +1,12 @@
 <template>
     <Card class="add_application_form">
         <template v-slot:title>Add application</template>
+        <template v-slot:title_actions>
+            <CardTitleAction
+                icon="fa-xmark"
+                v-bind:action="cancel"
+            ></CardTitleAction>
+        </template>
         <Input
             v-bind:error="error_app_name"
             id="app_name"
@@ -48,6 +54,7 @@
 
 <script>
 import Card from '../../cards/Card';
+import CardTitleAction from '../../cards/CardTitleAction';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import cmdlist from '../../my/command_list';
@@ -60,6 +67,7 @@ export default {
         Card,
         Input,
         Button,
+        CardTitleAction,
     },
     created() {
         // Local Vue object

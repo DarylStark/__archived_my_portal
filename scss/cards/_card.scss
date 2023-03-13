@@ -22,35 +22,35 @@ div.card {
         background: var(--card-title-bg);
         border-bottom: 1px solid var(--card-border);
         display: flex;
+        flex-wrap: nowrap;
+        box-sizing: border-box;
 
         >.icon {
-            padding: 16px 0px 16px 24px;
+            padding: 10px 12px 12px 12px;
             color: var(--card-title-text);
         }
 
         >.text {
-            padding: 16px 24px 16px 24px;
-            color: var(--card-title-text);
+            padding: 10px 12px 11px 12px;
             flex-grow: 2;
             font-family: 'Open Sans';
             font-size: 15px;
             font-weight: 600;
-            font-style: nomral;
+            font-style: normal;
         }
 
         >.actions {
             flex-grow: 0;
             text-align: center;
-            color: var(--crad-title-text);
 
             >div {
                 cursor: pointer;
                 background: var(--card-title-action-bg);
-                color: var(--card-title-action-text);
-                padding: 16px;
+                padding: 10px 16px 10px 16px;
                 border-left: 1px solid var(--card-border);
 
                 &:hover {
+                    color: var(--card-title-action-text);
                     background: var(--card-title-action-bg-hover);
                 }
             }
