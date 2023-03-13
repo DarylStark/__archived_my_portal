@@ -29,7 +29,6 @@ export default {
         style() {
             return {
                 'border-color': `#${this.tag.color}`,
-                background: `#${this.tag.color}90`,
             };
         },
     },

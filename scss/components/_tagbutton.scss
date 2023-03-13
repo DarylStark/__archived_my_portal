@@ -1,16 +1,15 @@
 div.tagbutton {
-    border-radius: 29px;
     border-style: solid;
-    border-width: 1px;
+    border-width: 0 0 4px 0;
     color: var(--tag-default-color);
-    text-align: center;
+    text-align: left;
     flex-grow: 0;
     flex-shrink: 0;
     cursor: pointer;
     display: flex;
 
     >div {
-        padding: 4px 12px 4px 12px;
+        padding: 0px 16px 4px 0px;
 
         &:hover {
             color: var(--tag-hover-color);
@@ -25,6 +24,7 @@ div.tagbutton {
     >.delete {
         flex-grow: 0;
         flex-shrink: 0;
+        padding-right: 0;
 
         i {
             min-width: 15px;
