@@ -1,10 +1,10 @@
 <template>
-    <Card no_padding>
+    <div>
         <div v-if="!tags_loaded" class="loading_tags">
             <div><i class="fas fa-spinner spin"></i></div>
             <div>Loading tags</div>
         </div>
-        <div class="tags" v-if="tags_loaded && tags.length > 0">
+        <div class="tags" v-if="tags_loaded">
             <div
                 v-bind:class="['add_tag_icon', { spin: adding }]"
                 v-on:click="add_tag"
@@ -12,30 +12,20 @@
             >
                 <i class="fas fa-add"></i>
             </div>
-            <TagButton
-                v-for="tag in tags"
-                v-bind:tag="tag"
-                v-bind:key="tag"
-                v-bind:delete_method="delete_tag"
-            ></TagButton>
+            <template v-if="tags">
+                <TagButton
+                    v-for="tag in tags"
+                    v-bind:tag="tag"
+                    v-bind:key="tag"
+                    v-bind:delete_method="delete_tag"
+                ></TagButton>
+            </template>
+            <div v-if="tags.length == 0" class="empty_tags">No tags</div>
         </div>
-        <div class="empty_tags" v-if="tags_loaded && tags.length == 0">
-            <p>This day has no tags yet</p>
-            <div class="add_tag_icon" v-on:click="add_tag" v-if="tags">
-                <template v-if="!adding">
-                    <i class="fas fa-add"></i>
-                    Add tag
-                </template>
-                <template v-if="adding">
-                    <i class="fas fa-spinner spin"></i> Adding tag
-                </template>
-            </div>
-        </div>
-    </Card>
+    </div>
 </template>
 
 <script>
-import Card from '../../cards/Card.vue';
 import TagButton from '../../components/TagButton.vue';
 import cmdlist from '../../my/command_list';
 import Command from '../../my/command';
@@ -45,7 +35,6 @@ import KeyBinding from '../../my/keybinding';
 export default {
     name: 'Tags',
     components: {
-        Card,
         TagButton,
     },
     props: {

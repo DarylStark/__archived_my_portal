@@ -32,26 +32,21 @@ div.page_dashboard {
 
     div.loading_tags {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        align-items: start;
+        justify-content: start;
         gap: 12px;
         padding: 12px 24px 12px 14px;
     }
 
     div.empty_tags {
-        border-width: 0 0 1px 0;
-        border-style: solid;
-        border-color: var(--dashboard-borders);
+        border-width: 0;
         text-align: center;
-        padding: 12px 24px 12px 14px;
+        padding: 5px 24px 6px 14px;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-
-        div.add_tag_icon {
-            padding: 4px 20px 0 20px;
-        }
+        border-left: 2px solid var(--dashboard-borders);
     }
 
     div.tags {
@@ -59,9 +54,7 @@ div.page_dashboard {
         flex-wrap: wrap;
         justify-content: flex-start;
         gap: 8px;
-        border-width: 0 0 1px 0;
-        border-style: solid;
-        border-color: var(--dashboard-borders);
+        border-width: 0;
         padding: 12px 24px 12px 14px;
     }
 
