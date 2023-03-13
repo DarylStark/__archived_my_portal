@@ -1,0 +1,18 @@
+.detail_card {
+    .details_left {
+        font-weight: bold;
+        width: 40%;
+        min-width: 200px;
+        overflow: hidden;
+        flex-shrink: 0;
+        flex-grow: 0;
+    }
+
+    .details_right {
+        width: 50%;
+        min-width: 300px;
+        overflow: hidden;
+        flex-shrink: 1;
+        flex-grow: 1;
+    }
+}

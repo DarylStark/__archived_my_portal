@@ -15,7 +15,7 @@
             <CardList
                 id="application_details"
                 v-bind:checkbox="false"
-                class="app_details"
+                class="app_details detail_card"
             >
                 <template v-slot:headers>
                     <div>Application details</div>

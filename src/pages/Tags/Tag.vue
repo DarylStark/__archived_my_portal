@@ -8,7 +8,7 @@
         >
             <div class="tags-col-title">
                 <p class="title">{{ tag.title }}</p>
-                <hr v-bind:style="border_style" />
+                <TagLine v-bind:color="tag.color"></TagLine>
             </div>
 
             <template v-slot:actions>
@@ -32,6 +32,7 @@
 import CardListAction from '../../cards/CardListAction';
 import CardListItem from '../../cards/CardListItem.vue';
 import EditableText from '../../components/EditableText';
+import TagLine from './TagLine.vue';
 
 export default {
     name: 'Tag',
@@ -39,6 +40,7 @@ export default {
         CardListItem,
         CardListAction,
         EditableText,
+        TagLine,
     },
     props: {
         tag: {
@@ -48,11 +50,6 @@ export default {
     computed: {
         id() {
             return `tag_id_${this.tag.id}`;
-        },
-        border_style() {
-            return {
-                'border-color': `#${this.tag.color}`,
-            };
         },
     },
     methods: {

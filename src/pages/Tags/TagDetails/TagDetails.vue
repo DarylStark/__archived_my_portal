@@ -4,7 +4,7 @@
             <SectionTitle>{{ tag.title }}</SectionTitle>
         </Cell>
         <Cell cols="12">
-            <p>Resources for this tag should come here</p>
+            <TagDetailForm v-bind:tag="tag"></TagDetailForm>
         </Cell>
     </Grid>
 </template>
@@ -13,6 +13,7 @@
 import Grid from '../../../layout/Grid/Grid';
 import Cell from '../../../layout/Grid/Cell';
 import SectionTitle from '../../../layout/Titles/SectionTitle.vue';
+import TagDetailForm from './TagDetailForm.vue';
 
 export default {
     name: 'TagDetails',
@@ -20,16 +21,30 @@ export default {
         Grid,
         Cell,
         SectionTitle,
+        TagDetailForm,
     },
     computed: {
         tag_slug() {
             return this.$route.params.tag_slug;
         },
         tag() {
-            return this.$store.state.api_data.tags.filter(
+            let tag_details = null;
+
+            tag_details = this.$store.state.api_data.tags.filter(
                 (tag) => tag.slug == this.tag_slug
             )[0];
+
+            if (tag_details) {
+                this.cached_tag = tag_details;
+                return tag_details;
+            }
+            return this.cached_tag;
         },
+    },
+    data() {
+        return {
+            cached_tag: null,
+        };
     },
     created() {
         this.$store.commit('sidebar_available_set', false);
