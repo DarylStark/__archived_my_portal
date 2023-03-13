@@ -6,6 +6,12 @@
         <Cell cols="12">
             <TagDetailForm v-bind:tag="tag"></TagDetailForm>
         </Cell>
+        <Cell cols="12">
+            <SectionTitle>Tagged dates</SectionTitle>
+        </Cell>
+        <Cell cols="12">
+            <TagDates v-bind:tag="tag"></TagDates>
+        </Cell>
     </Grid>
 </template>
 
@@ -14,6 +20,7 @@ import Grid from '../../../layout/Grid/Grid';
 import Cell from '../../../layout/Grid/Cell';
 import SectionTitle from '../../../layout/Titles/SectionTitle.vue';
 import TagDetailForm from './TagDetailForm.vue';
+import TagDates from './TagDates.vue';
 
 export default {
     name: 'TagDetails',
@@ -22,6 +29,7 @@ export default {
         Cell,
         SectionTitle,
         TagDetailForm,
+        TagDates,
     },
     computed: {
         tag_slug() {
