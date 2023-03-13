@@ -21,10 +21,7 @@ export default {
     },
     computed: {
         icon_class() {
-            if (this.state != 'confirming') {
-                return ['fas', this.icon];
-            }
-            return ['fas', 'fa-circle-check'];
+            return ['fas', this.icon];
         },
     },
 };
