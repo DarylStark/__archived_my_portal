@@ -192,6 +192,8 @@ div.card {
                         display: flex;
                         flex-wrap: wrap;
                         justify-content: stretch;
+                        max-width: 100%;
+                        overflow: hidden;
 
                         >div,
                         >label {

@@ -23,7 +23,6 @@
                 </CardListEmpty>
                 <template v-slot:headers>
                     <div class="tags-col-title">Tag</div>
-                    <div class="tags-col-color">Color</div>
                 </template>
                 <template v-if="tags != null">
                     <Tag

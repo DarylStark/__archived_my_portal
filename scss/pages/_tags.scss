@@ -1,11 +1,17 @@
 .page_tags {
     .tags-col-title {
-        width: 80%;
-    }
+        max-width: 100%;
+        overflow: hidden;
 
-    .tags-col-color {
-        /* Removed the width because it would change the width of the input on the
-           add form */
+        p.title {
+            margin: 0;
+        }
+
+        hr {
+            width: 120px;
+            margin: 8px 0 0 0;
+            border-width: 5px 0 0 0;
+        }
     }
 
     .add_button {
