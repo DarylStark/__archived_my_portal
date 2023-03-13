@@ -1,5 +1,5 @@
 <template>
-    <Card class="add_application_form">
+    <Card class="add_form">
         <template v-slot:title>Add application</template>
         <template v-slot:title_actions>
             <CardTitleAction

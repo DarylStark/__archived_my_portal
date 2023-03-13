@@ -1,10 +1,22 @@
 <template>
-    <Grid>
+    <Grid class="page_tags">
         <Cell cols="12">
             <SectionTitle>Tags</SectionTitle>
         </Cell>
 
         <Cell cols="12">
+            <template v-if="!adding">
+                <div class="add_button">
+                    <Button icon="fas fa-add" v-on:click="add">Add tag</Button>
+                </div>
+            </template>
+
+            <template v-if="adding">
+                <Cell cols="12">
+                    <AddTag></AddTag>
+                </Cell>
+            </template>
+
             <CardList id="tags" ref="list">
                 <CardListEmpty v-if="count == 0">
                     There are no tags
@@ -12,9 +24,6 @@
                 <template v-slot:headers>
                     <div class="tags-col-title">Tag</div>
                     <div class="tags-col-color">Color</div>
-                </template>
-                <template v-slot:add_row>
-                    <AddTag v-show="show_add_row" ref="add_tag"></AddTag>
                 </template>
                 <template v-if="tags != null">
                     <Tag
@@ -34,11 +43,6 @@
                     ></CardListAction>
                 </template>
                 <template v-slot:actions>
-                    <CardListAction
-                        list_id="tags"
-                        icon="fa-circle-plus"
-                        v-bind:action="add"
-                    ></CardListAction>
                     <CardListAction
                         list_id="tags"
                         icon="fa-arrows-rotate"
@@ -63,6 +67,7 @@ import AddTag from './AddTag.vue';
 import cmdlist from '../../my/command_list';
 import Command from '../../my/command';
 import KeyBinding from '../../my/keybinding';
+import Button from '../../components/Button';
 
 export default {
     name: 'Tags',
@@ -75,6 +80,7 @@ export default {
         CardListEmpty,
         Tag,
         AddTag,
+        Button,
     },
     created() {
         this.$store.commit('sidebar_available_set', false);
@@ -112,7 +118,7 @@ export default {
     data() {
         return {
             refreshing: false,
-            show_add_row: false,
+            adding: false,
             cmd_delete: new Command({
                 command: 'page_tags.remove',
                 scope: 'local-tags',
@@ -179,12 +185,7 @@ export default {
             this.remove_tags(selected);
         },
         add() {
-            this.show_add_row = !this.show_add_row;
-            if (this.show_add_row) {
-                this.$nextTick(() => {
-                    this.$refs.add_tag.focus();
-                });
-            }
+            this.adding = !this.adding;
         },
     },
 };

@@ -1,8 +1,15 @@
-.tags-col-title {
-    width: 80%;
-}
+.page_tags {
+    .tags-col-title {
+        width: 80%;
+    }
 
-.tags-col-color {
-    /* Removed the width because it would change the width of the input on the
-       add form */
+    .tags-col-color {
+        /* Removed the width because it would change the width of the input on the
+           add form */
+    }
+
+    .add_button {
+        padding-bottom: 16px;
+        text-align: left;
+    }
 }

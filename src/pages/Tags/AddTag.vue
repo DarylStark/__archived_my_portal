@@ -1,61 +1,92 @@
 <template>
-    <div class="tag">
-        <CardListItem
-            list_id="tags"
-            id="special_add"
-            v-bind:loading="loading"
-            hide_checkbox
+    <Card class="add_form">
+        <template v-slot:title>Add tag</template>
+        <template v-slot:title_actions>
+            <CardTitleAction
+                icon="fa-xmark"
+                v-bind:action="cancel"
+            ></CardTitleAction>
+        </template>
+        <Input
+            v-bind:error="error_title"
+            id="title"
+            v-model="title"
+            icon="fas fa-tag"
+            ref="input_title"
+            v-on:enter="focus_next(1)"
+            v-bind:disabled="saving"
+            validate_re="^[A-Za-z][A-Za-z0-9\-. ]+$"
+            >Name</Input
         >
-            <div class="tags-col-title">
-                <Input
-                    v-model="title"
-                    type="text"
-                    ref="input_title"
-                    v-on:key="keydown_title"
-                    v-bind:disabled="loading"
-                    v-bind:error="error_title"
-                    id="add_tag_title"
-                    validate_re="^[A-Za-z][A-Za-z0-9\-. ]+$"
-                ></Input>
-            </div>
-            <div class="tags-col-color">
-                <Input
-                    v-model="color"
-                    type="text"
-                    ref="input_color"
-                    v-on:key="keydown_color"
-                    v-bind:disabled="loading"
-                    v-bind:error="error_color"
-                    id="add_tag_color"
-                    validate_re="^[A-Fa-f0-9]{6}$"
-                ></Input>
-            </div>
-            <template v-slot:actions>
-                <CardListAction
-                    icon="fa-circle-plus"
-                    v-bind:action="add"
-                    v-bind:loading="loading"
-                ></CardListAction>
-            </template>
-        </CardListItem>
-    </div>
+        <Input
+            v-bind:error="error_color"
+            id="color"
+            v-model="color"
+            icon="fas fa-palette"
+            ref="input_color"
+            v-on:enter="focus_next(2)"
+            v-bind:disabled="saving"
+            validate_re="^[A-Fa-f0-9]{6}$"
+            >Color</Input
+        >
+
+        <div class="save">
+            <Button
+                v-on:click="save"
+                icon="fas fa-tag"
+                v-bind:disabled="saving"
+                v-bind:saving="saving"
+                >Add tag</Button
+            >
+        </div>
+    </Card>
 </template>
 
 <script>
-import CardListItem from '../../cards/CardListItem.vue';
-import CardListAction from '../../cards/CardListAction.vue';
-import Input from '../../components/Input.vue';
+import Card from '../../cards/Card';
+import CardTitleAction from '../../cards/CardTitleAction';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import cmdlist from '../../my/command_list';
+import Command from '../../my/command';
+import KeyBinding from '../../my/keybinding';
 
 export default {
     name: 'AddTag',
     components: {
-        CardListItem,
-        CardListAction,
+        Card,
+        CardTitleAction,
         Input,
+        Button,
+    },
+    created() {
+        // Local Vue object
+        let vue_this = this;
+
+        // Add commands
+        cmdlist.add_command(
+            new Command({
+                command: 'page_tags.cancel_adding',
+                scope: 'local-page-tags-adding',
+                group: 'Tags',
+                title: 'Cancel adding',
+                icon: 'fa-plus',
+                method: () => {
+                    vue_this.cancel();
+                },
+                keybinding: new KeyBinding(false, false, false, 'ESCAPE'),
+            })
+        );
+    },
+    mounted() {
+        this.$refs.input_title.focus();
+    },
+    beforeUnmount() {
+        cmdlist.remove_command_scope('local-page-tags-adding');
     },
     data() {
         return {
-            loading: false,
+            saving: false,
             title: '',
             color: '',
             error_title: false,
@@ -63,15 +94,7 @@ export default {
         };
     },
     methods: {
-        reset() {
-            this.title = '';
-            this.color = '';
-            this.$refs.input_title.focus();
-        },
-        hide() {
-            this.eventbus.emit('tags_hide_add_row');
-        },
-        add() {
+        save() {
             let vue_this = this;
 
             this.error_title = false;
@@ -80,42 +103,36 @@ export default {
             if (!this.$refs.input_title.is_valid()) this.error_title = true;
             if (!this.$refs.input_color.is_valid()) this.error_color = true;
 
+            if (this.error_title) {
+                this.$refs.input_title.focus(true);
+                return;
+            }
+
+            if (this.error_color) {
+                this.$refs.input_color.focus(true);
+                return;
+            }
+
             this.$store.commit('add_tag', {
                 title: this.title,
                 color: this.color,
                 done(data) {
-                    vue_this.reset();
+                    vue_this.saving = false;
+                    vue_this.cancel();
                 },
                 error(error) {
                     // TODO: Error toast
-                    vue_this.error_color = true;
-                    vue_this.error_title = true;
-                    vue_this.$refs.input_title.focus();
+                    vue_this.saving = false;
+                    console.log('error');
                 },
             });
         },
-        keydown_title(event) {
-            if (event.keyCode == 27) {
-                this.hide();
-            }
-
-            if (event.keyCode == 13) {
-                // Go to the color field
-                this.$refs.input_color.focus(true);
-            }
+        cancel() {
+            this.eventbus.emit('tags_hide_add_row');
         },
-        keydown_color(event) {
-            if (event.keyCode == 27) {
-                this.hide();
-            }
-
-            if (event.keyCode == 13) {
-                // Add the tag
-                this.add();
-            }
-        },
-        focus() {
-            this.$refs.input_title.focus(true);
+        focus_next(index) {
+            if (index == 1) this.$refs.input_color.focus();
+            if (index == 2) this.save();
         },
     },
 };
